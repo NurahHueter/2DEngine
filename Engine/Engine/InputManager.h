@@ -16,11 +16,12 @@ struct InputManager
     InputManager(const InputManager&) = delete;
     InputManager& operator = (const InputManager&) = delete;
 
-    void Init(Window window);
+    void Init(Window& window);
     void update();
     bool GetKeyPressed(Keyboard::Key key);
     bool GetKeyDown(Keyboard::Key key);
     bool GetKeyUp(Keyboard::Key key);
+    void handleEvents(sf::Event& event);
 
 
 private:
@@ -29,8 +30,8 @@ private:
     std::map<Keyboard::Key, bool> m_isKeyPressed {};
     std::map<Keyboard::Key, bool> m_isKeyUp {};
 	
-    void OnKeyPressed(const Event::KeyEvent& e) ;
-	void OnKeyReleased(const Event::KeyEvent& e);
+ //   void OnKeyPressed(const Event::KeyEvent& e) ;
+	//void OnKeyReleased(const Event::KeyEvent& e);
 	
 
     InputManager() {}

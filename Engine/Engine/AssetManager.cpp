@@ -2,7 +2,7 @@
 #include <iostream>
 #pragma once
 
-void AssetManager::LoadTexture(std::string name, std::string filename) {
+void AssetManager::LoadTexture(std::string& name, std::string& filename) {
 	sf::Texture texture;
 
 	if (texture.loadFromFile(filename)) {
@@ -13,7 +13,7 @@ void AssetManager::LoadTexture(std::string name, std::string filename) {
 	}
 }
 
-void AssetManager::LoadSoundBuffer(std::string name, std::string filename) {
+void AssetManager::LoadSoundBuffer(std::string& name, std::string& filename) {
 	sf::SoundBuffer sound;
 
 	if (sound.loadFromFile(filename)) {
@@ -24,18 +24,18 @@ void AssetManager::LoadSoundBuffer(std::string name, std::string filename) {
 	}
 }
 
-void AssetManager::LoadMusic(std::string name, std::string filename) {
-	//sf::Music music;
+void AssetManager::LoadMusic(std::string& name, std::string& filename) {
+	std::shared_ptr<sf::Music> music = std::make_shared<sf::Music>();
 
-	//if (music.openFromFile(filename)) {
-	//	this->m_Music.insert(std::pair<std::string, sf::Music>(name, music));
-	//}
-	//else {
-	//	std::cout << "Fehler beim Laden der Musik " << name << " aus der Datei " << filename << std::endl;
-	//}
+	if (music->openFromFile(filename)) {
+		this->m_Music[name] = music;
+	}
+	else {
+		std::cout << "Fehler beim Laden der Musik " << name << " aus der Datei " << filename << std::endl;
+	}
 }
 
-void AssetManager::LoadFont(std::string name, std::string filename) {
+void AssetManager::LoadFont(std::string& name, std::string& filename) {
 	sf::Font font;
 
 	if (font.loadFromFile(filename)) {

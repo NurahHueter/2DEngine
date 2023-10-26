@@ -1,12 +1,25 @@
 #pragma
 #include "All_Includes.h"
 
-namespace sf 
-{
+
+
 	void Game::Initialize()
 	{
-		InputManager::instance().Init(m_window);  //pointer?
+	
+		sf::InputManager::instance().Init(m_window);  //pointer?
+		AssetManager& assetManager = AssetManager::instance();
 
+		std::string asset_path_texture = "../Assets/crystal.png";
+		std::string asset_path_sound = "../Assets/completeSound.wav";
+		std::string asset_path_music = "../Assets/musicTrack.ogg";
+		std::string crystal = "crystal";
+		std::string name_sound = "coolerSound";
+		std::string name_music = "cooleMusik";
+		assetManager.LoadTexture(crystal, asset_path_texture);
+		assetManager.LoadSoundBuffer(name_sound, asset_path_sound);
+		assetManager.LoadMusic(name_music, asset_path_music);
+	
+		test.setTexture(assetManager.m_Textures[crystal]);
 		// Load Sound
 		//AssetManager.LoadSound("CompleteSound", @".\Assets\completeSound.wav");
 
@@ -26,7 +39,6 @@ namespace sf
 		while (m_window.isOpen())
 		{
 			float deltaTime = m_clock.restart().asSeconds();
-
 			HandleEvents();
 			Update(deltaTime);
 			Draw();
@@ -37,19 +49,26 @@ namespace sf
 	{
 		//foreach(var gameObject in gameObjects)
 			//gameObject.Update(deltaTime);
-
+	
 		// InputManager Update
-		InputManager::instance().update();
+		if (sf::InputManager::instance().GetKeyPressed(sf::Keyboard::Key::W))
+		{
+			AssetManager::instance().m_Music["cooleMusik"]->play();
+		};
+		
+		sf::InputManager::instance().update();
 	};
 	void Game::HandleEvents() 
 	{
 		//if (event.type == sf::Event::Closed) {
 		//	m_window.close();
 		//}
+
+		//m_window.DispatchEvents();
 	};
-	void Game::CloseGame(const Event::KeyEvent& e)
+	void Game::CloseGame(const sf::Event::KeyEvent& e)
 	{
-		if (e.code == Keyboard::Key::Escape)
+		if (e.code == sf::Keyboard::Key::Escape)
 		{
 			m_window.close();
 		}
@@ -59,8 +78,8 @@ namespace sf
 		m_window.clear(m_bg_color);
 
 		//draw gameobject
-
+		m_window.draw(test);
 		m_window.display();
 	};
-}
+
 
