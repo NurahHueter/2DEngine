@@ -1,10 +1,5 @@
 #pragma once
-
-#include <iostream>
-#include <map>
-#include <SFML/Window/Keyboard.hpp>
-#include <SFML/Window/Window.hpp>
-#include <SFML/Window/Event.hpp>
+#include "All_Includes.h";
 
 namespace sf {
 
@@ -30,9 +25,9 @@ struct InputManager
 
 private:
 
-    std::map<Keyboard::Key, bool> isKeyDown{};
-    std::map<Keyboard::Key, bool> isKeyPressed {};
-    std::map<Keyboard::Key, bool> isKeyUp {};
+    std::map<Keyboard::Key, bool> m_isKeyDown{};
+    std::map<Keyboard::Key, bool> m_isKeyPressed {};
+    std::map<Keyboard::Key, bool> m_isKeyUp {};
 	
     void OnKeyPressed(const Event::KeyEvent& e) ;
 	void OnKeyReleased(const Event::KeyEvent& e);

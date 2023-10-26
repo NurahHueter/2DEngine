@@ -5,8 +5,6 @@ class Game
 {
 public:
 	void Run();
-
-
 	const int m_WIDTH = 640;
 	const int m_HEIGHT = 480;
 

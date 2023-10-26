@@ -1,11 +1,6 @@
 #pragma once
+#include "All_Includes.h";
 
-#include <SFML/Graphics/Texture.hpp>
-#include <SFML/Audio/SoundBuffer.hpp>
-#include <SFML/Audio/Music.hpp>
-#include <SFML/Graphics/Font.hpp>
-#include <iostream>
-#include <map>
 struct AssetManager
 {
 
@@ -20,10 +15,10 @@ struct AssetManager
 	AssetManager(const AssetManager&) = delete;
 	AssetManager& operator = (const AssetManager&) = delete;
 
-	std::map<std::string, sf::Texture> Textures {};							//Maps (dictionarys) erstellen
-	std::map<std::string, sf::SoundBuffer> SoundBuffer {};
-	std::map<std::string, sf::Music> Music {};
-	std::map<std::string, sf::Font> Font {};
+	std::map<std::string, sf::Texture> m_Textures {};							//Maps (dictionarys) erstellen
+	std::map<std::string, sf::SoundBuffer> m_SoundBuffer {};
+	std::map<std::string, sf::Music> m_Music {};
+	std::map<std::string, sf::Font> m_Font {};
 	void LoadTexture(std::string name, std::string filename);
 	void LoadSoundBuffer(std::string name, std::string filename);
 	void LoadMusic(std::string name, std::string filename);

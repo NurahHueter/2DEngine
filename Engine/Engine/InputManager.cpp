@@ -8,58 +8,74 @@ namespace sf {
 	{
 		window.setKeyRepeatEnabled(false);
 
-		window.KeyPressed += OnKeyPressed;
-		Event::KeyReleased += OnKeyReleased;
+		//window.KeyPressed += OnKeyPressed;	hההההה?
+		//window.KeyReleased += OnKeyReleased;
 
-		isKeyDown[(Keyboard::Key::W)] = false;
-		isKeyDown[(Keyboard::Key::A)] = false;		
-		isKeyDown[(Keyboard::Key::S)] = false;
-		isKeyDown[(Keyboard::Key::D)] = false;
 
-		isKeyUp[(Keyboard::Key::W)] = false;
-		isKeyUp[(Keyboard::Key::A)] = false;
-		isKeyUp[(Keyboard::Key::S)] = false;
-		isKeyUp[(Keyboard::Key::D)] = false;
+		m_isKeyDown[(Keyboard::Key::W)] = false;
+		m_isKeyDown[(Keyboard::Key::A)] = false;		
+		m_isKeyDown[(Keyboard::Key::S)] = false;
+		m_isKeyDown[(Keyboard::Key::D)] = false;
+		m_isKeyDown[(Keyboard::Key::Escape)] = false;
 
-		isKeyPressed[(Keyboard::Key::W)] = false;
-		isKeyPressed[(Keyboard::Key::A)] = false;
-		isKeyPressed[(Keyboard::Key::S)] = false;
-		isKeyPressed[(Keyboard::Key::D)] = false;
+		m_isKeyUp[(Keyboard::Key::W)] = false;
+		m_isKeyUp[(Keyboard::Key::A)] = false;
+		m_isKeyUp[(Keyboard::Key::S)] = false;
+		m_isKeyUp[(Keyboard::Key::D)] = false;
+		m_isKeyUp[(Keyboard::Key::Escape)] = false;
+		
+		m_isKeyPressed[(Keyboard::Key::W)] = false;
+		m_isKeyPressed[(Keyboard::Key::A)] = false;
+		m_isKeyPressed[(Keyboard::Key::S)] = false;
+		m_isKeyPressed[(Keyboard::Key::D)] = false;
+		m_isKeyPressed[(Keyboard::Key::Escape)] = false;
 	};
 
 
 	void InputManager::update()
 	{
-		for (auto& kv : isKeyDown)
+		for (auto& kv : m_isKeyDown)
 		{
-			isKeyDown[kv.first] = false;
+			m_isKeyDown[kv.first] = false;
 			//kv.second = false;
 		}
-		for (auto& kv : isKeyUp) 
+		for (auto& kv : m_isKeyUp) 
 		{
-			isKeyUp[kv.first] = false;
+			m_isKeyUp[kv.first] = false;
 		}
 	};
 
 	bool InputManager::GetKeyPressed(Keyboard::Key key)
 	{
-		return isKeyPressed.find(key) != isKeyPressed.end() ? isKeyPressed[key] : false;
+		return m_isKeyPressed.find(key) != m_isKeyPressed.end() ? m_isKeyPressed[key] : false;
 	};
 
 	bool InputManager::GetKeyDown(Keyboard::Key key)
 	{
-		return isKeyDown.find(key) != isKeyDown.end() ? isKeyDown[key] : false;
+		return m_isKeyDown.find(key) != m_isKeyDown.end() ? m_isKeyDown[key] : false;
+	};
+	bool InputManager::GetKeyUp(Keyboard::Key key)
+	{
+		return m_isKeyUp.find(key) != m_isKeyUp.end() ? m_isKeyUp[key] : false;
 	};
 
-	bool InputManager::GetKeyUp(Keyboard::Key key) 
+
+	void InputManager::OnKeyPressed(const Event::KeyEvent& e)
 	{
-		return isKeyUp.find(key) != isKeyUp.end() ? isKeyUp[key] : false;
-	}
-	void OnKeyPressed(const Event::KeyEvent& e) {
+		if (m_isKeyPressed.find(e.code) != m_isKeyPressed.end())
+		{
+			m_isKeyDown[e.code] = true;
+			m_isKeyPressed[e.code] = true;
+		}
+	};
 
-	}
-	void OnKeyReleased(const Event::KeyEvent& e) {
-
+	void InputManager::OnKeyReleased(const Event::KeyEvent& e)
+	{
+		if (m_isKeyPressed.find(e.code) != m_isKeyPressed.end())
+		{
+			m_isKeyUp[e.code] = true;
+			m_isKeyPressed[e.code] = false;
+		}
 	}
 
 }

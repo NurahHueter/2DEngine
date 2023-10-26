@@ -3,13 +3,11 @@
 
 namespace sf {
 
-
-class GameObject : public::Transformable {
-
-};
-
+class GameObject : public Transformable 
+{
+	virtual void Initialize()=0;
+	virtual void Update(float deltaTime)=0;
+	virtual void Draw(RenderWindow window)=0;
+};		
 }
 
-//Nicht ganz. Um eine Klasse in C++ als abstrakt zu kennzeichnen, müssen Sie mindestens eine sogenannte "rein virtuelle Funktion" in der Klasse haben. 
-//Eine rein virtuelle Funktion wird mit virtual und = 0 gekennzeichnet und hat keine Implementierung in der Basisklasse.
-//In C++ gibt es keine direkte Entsprechung zur Schlüsselwort abstract, wie es in einigen anderen Programmiersprachen wie C# oder Java verwendet wird

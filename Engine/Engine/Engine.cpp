@@ -6,7 +6,7 @@ namespace sf {
         std::cout << "Running!\n";
 
         Game game;
-        game.Run()
+        game.Run();
       
 
         std::cout << "Finished!\n";
