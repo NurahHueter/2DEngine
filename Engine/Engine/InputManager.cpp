@@ -8,11 +8,6 @@
 		{
 			window.setKeyRepeatEnabled(false);
 		
-			sf::Event event;
-			while (window.pollEvent(event)) {
-				handleEvents(event);
-			}
-
 			m_isKeyDown[(Keyboard::Key::W)] = false;
 			m_isKeyDown[(Keyboard::Key::A)] = false;		
 			m_isKeyDown[(Keyboard::Key::S)] = false;
@@ -35,6 +30,7 @@
 
 		void InputManager::update()
 		{
+			
 			for (auto& kv : m_isKeyDown)
 			{
 				m_isKeyDown[kv.first] = false;
@@ -60,33 +56,18 @@
 			return m_isKeyUp.find(key) != m_isKeyUp.end() ? m_isKeyUp[key] : false;
 		};
 
-
-		//void InputManager::OnKeyPressed(const Event::KeyEvent& e)
-		//{
-		//	if (m_isKeyPressed.find(e.code) != m_isKeyPressed.end())
-		//	{
-		//		m_isKeyDown[e.code] = true;
-		//		m_isKeyPressed[e.code] = true;
-		//	}
-		//};
-
-		//void InputManager::OnKeyReleased(const Event::KeyEvent& e)
-		//{
-		//	if (m_isKeyPressed.find(e.code) != m_isKeyPressed.end())
-		//	{
-		//		m_isKeyUp[e.code] = true;
-		//		m_isKeyPressed[e.code] = false;
-		//	}
-		//}
 		void InputManager::handleEvents(sf::Event& event)
 		{
+			
 			if (event.type == sf::Event::EventType::KeyPressed)
 			{
+				std::cout << "keypressed";
 				m_isKeyDown[event.key.code] = true;
 				m_isKeyPressed[event.key.code] = true;
 			}
 			else if (event.type == sf::Event::EventType::KeyReleased)
 			{
+				std::cout << "keyrelesead";
 				m_isKeyUp[event.key.code] = true;
 				m_isKeyPressed[event.key.code] = false;
 			}

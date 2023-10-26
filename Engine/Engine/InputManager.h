@@ -1,5 +1,5 @@
 #pragma once
-#include "All_Includes.h";
+#include "All_Includes.h"
 
 namespace sf {
 

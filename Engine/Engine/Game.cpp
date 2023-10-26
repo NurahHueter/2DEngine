@@ -1,8 +1,6 @@
 #pragma
 #include "All_Includes.h"
 
-
-
 	void Game::Initialize()
 	{
 	
@@ -18,7 +16,7 @@
 		assetManager.LoadTexture(crystal, asset_path_texture);
 		assetManager.LoadSoundBuffer(name_sound, asset_path_sound);
 		assetManager.LoadMusic(name_music, asset_path_music);
-	
+		
 		test.setTexture(assetManager.m_Textures[crystal]);
 		// Load Sound
 		//AssetManager.LoadSound("CompleteSound", @".\Assets\completeSound.wav");
@@ -51,12 +49,21 @@
 			//gameObject.Update(deltaTime);
 	
 		// InputManager Update
-		if (sf::InputManager::instance().GetKeyPressed(sf::Keyboard::Key::W))
+		
+		if (sf::InputManager::instance().GetKeyDown(sf::Keyboard::Key::W))
 		{
 			AssetManager::instance().m_Music["cooleMusik"]->play();
 		};
+
 		
 		sf::InputManager::instance().update();
+
+		sf::Event event;
+		while (m_window.pollEvent(event))
+		{
+			sf::InputManager::instance().handleEvents(event);
+		}
+		
 	};
 	void Game::HandleEvents() 
 	{
