@@ -1,12 +1,6 @@
 #include "AssetManager.h"
 #include <iostream>
-#include <SFML/Graphics/Texture.hpp>
-#include <SFML/Audio/SoundBuffer.hpp>
-#include <SFML/Audio/Music.hpp>
-#include <SFML/Graphics/Font.hpp>
-#include <map>
 #pragma once
-
 
 void AssetManager::LoadTexture(std::string name, std::string filename) {
 	sf::Texture texture;

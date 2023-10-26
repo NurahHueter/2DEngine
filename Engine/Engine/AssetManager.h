@@ -20,10 +20,10 @@ struct AssetManager
 	AssetManager(const AssetManager&) = delete;
 	AssetManager& operator = (const AssetManager&) = delete;
 
-	std::map<std::string, sf::Texture> Textures;							//Maps (dictionarys) erstellen
-	std::map<std::string, sf::SoundBuffer> SoundBuffer;
-	std::map<std::string, sf::Music> Music;
-	std::map<std::string, sf::Font> Font;
+	std::map<std::string, sf::Texture> Textures {};							//Maps (dictionarys) erstellen
+	std::map<std::string, sf::SoundBuffer> SoundBuffer {};
+	std::map<std::string, sf::Music> Music {};
+	std::map<std::string, sf::Font> Font {};
 	void LoadTexture(std::string name, std::string filename);
 	void LoadSoundBuffer(std::string name, std::string filename);
 	void LoadMusic(std::string name, std::string filename);
