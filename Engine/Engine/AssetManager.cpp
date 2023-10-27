@@ -2,7 +2,7 @@
 #include <iostream>
 #pragma once
 
-void AssetManager::LoadTexture(std::string& name, std::string& filename) {
+void AssetManager::LoadTexture(std::string name, std::string filename) {
 	sf::Texture texture;
 
 	if (texture.loadFromFile(filename)) {
@@ -13,7 +13,7 @@ void AssetManager::LoadTexture(std::string& name, std::string& filename) {
 	}
 }
 
-void AssetManager::LoadSoundBuffer(std::string& name, std::string& filename) {
+void AssetManager::LoadSoundBuffer(std::string name, std::string filename) {
 	sf::SoundBuffer sound;
 
 	if (sound.loadFromFile(filename)) {
@@ -24,7 +24,7 @@ void AssetManager::LoadSoundBuffer(std::string& name, std::string& filename) {
 	}
 }
 
-void AssetManager::LoadMusic(std::string& name, std::string& filename) {
+void AssetManager::LoadMusic(std::string name, std::string filename) {
 	std::shared_ptr<sf::Music> music = std::make_shared<sf::Music>();
 
 	if (music->openFromFile(filename)) {
@@ -35,7 +35,7 @@ void AssetManager::LoadMusic(std::string& name, std::string& filename) {
 	}
 }
 
-void AssetManager::LoadFont(std::string& name, std::string& filename) {
+void AssetManager::LoadFont(std::string name, std::string filename) {
 	sf::Font font;
 
 	if (font.loadFromFile(filename)) {

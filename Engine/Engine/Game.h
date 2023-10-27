@@ -20,7 +20,7 @@ private:
 	void Initialize();
 	void Update(float deltaTime);
 	void HandleEvents();
-	void CloseGame(const sf::Event::KeyEvent& e);
+	void CloseGame(sf::Event::KeyEvent& e);
 	void Draw();
 
 	sf::Sprite test;

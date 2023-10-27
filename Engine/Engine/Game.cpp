@@ -52,28 +52,30 @@
 		
 		if (sf::InputManager::instance().GetKeyDown(sf::Keyboard::Key::W))
 		{
+			sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W);
 			AssetManager::instance().m_Music["cooleMusik"]->play();
 		};
 
 		
 		sf::InputManager::instance().update();
 
-		sf::Event event;
-		while (m_window.pollEvent(event))
-		{
-			sf::InputManager::instance().handleEvents(event);
-		}
 		
 	};
 	void Game::HandleEvents() 
 	{
-		//if (event.type == sf::Event::Closed) {
-		//	m_window.close();
-		//}
 
-		//m_window.DispatchEvents();
+		sf::Event event;
+		while (m_window.pollEvent(event))
+		{
+			if (event.type == sf::Event::Closed)
+			{
+				m_window.close();
+			}
+			CloseGame(event.key);
+			sf::InputManager::instance().handleEvents(event);
+		}
 	};
-	void Game::CloseGame(const sf::Event::KeyEvent& e)
+	void Game::CloseGame(sf::Event::KeyEvent& e)
 	{
 		if (e.code == sf::Keyboard::Key::Escape)
 		{

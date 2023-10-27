@@ -71,7 +71,7 @@
 				m_isKeyUp[event.key.code] = true;
 				m_isKeyPressed[event.key.code] = false;
 			}
-
+			
 		}
 
 	}
