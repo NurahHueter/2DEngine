@@ -3,10 +3,11 @@
 #pragma once
 
 void AssetManager::LoadTexture(std::string name, std::string filename) {
-	sf::Texture texture;
+	
+	std::shared_ptr<sf::Texture> texture = std::make_shared<sf::Texture>();
 
-	if (texture.loadFromFile(filename)) {
-		this->m_Textures.insert(std::pair<std::string, sf::Texture>(name, texture));
+	if (texture->loadFromFile(filename)) {
+		this->m_Textures[name] = texture;
 	}
 	else {
 		std::cout << "Fehler beim Laden der Textur " << name << " aus der Datei " << filename << std::endl;
@@ -14,10 +15,11 @@ void AssetManager::LoadTexture(std::string name, std::string filename) {
 }
 
 void AssetManager::LoadSoundBuffer(std::string name, std::string filename) {
-	sf::SoundBuffer sound;
+	
+	std::shared_ptr<sf::SoundBuffer> sound = std::make_shared<sf::SoundBuffer>();
 
-	if (sound.loadFromFile(filename)) {
-		this->m_SoundBuffer.insert(std::pair<std::string, sf::SoundBuffer>(name, sound));
+	if (sound->loadFromFile(filename)) {
+		this->m_SoundBuffer[name] =sound;
 	}
 	else {
 		std::cout << "Fehler beim Laden des Sounds " << name << " aus der Datei " << filename << std::endl;
@@ -35,12 +37,11 @@ void AssetManager::LoadMusic(std::string name, std::string filename) {
 	}
 }
 
-void AssetManager::LoadFont(std::string name, std::string filename) {
-	sf::Font font;
+void AssetManager::LoadFont(std::string name, std::string filename) {	
+	std::shared_ptr<sf::Font> font = std::make_shared<sf::Font>();
 
-	if (font.loadFromFile(filename)) {
-		
-		this->m_Font.insert(std::pair<std::string, sf::Font>(name, font));
+	if (font->loadFromFile(filename)) {
+		this->m_Font[name] = font;
 	}
 	else {
 		std::cout << "Fehler beim Laden der Font " << name << " aus der Datei " << filename << std::endl;

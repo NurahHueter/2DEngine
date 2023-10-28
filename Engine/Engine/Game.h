@@ -23,7 +23,7 @@ private:
 	void CloseGame(sf::Event::KeyEvent& e);
 	void Draw();
 
-	sf::Sprite test;
+	sf::Sprite sprite;
 	
 	~Game() {}
 	sf::Clock m_clock;

@@ -1,4 +1,4 @@
-#pragma
+#pragma once
 #include "All_Includes.h"
 
 	void Game::Initialize()
@@ -17,16 +17,7 @@
 		assetManager.LoadSoundBuffer(name_sound, asset_path_sound);
 		assetManager.LoadMusic(name_music, asset_path_music);
 		
-		test.setTexture(assetManager.m_Textures[crystal]);
-		// Load Sound
-		//AssetManager.LoadSound("CompleteSound", @".\Assets\completeSound.wav");
-
-		// Load Music
-		//AssetManager.LoadMusic("MusicTrack", @".\Assets\musicTrack.ogg");
-
-		// Play Music
-		//AssetManager.Music["MusicTrack"].Play();
-
+		sprite.setTexture(*assetManager.m_Textures[crystal]);
 	};
 
 
@@ -87,7 +78,7 @@
 		m_window.clear(m_bg_color);
 
 		//draw gameobject
-		m_window.draw(test);
+		m_window.draw(sprite);
 		m_window.display();
 	};
 
