@@ -1,7 +1,5 @@
 #pragma once
-#include "All_Includes.h"
-
-namespace sf {
+#include <map>
 
 struct InputManager
 {
@@ -16,19 +14,19 @@ struct InputManager
     InputManager(const InputManager&) = delete;
     InputManager& operator = (const InputManager&) = delete;
 
-    void Init(Window& window);
+    void Init(sf::Window& window);
     void update();
-    bool GetKeyPressed(Keyboard::Key key);
-    bool GetKeyDown(Keyboard::Key key);
-    bool GetKeyUp(Keyboard::Key key);
+    bool GetKeyPressed(sf::Keyboard::Key key);
+    bool GetKeyDown(sf::Keyboard::Key key);
+    bool GetKeyUp(sf::Keyboard::Key key);
     void handleEvents(sf::Event& event);
 
 
 private:
 
-    std::map<Keyboard::Key, bool> m_isKeyDown{};
-    std::map<Keyboard::Key, bool> m_isKeyPressed {};
-    std::map<Keyboard::Key, bool> m_isKeyUp {};
+    std::map<sf::Keyboard::Key, bool> m_isKeyDown{};
+    std::map<sf::Keyboard::Key, bool> m_isKeyPressed {};
+    std::map<sf::Keyboard::Key, bool> m_isKeyUp {};
 	
  //   void OnKeyPressed(const Event::KeyEvent& e) ;
 	//void OnKeyReleased(const Event::KeyEvent& e);
@@ -38,5 +36,3 @@ private:
     ~InputManager() {}
 
 };
-
-}

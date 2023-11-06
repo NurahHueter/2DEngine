@@ -1,23 +1,20 @@
 #pragma once
-#include "All_Includes.h"
+#include "pch.h"
+#include "Game.h"
+#include "InputManager.h"
+#include "AssetManager.h"
 
 	void Game::Initialize()
 	{
 	
-		sf::InputManager::instance().Init(m_window);  //pointer?
+		InputManager::instance().Init(m_window);  //pointer?
 		AssetManager& assetManager = AssetManager::instance();
 
-		std::string asset_path_texture = "../Assets/crystal.png";
-		std::string asset_path_sound = "../Assets/completeSound.wav";
-		std::string asset_path_music = "../Assets/musicTrack.ogg";
-		std::string crystal = "crystal";
-		std::string name_sound = "coolerSound";
-		std::string name_music = "cooleMusik";
-		assetManager.LoadTexture(crystal, asset_path_texture);
-		assetManager.LoadSoundBuffer(name_sound, asset_path_sound);
-		assetManager.LoadMusic(name_music, asset_path_music);
+		assetManager.LoadTexture("crystal", "../Assets/crystal.png");
+		assetManager.LoadSoundBuffer("coolerSound", "../Assets/completeSound.wav");
+		assetManager.LoadMusic("cooleMusik", "../Assets/musicTrack.ogg");
 		
-		sprite.setTexture(*assetManager.m_Textures[crystal]);
+		sprite.setTexture(*assetManager.m_Textures["crystal"]);
 	};
 
 
@@ -41,14 +38,14 @@
 	
 		// InputManager Update
 		
-		if (sf::InputManager::instance().GetKeyDown(sf::Keyboard::Key::W))
+		if (InputManager::instance().GetKeyDown(sf::Keyboard::Key::W))
 		{
 			sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W);
 			AssetManager::instance().m_Music["cooleMusik"]->play();
 		};
 
 		
-		sf::InputManager::instance().update();
+		InputManager::instance().update();
 
 		
 	};
@@ -63,7 +60,7 @@
 				m_window.close();
 			}
 			CloseGame(event.key);
-			sf::InputManager::instance().handleEvents(event);
+			InputManager::instance().handleEvents(event);
 		}
 	};
 	void Game::CloseGame(sf::Event::KeyEvent& e)

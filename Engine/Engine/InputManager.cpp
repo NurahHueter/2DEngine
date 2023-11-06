@@ -1,30 +1,30 @@
-	#pragma once
-	#include "InputManager.h"
+#pragma once
+#include "pch.h"
+#include "InputManager.h"
 
 
-	namespace sf {
 
-		void InputManager::Init(Window& window)
+		void InputManager::Init(sf::Window& window)
 		{
 			window.setKeyRepeatEnabled(false);
 		
-			m_isKeyDown[(Keyboard::Key::W)] = false;
-			m_isKeyDown[(Keyboard::Key::A)] = false;		
-			m_isKeyDown[(Keyboard::Key::S)] = false;
-			m_isKeyDown[(Keyboard::Key::D)] = false;
-			m_isKeyDown[(Keyboard::Key::Escape)] = false;
+			m_isKeyDown[(sf::Keyboard::Key::W)] = false;
+			m_isKeyDown[(sf::Keyboard::Key::A)] = false;
+			m_isKeyDown[(sf::Keyboard::Key::S)] = false;
+			m_isKeyDown[(sf::Keyboard::Key::D)] = false;
+			m_isKeyDown[(sf::Keyboard::Key::Escape)] = false;
 
-			m_isKeyUp[(Keyboard::Key::W)] = false;
-			m_isKeyUp[(Keyboard::Key::A)] = false;
-			m_isKeyUp[(Keyboard::Key::S)] = false;
-			m_isKeyUp[(Keyboard::Key::D)] = false;
-			m_isKeyUp[(Keyboard::Key::Escape)] = false;
+			m_isKeyUp[(sf::Keyboard::Key::W)] = false;
+			m_isKeyUp[(sf::Keyboard::Key::A)] = false;
+			m_isKeyUp[(sf::Keyboard::Key::S)] = false;
+			m_isKeyUp[(sf::Keyboard::Key::D)] = false;
+			m_isKeyUp[(sf::Keyboard::Key::Escape)] = false;
 		
-			m_isKeyPressed[(Keyboard::Key::W)] = false;
-			m_isKeyPressed[(Keyboard::Key::A)] = false;
-			m_isKeyPressed[(Keyboard::Key::S)] = false;
-			m_isKeyPressed[(Keyboard::Key::D)] = false;
-			m_isKeyPressed[(Keyboard::Key::Escape)] = false;
+			m_isKeyPressed[(sf::Keyboard::Key::W)] = false;
+			m_isKeyPressed[(sf::Keyboard::Key::A)] = false;
+			m_isKeyPressed[(sf::Keyboard::Key::S)] = false;
+			m_isKeyPressed[(sf::Keyboard::Key::D)] = false;
+			m_isKeyPressed[(sf::Keyboard::Key::Escape)] = false;
 		};
 
 
@@ -42,16 +42,16 @@
 			}
 		};
 
-		bool InputManager::GetKeyPressed(Keyboard::Key key)
+		bool InputManager::GetKeyPressed(sf::Keyboard::Key key)
 		{
 			return m_isKeyPressed.find(key) != m_isKeyPressed.end() ? m_isKeyPressed[key] : false;
 		};
 
-		bool InputManager::GetKeyDown(Keyboard::Key key)
+		bool InputManager::GetKeyDown(sf::Keyboard::Key key)
 		{
 			return m_isKeyDown.find(key) != m_isKeyDown.end() ? m_isKeyDown[key] : false;
 		};
-		bool InputManager::GetKeyUp(Keyboard::Key key)
+		bool InputManager::GetKeyUp(sf::Keyboard::Key key)
 		{
 			return m_isKeyUp.find(key) != m_isKeyUp.end() ? m_isKeyUp[key] : false;
 		};
@@ -73,5 +73,3 @@
 			}
 			
 		}
-
-	}

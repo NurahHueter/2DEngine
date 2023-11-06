@@ -1,5 +1,5 @@
+#include "pch.h"
 #include "AssetManager.h"
-#include <iostream>
 #pragma once
 
 void AssetManager::LoadTexture(std::string name, std::string filename) {

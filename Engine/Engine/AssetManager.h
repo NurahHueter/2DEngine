@@ -1,9 +1,7 @@
 #pragma once
-#include "All_Includes.h"
-
+#include <map>
 struct AssetManager
 {
-
 	static
 		AssetManager &
 		instance()
