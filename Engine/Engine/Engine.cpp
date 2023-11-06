@@ -3,12 +3,9 @@
 
     int main()
     {
-        std::cout << "Running!\n";
-
-        Game *game = new Game();
+        std::unique_ptr<Game> game = std::make_unique<Game>();
         game->Run();
       
-        std::cout << "Finished!\n";
         return 0;
     }
 

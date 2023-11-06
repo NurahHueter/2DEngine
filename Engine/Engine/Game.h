@@ -5,6 +5,7 @@ class Game
 {
 public:
 	void Run();
+	~Game() {};
 	const int m_WIDTH = 800;
 	const int m_HEIGHT = 600;
 	sf::VideoMode m_mode = { 800, 600 };
@@ -24,8 +25,6 @@ private:
 	void Draw();
 
 	sf::Sprite sprite;
-	
-	~Game() {}
 	sf::Clock m_clock;
 	sf::RenderWindow m_window;
 	sf::Color m_bg_color = { 0, 0, 255 };
