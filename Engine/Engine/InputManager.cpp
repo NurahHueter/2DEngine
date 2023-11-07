@@ -4,8 +4,8 @@
 
 
 
-		void InputManager::Init(sf::Window& window)
-		{
+	void InputManager::Init(sf::Window& window)
+			{
 			window.setKeyRepeatEnabled(false);
 		
 			m_isKeyDown[(sf::Keyboard::Key::W)] = false;

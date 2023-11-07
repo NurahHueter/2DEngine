@@ -23,7 +23,6 @@ private:
 	void CloseGame(sf::Event::KeyEvent& e);
 	void Draw();
 
-	sf::Sprite sprite;
 	sf::Clock m_clock;
 	sf::RenderWindow m_window;
 	sf::Color m_bg_color = { 0, 0, 255 };

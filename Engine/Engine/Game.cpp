@@ -3,18 +3,15 @@
 #include "Game.h"
 #include "InputManager.h"
 #include "AssetManager.h"
+#include "GameStateManager.h"
+#include "GameState.h"
 
 	void Game::Initialize()
 	{
-	
-		InputManager::instance().Init(m_window);  //pointer?
-		AssetManager& assetManager = AssetManager::instance();
-
-		assetManager.LoadTexture("crystal", "../Assets/crystal.png");
-		assetManager.LoadSoundBuffer("coolerSound", "../Assets/completeSound.wav");
-		assetManager.LoadMusic("cooleMusik", "../Assets/musicTrack.ogg");
 		
-		sprite.setTexture(*assetManager.m_Textures["crystal"]);
+		GameStateManager::instance().Init();
+		InputManager::instance().Init(m_window);  //pointer?
+		GameStateManager::instance().setState("MainState");
 	};
 
 
