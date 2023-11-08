@@ -1,6 +1,7 @@
+#pragma once
 #include "pch.h"
 #include "AssetManager.h"
-#pragma once
+
 
 void AssetManager::LoadTexture(std::string name, std::string filename) {
 	
@@ -13,6 +14,9 @@ void AssetManager::LoadTexture(std::string name, std::string filename) {
 		std::cout << "Fehler beim Laden der Textur " << name << " aus der Datei " << filename << std::endl;
 	}
 }
+
+
+
 
 void AssetManager::LoadSoundBuffer(std::string name, std::string filename) {
 	
@@ -48,6 +52,36 @@ void AssetManager::LoadFont(std::string name, std::string filename) {
 	}
 
 }
+
+void AssetManager::UnloadTexture(std::string name) {
+	auto it = m_Textures.find(name);
+	if (it != m_Textures.end()) {
+		m_Textures.erase(it);
+		std::cout << "unload TEXTRUE"<< std::endl;
+	}
+}
+
+void AssetManager::UnloadSoundBuffer(std::string name) {
+	auto it = m_SoundBuffer.find(name);
+	if (it != m_SoundBuffer.end()) {
+		m_SoundBuffer.erase(it);
+	}
+}
+
+void AssetManager::UnloadMusic(std::string name) {
+	auto it = m_Music.find(name);
+	if (it != m_Music.end()) {
+		m_Music.erase(it);
+	}
+}
+
+void AssetManager::UnloadFont(std::string name) {
+	auto it = m_Font.find(name);
+	if (it != m_Font.end()) {
+		m_Font.erase(it);
+	}
+}
+
 
 
 //this->Textures[name] = texture;
