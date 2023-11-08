@@ -1,33 +1,39 @@
-#pragma once
-class GameStateManager;
-class GameState
-{
-public:
-	virtual void init() = 0;
-	virtual void exit() = 0;
-	virtual void update(float deltaTime) = 0;
-	virtual void render() = 0;
+    //GameState.h
+    #pragma once
+    #include <SFML/Graphics/RenderWindow.hpp>
 
-private:
-	GameStateManager* manager;
-};
+    class GameStateManager;
+    class GameState
+    {
+    public:
+        virtual void init() = 0;
+        virtual void exit() = 0;
+        virtual void update(float deltaTime) = 0;
+        virtual void draw(sf::RenderWindow& window) = 0;
 
-class MenuState : public GameState
-{
-public:
-	virtual void init() override {};
-	virtual void exit() override {};
-	virtual void update(float deltaTime) override {};
-	virtual void render() override {};
-};
+    private:
+        GameStateManager* manager;
+    };
 
-class MainState : public GameState
-{
-public:
-	virtual void init() override {};
-	virtual void exit() override{};
-	virtual void update(float deltaTime) override {};
-	virtual void render() override {};
-private:
-	sf::Sprite sprite;
-};
+    class MenuState : public GameState
+    {
+    public:
+        virtual void init() override;
+        virtual void exit() override;
+        virtual void update(float deltaTime) override;
+        virtual void draw(sf::RenderWindow& window) override;
+    private:
+        sf::Sprite spriteLava;
+    };
+
+    class MainState : public GameState
+    {
+    public:
+        virtual void init() override;
+        virtual void exit() override;
+        virtual void update(float deltaTime) override;
+        virtual void draw(sf::RenderWindow& window) override;
+
+    private:
+        sf::Sprite sprite;
+    };
