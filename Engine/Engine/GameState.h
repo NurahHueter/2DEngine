@@ -22,8 +22,6 @@
         virtual void exit() override;
         virtual void update(float deltaTime) override;
         virtual void draw(sf::RenderWindow& window) override;
-    private:
-        sf::Sprite spriteLava;
     };
 
     class MainState : public GameState
@@ -33,7 +31,4 @@
         virtual void exit() override;
         virtual void update(float deltaTime) override;
         virtual void draw(sf::RenderWindow& window) override;
-
-    private:
-        sf::Sprite sprite;
     };

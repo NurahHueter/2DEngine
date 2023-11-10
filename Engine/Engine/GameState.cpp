@@ -5,13 +5,18 @@
 #include "Game.h"
 #include "GameStateManager.h"
 #include "GameState.h"
-
+#include "GameObject.h"
+#include "RenderComponent.h"
 
 void MenuState::init()
 {
-    AssetManager::instance().LoadTexture("lava", "../Assets/LavaTile.png");
+    /*AssetManager::instance().LoadTexture("lava", "../Assets/LavaTile.png");*/
     std::cout << "init Menu State" << std::endl;
-    spriteLava.setTexture(*AssetManager::instance().m_Textures["lava"]);
+    /*spriteLava.setTexture(*AssetManager::instance().m_Textures["lava"]);*/
+
+    std::shared_ptr<GameObject> lava = std::make_shared<GameObject>();
+    std::unique_ptr<Component> renderlava = std::make_unique<RenderComponent>("../Assets/LavaTile.png", "lava");
+    lava->addComponent(renderlava);
 }
 
 void MenuState::exit()
@@ -29,7 +34,6 @@ void MenuState::draw(sf::RenderWindow& m_window)
 {
     std::cout << "draw Menu State" << std::endl;
     m_window.clear({ 255, 0, 255 });
-    m_window.draw(spriteLava);
     m_window.display();
 }
 

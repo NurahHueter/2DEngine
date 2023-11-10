@@ -1,11 +1,15 @@
 #pragma once
-#include <SFML/Graphics/Transformable.hpp>
-class RenderWindow;
+#include"pch.h"
 
+class Component;
 class GameObject 
 {
-	virtual void Initialize()=0;
-	virtual void Update(float deltaTime)=0;	
+public:
+	void init();
+	void update(float deltaTime);
+	void addComponent(Component component);
+
+	std::vector<std::unique_ptr<Component>> components;	
 };		
 
 
