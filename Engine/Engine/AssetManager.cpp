@@ -15,9 +15,6 @@ void AssetManager::LoadTexture(std::string name, std::string filename) {
 	}
 }
 
-
-
-
 void AssetManager::LoadSoundBuffer(std::string name, std::string filename) {
 	
 	std::shared_ptr<sf::SoundBuffer> sound = std::make_shared<sf::SoundBuffer>();

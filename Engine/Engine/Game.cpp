@@ -45,15 +45,15 @@
 		}
 		
 
-		if (InputManager::instance().GetKeyDown(sf::Keyboard::Key::K))
+		if (InputManager::instance().GetKeyDown(sf::Keyboard::Key::Space))
 		{
-			sf::Keyboard::isKeyPressed(sf::Keyboard::Key::K);
+			sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space);
 			GameStateManager::instance().setState("MenuState");
 		}
 
-		if (InputManager::instance().GetKeyDown(sf::Keyboard::Key::L))
+		if (InputManager::instance().GetKeyDown(sf::Keyboard::Key::Space))
 		{
-			sf::Keyboard::isKeyPressed(sf::Keyboard::Key::L);
+			sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space);
 			GameStateManager::instance().setState("MainState");
 		}
 

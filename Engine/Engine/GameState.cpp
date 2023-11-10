@@ -1,11 +1,11 @@
 #pragma once
 
 #include "pch.h"
+#include "AssetManager.h"
 #include "Game.h"
 #include "GameStateManager.h"
 #include "GameState.h"
 
-#include "AssetManager.h"
 
 void MenuState::init()
 {
