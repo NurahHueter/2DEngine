@@ -1,3 +1,5 @@
+// Game.h
+
 #pragma once
 
 class Game
@@ -24,5 +26,6 @@ private:
 
 	sf::Clock m_clock;
 	sf::RenderWindow m_window;
+	bool m_isGameInMenu = true;
 	
 };

@@ -7,12 +7,12 @@
 #include "GameStateManager.h"
 #include "GameState.h"
 
+
 	void Game::Initialize()
 	{
 		InputManager::instance().Init(m_window);  //pointer?
 		GameStateManager::instance().Init();
-		GameStateManager::instance().setState("MainState");
-		
+		GameStateManager::instance().setState("MainState");	
 	};
 
 	void Game::Run() 
@@ -28,6 +28,8 @@
 			//Draw();
 		}
 	};
+
+	
 
 	void Game::Update(float deltaTime)
 	{
@@ -48,15 +50,17 @@
 		if (InputManager::instance().GetKeyDown(sf::Keyboard::Key::Space))
 		{
 			sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space);
-			GameStateManager::instance().setState("MenuState");
+			if (m_isGameInMenu)
+			{
+				GameStateManager::instance().setState("MenuState");
+				m_isGameInMenu = false;
+			}
+			else
+			{
+				GameStateManager::instance().setState("MainState");
+				m_isGameInMenu = true;
+			}	
 		}
-
-		if (InputManager::instance().GetKeyDown(sf::Keyboard::Key::Space))
-		{
-			sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space);
-			GameStateManager::instance().setState("MainState");
-		}
-
 
 		GameStateManager::instance().update(deltaTime);
 		InputManager::instance().update();
