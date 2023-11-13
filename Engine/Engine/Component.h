@@ -1,17 +1,12 @@
 #pragma once
-#include "pch.h"
+#include<string>
 
 class Component
 {
 public:
 	virtual ~Component() = default;
-	Component(std::string&& initialValue)
-		: value(initialValue) {
-	}
-
-	virtual void init() {}
-	virtual void update(float deltaTime) {}
-	virtual void draw() {}
-private:
-	std::string value = "uninitialized";
+                                                     
+	//virtual void init() {}
+	//virtual void update(float deltaTime) {}
+	//virtual void draw(sf::RenderWindow& window) {};
 };

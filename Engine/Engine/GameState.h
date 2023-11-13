@@ -1,7 +1,8 @@
     //GameState.h
     #pragma once
     #include <SFML/Graphics/RenderWindow.hpp>
-
+   
+    class Background;
     class GameStateManager;
     class GameState
     {
@@ -22,6 +23,8 @@
         virtual void exit() override;
         virtual void update(float deltaTime) override;
         virtual void draw(sf::RenderWindow& window) override;
+    private:
+        std::shared_ptr<Background> background;
     };
 
     class MainState : public GameState
@@ -31,4 +34,7 @@
         virtual void exit() override;
         virtual void update(float deltaTime) override;
         virtual void draw(sf::RenderWindow& window) override;
+
+    private:
+        std::shared_ptr<Background> background;
     };
