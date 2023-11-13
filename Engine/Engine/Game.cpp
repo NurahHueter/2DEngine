@@ -7,12 +7,14 @@
 #include "GameStateManager.h"
 #include "GameState.h"
 
+
 	void Game::Initialize()
 	{
-		InputManager::instance().Init(m_window);  //pointer?
+		//InputManager::instance().Init(m_window);  //pointer?
+		InputManager::instance().bind("switch", sf::Keyboard::Key::Space);
+		InputManager::instance().bind("music", sf::Keyboard::Key::W);
 		GameStateManager::instance().Init();
-		GameStateManager::instance().setState("MainState");
-		
+		GameStateManager::instance().setState("MainState");	
 	};
 
 	void Game::Run() 
@@ -29,10 +31,11 @@
 		}
 	};
 
+	
 	void Game::Update(float deltaTime)
 	{
 
-		if (InputManager::instance().GetKeyDown(sf::Keyboard::Key::W))
+		if (InputManager::instance().isKeyDown("music"))
 		{
 			if (AssetManager::instance().m_Music.find("cooleMusik") != AssetManager::instance().m_Music.end())
 			{
@@ -45,18 +48,19 @@
 		}
 		
 
-		if (InputManager::instance().GetKeyDown(sf::Keyboard::Key::Space))
+		if (InputManager::instance().isKeyUp("switch"))
 		{
-			sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space);
-			GameStateManager::instance().setState("MenuState");
+			if (m_isGameInMenu)
+			{
+				GameStateManager::instance().setState("MenuState");
+				m_isGameInMenu = false;
+			}
+			else
+			{
+				GameStateManager::instance().setState("MainState");
+				m_isGameInMenu = true;
+			}	
 		}
-
-		if (InputManager::instance().GetKeyDown(sf::Keyboard::Key::Space))
-		{
-			sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space);
-			GameStateManager::instance().setState("MainState");
-		}
-
 
 		GameStateManager::instance().update(deltaTime);
 		InputManager::instance().update();
@@ -84,13 +88,5 @@
 			m_window.close();
 		}
 	};
-	//void Game::Draw() 
-	//{
-	//	//m_window.clear(m_bg_color);
-
-	//	////draw gameobject
-	//	//m_window.draw(sprite);
-	//	//m_window.display();
-	//};
 
 

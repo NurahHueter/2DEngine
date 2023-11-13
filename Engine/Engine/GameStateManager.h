@@ -22,6 +22,7 @@ public:
     void draw(sf::RenderWindow& m_window);
     void Init();
     void setState(std::string stateName);
+   
 
 private:
     ~GameStateManager() {}
