@@ -9,18 +9,14 @@
 
 void MenuState::init()
 {
-    /*AssetManager::instance().LoadTexture("lava", "../Assets/LavaTile.png");*/
     std::cout << "init Menu State" << std::endl;
-    /*spriteLava.setTexture(*AssetManager::instance().m_Textures["lava"]);*/
 
-    background = std::make_shared<Background>();
-    background->init();
 }
 
 void MenuState::exit()
 {
     std::cout << "exit Menu State" << std::endl;
-    background.reset();
+
 }
 
 void MenuState::update(float deltaTime)
@@ -33,7 +29,7 @@ void MenuState::draw(sf::RenderWindow& m_window)
 {
     std::cout << "draw Menu State" << std::endl;
     m_window.clear({ 255, 0, 255 });
-    background->draw(m_window);
+
     m_window.display();
 }
 

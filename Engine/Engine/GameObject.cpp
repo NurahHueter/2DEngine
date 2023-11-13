@@ -24,12 +24,3 @@ void GameObject::draw(sf::RenderWindow& window)
     //}
 };
 
-void GameObject::addComponent(std::shared_ptr<Component> component)
-{
-    /*components.push_back(component);*/
-};
-
-void GameObject::removeAllComponents()
-{
-    /*components.clear();*/
-};

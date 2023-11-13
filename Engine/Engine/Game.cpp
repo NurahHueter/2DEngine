@@ -28,6 +28,7 @@
 			Update(deltaTime);
 			GameStateManager::instance().draw(m_window);
 			//Draw();
+
 		}
 	};
 
@@ -75,9 +76,11 @@
 			if (event.type == sf::Event::Closed)
 			{
 				m_window.close();
+				closed = true;
 			}
-			CloseGame(event.key);
+			
 			InputManager::instance().handleEvents(event);
+			CloseGame(event.key);
 		}
 	};
 

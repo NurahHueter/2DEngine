@@ -24,7 +24,7 @@
         virtual void update(float deltaTime) override;
         virtual void draw(sf::RenderWindow& window) override;
     private:
-        std::shared_ptr<Background> background;
+       
     };
 
     class MainState : public GameState
