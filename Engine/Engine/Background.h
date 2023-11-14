@@ -8,7 +8,7 @@ public:
 	~Background() {};
 	void init() override;
 	void draw(sf::RenderWindow& window) override;
-	void update(float deltatime) {};
+	void update(float deltatime) override {};
 private:
 	std::shared_ptr<RenderComponent> renderComponent;
 };

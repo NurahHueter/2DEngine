@@ -76,7 +76,6 @@
 			if (event.type == sf::Event::Closed)
 			{
 				m_window.close();
-				closed = true;
 			}
 			
 			InputManager::instance().handleEvents(event);

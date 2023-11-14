@@ -5,8 +5,17 @@ class Component
 {
 public:
 	virtual ~Component() = default;
-                                                     
-	//virtual void init() {}
-	//virtual void update(float deltaTime) {}
-	//virtual void draw(sf::RenderWindow& window) {};
+
+	//Getter identidy-oriented
+	const std::string& getId() const { return id; }
+
+	//Setter
+	void setId(const std::string& newId) { id = newId; }
+
+	virtual void init() = 0;
+	virtual void update(float deltaTime) = 0;
+	virtual void draw(sf::RenderWindow& window) = 0;
+
+private: 
+	std::string id;
 };

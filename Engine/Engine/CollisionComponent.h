@@ -1,15 +1,15 @@
 #pragma once
 #include"Component.h"
-#include<SFML/Graphics/RectangleShape.hpp>
 #include<memory>
+class Sprite;
+class RectangleShape;
 class CollisionComponent : Component
 {
 public:
-	CollisionComponent()
-	{};
-
+	CollisionComponent(Sprite& sprite) :
+		sprite(sprite) {};
 	void init();
 	void update(float deltetime);
-	
-	std::shared_ptr<RectangleShape> rectangle = 
+	Sprite& sprite; 
+	std::shared_ptr<RectangleShape> rectangle;
 };
