@@ -17,10 +17,18 @@ void Camera::zoom(float zoom)
 void Camera::move(sf::Vector2f offset)
 {
 	view.move(offset);
+	this->setPosition(this->getPosition() + offset);
 };
-void Camera::setPosition(sf::Vector2f position) 
+
+void Camera::setViewPosition(sf::Vector2f position) 
 {
 	view.setCenter(position);
+	this->setPosition(position);
+};
+
+sf::Vector2f Camera::getViewPosition()
+{
+	return this->getPosition();
 };
 void Camera::setSize(sf::Vector2f size) 
 {

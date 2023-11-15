@@ -16,6 +16,7 @@ public:
 		//m_window.KeyPressed += CloseGame;		
 	}
 	sf::Color m_bg_color = { 0, 0, 255 };
+    sf::RenderWindow m_window;
 
 private: 
 	void Initialize();
@@ -25,6 +26,6 @@ private:
 	//void Draw();
 
 	sf::Clock m_clock;
-	sf::RenderWindow m_window;
+	
 	bool m_isGameInMenu = true;	
 };

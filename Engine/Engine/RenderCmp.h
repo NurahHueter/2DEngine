@@ -14,7 +14,6 @@ public:
 	void update(float deltaTime) override;
 	void draw(sf::RenderWindow& window) override;
 	
-private:
 	std::weak_ptr<GameObject> gameObject;
 	std::string textureFilePath;
 	std::string textureName;

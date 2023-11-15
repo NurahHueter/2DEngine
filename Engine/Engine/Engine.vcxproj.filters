@@ -113,7 +113,7 @@
     <ClInclude Include="Background.h">
       <Filter>Header Files\GameObjects</Filter>
     </ClInclude>
-    <ClInclude Include="Player.h">
+    <ClInclude Include="Rocket.h">
       <Filter>Header Files\GameObjects</Filter>
     </ClInclude>
     <ClInclude Include="Camera.h">

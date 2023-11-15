@@ -1,7 +1,9 @@
+#pragma once
 #include"pch.h"
 #include"RenderCmp.h"
 #include "GameObject.h"
 #include"AssetManager.h"
+
 
 RenderCmp::~RenderCmp()
 {

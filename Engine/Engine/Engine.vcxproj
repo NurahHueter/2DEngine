@@ -173,7 +173,7 @@ sfml-window-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="MoveCmp.h" />
     <ClInclude Include="pch.h" />
-    <ClInclude Include="Player.h" />
+    <ClInclude Include="Rocket.h" />
     <ClInclude Include="Projectiles.h" />
     <ClInclude Include="RenderCmp.h" />
   </ItemGroup>

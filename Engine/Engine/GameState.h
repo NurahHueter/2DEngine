@@ -3,6 +3,7 @@
     #include <SFML/Graphics/RenderWindow.hpp>
    
     class Background;
+    class Camera;
     class GameStateManager;
     class GameState
     {
@@ -11,9 +12,10 @@
         virtual void exit() = 0;
         virtual void update(float deltaTime) = 0;
         virtual void draw(sf::RenderWindow& window) = 0;
-
+ 
     private:
         GameStateManager* manager;
+        
     };
 
     class MenuState : public GameState
@@ -24,6 +26,7 @@
         virtual void update(float deltaTime) override;
         virtual void draw(sf::RenderWindow& window) override;
     private:
+        bool setCamera = false;
        
     };
 
@@ -36,5 +39,7 @@
         virtual void draw(sf::RenderWindow& window) override;
 
     private:
+        bool setCamera = false;
         std::shared_ptr<Background> background;
+        std::shared_ptr<Camera> camera;
     };

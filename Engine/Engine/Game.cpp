@@ -10,9 +10,14 @@
 
 	void Game::Initialize()
 	{
-		//InputManager::instance().Init(m_window);  //pointer?
 		InputManager::instance().bind("switch", sf::Keyboard::Key::Space,1);
-		InputManager::instance().bind("music", sf::Keyboard::Key::W,1);
+		InputManager::instance().bind("music", sf::Keyboard::Key::M,1);
+		InputManager::instance().bind("up", sf::Keyboard::Key::W, 1);
+		InputManager::instance().bind("down", sf::Keyboard::Key::S, 1);
+		InputManager::instance().bind("left", sf::Keyboard::Key::A, 1);
+		InputManager::instance().bind("right", sf::Keyboard::Key::D, 1);
+		InputManager::instance().bind("leftclick", sf::Mouse::Left, 2);
+
 		GameStateManager::instance().Init();
 		GameStateManager::instance().setState("MainState");	
 	};
