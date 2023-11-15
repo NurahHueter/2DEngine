@@ -1,11 +1,11 @@
 #pragma once
 #include "pch.h"
 #include"Background.h"
-#include"RenderComponent.h"
+#include"RenderCmp.h"
 
 void Background::init()
 {
-	renderComponent = std::make_shared<RenderComponent>(this, "../Assets/Space.jpg", "Space");
+	renderComponent = std::make_shared<RenderCmp>(this, "../Assets/Space.jpg", "Space");
 	renderComponent->init();
 };
 void Background::draw(sf::RenderWindow& window)

@@ -1,7 +1,7 @@
 #pragma once
 #include <memory>
 #include "GameObject.h"
-class RenderComponent;
+class RenderCmp;
 class Background : GameObject
 {
 public:
@@ -10,5 +10,5 @@ public:
 	void draw(sf::RenderWindow& window) override;
 	void update(float deltatime) override {};
 private:
-	std::shared_ptr<RenderComponent> renderComponent;
+	std::shared_ptr<RenderCmp> renderComponent;
 };

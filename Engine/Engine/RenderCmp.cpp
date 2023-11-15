@@ -1,13 +1,13 @@
 #include"pch.h"
-#include"RenderComponent.h"
+#include"RenderCmp.h"
 #include "GameObject.h"
 #include"AssetManager.h"
 
-RenderComponent::~RenderComponent()
+RenderCmp::~RenderCmp()
 {
 	AssetManager::instance().UnloadTexture(textureName);
 }
-void RenderComponent::init()
+void RenderCmp::init()
 {
 	AssetManager::instance().LoadTexture(textureName, textureFilePath);
 	sprite->setTexture(*AssetManager::instance().m_Textures[textureName]);
@@ -15,7 +15,7 @@ void RenderComponent::init()
 	/*sprite->setOrigin(sprite->getTextureRect() / 2.f, sprite->getTextureRect() / 2.f);*/ 
 }
 
-void RenderComponent::update(float deltetime) 
+void RenderCmp::update(float deltetime)
 {
 	if (std::shared_ptr<GameObject> tempP = gameObject.lock()) //check if Gameobject is nullptr
 	{
@@ -24,7 +24,7 @@ void RenderComponent::update(float deltetime)
 	
 }
 
-void RenderComponent::draw(sf::RenderWindow& window)
+void RenderCmp::draw(sf::RenderWindow& window)
 {
 	window.draw(*sprite);
 }
