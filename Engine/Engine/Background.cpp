@@ -5,7 +5,7 @@
 
 void Background::init()
 {
-	renderComponent = std::make_shared<RenderComponent>("../Assets/Space.jpg", "Space");
+	renderComponent = std::make_shared<RenderComponent>(this, "../Assets/Space.jpg", "Space");
 	renderComponent->init();
 };
 void Background::draw(sf::RenderWindow& window)
