@@ -4,8 +4,6 @@
 class Component
 {
 public:
-	virtual ~Component() = default;
-
 	//Getter identidy-oriented
 	const std::string& getId() const { return id; }
 
