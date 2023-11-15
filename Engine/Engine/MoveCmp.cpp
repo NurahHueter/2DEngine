@@ -19,3 +19,11 @@ void MoveCmp::setSpeed(float speed)
 {
 	this->speed = speed;
 };
+sf::Vector2f MoveCmp::getDirection()
+{
+	return this->direction;
+};
+float MoveCmp::getSpeed()
+{
+	return this->speed;
+};

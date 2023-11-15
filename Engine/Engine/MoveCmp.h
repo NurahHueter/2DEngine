@@ -14,6 +14,8 @@ public:
 	void draw(sf::RenderWindow& window) override {};
 	void setDirection(sf::Vector2f direction);
 	void setSpeed(float speed);
+	sf::Vector2f getDirection();
+	float getSpeed();
 
 private:
 	std::weak_ptr<GameObject> gameObject;

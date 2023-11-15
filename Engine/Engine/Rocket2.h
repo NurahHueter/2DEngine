@@ -3,7 +3,7 @@
 #include "GameObject.h"
 class RenderCmp;
 class MoveCmp;
-class Rocket : public GameObject
+class Rocket2 : public GameObject
 {
 public:
 	void init() override;

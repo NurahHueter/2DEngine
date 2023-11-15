@@ -7,6 +7,8 @@
 #include "GameState.h"
 #include "Background.h"
 #include "Camera.h"
+#include "Rocket.h"
+#include "Rocket2.h"
 
 void MenuState::init()
 {
@@ -36,6 +38,10 @@ void MainState::init()
    
     background = std::make_shared<Background>();
     background->init();
+    rocket = std::make_shared<Rocket>();
+    rocket->init();
+	rocket2= std::make_shared<Rocket2>();
+	rocket2->init();
     
 }
 
@@ -44,15 +50,19 @@ void MainState::exit()
     AssetManager::instance().UnloadSoundBuffer("coolerSound");
     AssetManager::instance().UnloadMusic("cooleMusik");
     background.reset();
+    rocket.reset();
+	rocket2.reset();
 }
 
 void MainState::update(float deltaTime)
 {
     if (setCamera)
     {
-        camera->move(sf::Vector2f(1.f, 0.f));
+        camera->move(sf::Vector2f(0.3f, 0.f));
         background->swap(camera->getPosition().x);
     }
+    rocket->update(deltaTime);
+	rocket2->update(deltaTime);
 }
 
 void MainState::draw(sf::RenderWindow& m_window)
@@ -64,6 +74,8 @@ void MainState::draw(sf::RenderWindow& m_window)
         camera = std::make_shared<Camera>(sf::Vector2f(50, 50),sf::Vector2f(m_window.getSize().x, m_window.getSize().y));
         setCamera = true;
     }
+    rocket->draw(m_window);
+	rocket2->draw(m_window);
     camera->draw(m_window);
     m_window.display();
 }

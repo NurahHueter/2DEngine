@@ -16,7 +16,7 @@
 		InputManager::instance().bind("down", sf::Keyboard::Key::S, 1);
 		InputManager::instance().bind("left", sf::Keyboard::Key::A, 1);
 		InputManager::instance().bind("right", sf::Keyboard::Key::D, 1);
-		InputManager::instance().bind("leftclick", sf::Mouse::Left, 2);
+		InputManager::instance().bind("leftclick", sf::Mouse::Button::Left, 2);
 
 		GameStateManager::instance().Init();
 		GameStateManager::instance().setState("MainState");	
@@ -40,7 +40,7 @@
 	
 	void Game::Update(float deltaTime)
 	{
-
+		std::cout << InputManager::instance().isKeyDown("leftclick", 2) << std::endl;
 		if (InputManager::instance().isKeyDown("music",1))
 		{
 			if (AssetManager::instance().m_Music.find("cooleMusik") != AssetManager::instance().m_Music.end())
