@@ -30,52 +30,53 @@
 	};
 
 
-	bool InputManager::isKeyDown(const std::string& action)					
+	bool InputManager::isKeyDown(const std::string& action, int playerIdx)
 	{
-		if (m_bindings.find(action) != m_bindings.end())				//Checken, ob ein binding im Dict ist
+		if (m_bindings.find(action) != m_bindings.end()) // Überprüfen, ob "action" im Dictionary vorhanden ist
 		{
-			int keyCode = m_bindings[action];
-			return isKeyDown(keyCode);									// wenn ja, dann isKeyDown mit dem keyCode aufrufen
+			auto binding = m_bindings[action]; // `binding` enthält die BindingForPlayer-Klasse
+			return isKeyDown(binding.keyCode) && binding.playerIdx == playerIdx; // Wenn ja, dann rufe isKeyDown mit dem KeyCode auf und überprüfe, ob der playerIdx übereinstimmt
 		}
 
 		return false;
 	};
 
-	bool InputManager::isKeyUp(const std::string& action)
+	bool InputManager::isKeyUp(const std::string& action, int playerIdx)
 	{
 		if (m_bindings.find(action) != m_bindings.end())	
 		{
-			int keyCode = m_bindings[action];
-			return isKeyUp(keyCode);
+			auto binding = m_bindings[action];
+			return isKeyUp(binding.keyCode) && binding.playerIdx == playerIdx;
 		}
 
 		return false;
 	};
-	bool InputManager::isKeyPressed(const std::string& action)
+	bool InputManager::isKeyPressed(const std::string& action, int playerIdx)
 	{
 		if (m_bindings.find(action) != m_bindings.end())
 		{
-			int keyCode = m_bindings[action];
-			return isKeyPressed(keyCode);
+			auto binding = m_bindings[action];
+			return isKeyPressed(binding.keyCode) && binding.playerIdx == playerIdx;
 		}
 
 		return false;
 	};
 
 
-	void InputManager::bind(const std::string& name, int keyCode)
+	void InputManager::bind(const std::string& name, int keyCode, int playerIdx)
 	{
-		m_bindings[name] = keyCode;
+		m_bindings[name] = { keyCode, playerIdx }; // In die Map werden die beiden Werte gespeichert. (BindingForPlayer)
 	};
 
-	void InputManager::unbind(const std::string& name)
+	void InputManager::unbind(const std::string& name, int playerIdx)
 	{
-		auto binding_iterator = m_bindings.find(name);					//wenn es drin ist, dann ist binding iterator ein Iterator der auf den wert zeigt, sonst zeigt er ans ende der map
-		if (binding_iterator != m_bindings.end())						
+		auto binding_iterator = m_bindings.find(name); // Wenn der Eintrag vorhanden ist, ist der Binding-Iterator ein Iterator, der auf den Wert zeigt. Andernfalls zeigt er ans Ende der Map.
+		if (binding_iterator != m_bindings.end() && binding_iterator->second.playerIdx == playerIdx) // `second` ist der zweite Wert in der Map (BindingForPlayer)(keyCode, playerIdx)
 		{
 			m_bindings.erase(binding_iterator);
-		}	
+		}
 	};
+
 
 
 	void InputManager::handleEvents(sf::Event& event)
