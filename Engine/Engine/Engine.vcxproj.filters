@@ -28,13 +28,13 @@
     <Filter Include="Source Files\Manager\GameStateManager">
       <UniqueIdentifier>{92ce41fc-8aa6-400b-8c7b-5ce0f061b220}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\GameObjects\Components">
+      <UniqueIdentifier>{1e26bee2-fcfc-4e1e-ae5b-ed1bfbbad3b1}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Source Files\GameObjects">
       <UniqueIdentifier>{9878e344-1c11-47aa-941d-9a0d2fe4e5d7}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Components">
-      <UniqueIdentifier>{1e26bee2-fcfc-4e1e-ae5b-ed1bfbbad3b1}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Components">
+    <Filter Include="Source Files\GameObjects\Components">
       <UniqueIdentifier>{d38beeaf-2964-42de-946d-42bf352df556}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -63,17 +63,17 @@
     <ClCompile Include="GameObject.cpp">
       <Filter>Source Files\GameObjects</Filter>
     </ClCompile>
+    <ClCompile Include="Component.cpp">
+      <Filter>Source Files\GameObjects</Filter>
+    </ClCompile>
     <ClCompile Include="CollisionComponent.cpp">
-      <Filter>Source Files\Components</Filter>
+      <Filter>Source Files\GameObjects\Components</Filter>
     </ClCompile>
     <ClCompile Include="RenderComponent.cpp">
-      <Filter>Source Files\Components</Filter>
+      <Filter>Source Files\GameObjects\Components</Filter>
     </ClCompile>
-    <ClCompile Include="Component.cpp">
-      <Filter>Source Files\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="Background.cpp">
-      <Filter>Source Files\GameObjects</Filter>
+    <ClCompile Include="TransformComponent.cpp">
+      <Filter>Source Files\GameObjects\Components</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -98,26 +98,17 @@
     <ClInclude Include="GameState.h">
       <Filter>Header Files\Manager\GameStateManager</Filter>
     </ClInclude>
+    <ClInclude Include="Component.h">
+      <Filter>Header Files\GameObjects</Filter>
+    </ClInclude>
     <ClInclude Include="RenderComponent.h">
-      <Filter>Header Files\Components</Filter>
+      <Filter>Header Files\GameObjects\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="TransformComponent.h">
+      <Filter>Header Files\GameObjects\Components</Filter>
     </ClInclude>
     <ClInclude Include="CollisionComponent.h">
-      <Filter>Header Files\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="Component.h">
-      <Filter>Header Files\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="Background.h">
-      <Filter>Header Files\GameObjects</Filter>
-    </ClInclude>
-    <ClInclude Include="Player.h">
-      <Filter>Header Files\GameObjects</Filter>
-    </ClInclude>
-    <ClInclude Include="Camera.h">
-      <Filter>Header Files\GameObjects</Filter>
-    </ClInclude>
-    <ClInclude Include="Projectiles.h">
-      <Filter>Header Files\GameObjects</Filter>
+      <Filter>Header Files\GameObjects\Components</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -11,8 +11,8 @@
 	void Game::Initialize()
 	{
 		//InputManager::instance().Init(m_window);  //pointer?
-		InputManager::instance().bind("switch", sf::Keyboard::Key::Space,1);
-		InputManager::instance().bind("music", sf::Keyboard::Key::W,1);
+		InputManager::instance().bind("switch", sf::Keyboard::Key::Space);
+		InputManager::instance().bind("music", sf::Keyboard::Key::W);
 		GameStateManager::instance().Init();
 		GameStateManager::instance().setState("MainState");	
 	};
@@ -28,7 +28,6 @@
 			Update(deltaTime);
 			GameStateManager::instance().draw(m_window);
 			//Draw();
-
 		}
 	};
 
@@ -36,7 +35,7 @@
 	void Game::Update(float deltaTime)
 	{
 
-		if (InputManager::instance().isKeyDown("music",1))
+		if (InputManager::instance().isKeyDown("music"))
 		{
 			if (AssetManager::instance().m_Music.find("cooleMusik") != AssetManager::instance().m_Music.end())
 			{
@@ -49,7 +48,7 @@
 		}
 		
 
-		if (InputManager::instance().isKeyUp("switch",1))
+		if (InputManager::instance().isKeyUp("switch"))
 		{
 			if (m_isGameInMenu)
 			{
@@ -76,11 +75,9 @@
 			if (event.type == sf::Event::Closed)
 			{
 				m_window.close();
-				
 			}
-			
-			InputManager::instance().handleEvents(event);
 			CloseGame(event.key);
+			InputManager::instance().handleEvents(event);
 		}
 	};
 

@@ -21,15 +21,17 @@ struct InputManager
     bool isKeyDown(int keyCode);
     bool isKeyUp(int keyCode);
     bool isKeyPressed(int keyCode);
+    // bool isKeyReleased(int keyCode);     ist das selbe rwie isKEyUp
 
-
-    bool isKeyDown(const std::string& action, int playerIdx);
-    bool isKeyUp(const std::string& action, int playerIdx);
-    bool isKeyPressed(const std::string& action, int playerIdx);
+    // Aktionen abfragen
+    bool isKeyDown(const std::string& action);
+    bool isKeyUp(const std::string& action);
+    bool isKeyPressed(const std::string& action);
+    // bool isKeyReleased(const std::string& action, int playerIdx);
 
     // Tastenaktionen binden und lösen
-    void bind(const std::string& name, int keyCode, int playerIdx);
-    void unbind(const std::string& name, int playerIdx);
+    void bind(const std::string& name, int keyCode);
+    void unbind(const std::string& name);
 
     void handleEvents(sf::Event& event);
 
@@ -43,15 +45,9 @@ private:
  //   void OnKeyPressed(const Event::KeyEvent& e) ;
 	//void OnKeyReleased(const Event::KeyEvent& e);
 
-    class BindingForPlayer {
-    public:
-        int keyCode;
-        int playerIdx;
-    };
-
-
-    std::map<std::string, BindingForPlayer> m_bindings{};                //(action), (keyCode,playerIdx)
+    std::map<std::string, int> m_bindings{};                //action, keyCode
 	
+
     InputManager() {}
     ~InputManager() {}
 
