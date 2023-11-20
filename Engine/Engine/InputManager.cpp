@@ -84,13 +84,13 @@
 			
 		if (event.type == sf::Event::EventType::KeyPressed)
 		{
-			std::cout << "keypressed";
+			//std::cout << "keypressed";
 			m_isKeyDown[event.key.code] = true;
 			m_isKeyPressed[event.key.code] = true;
 		}
 		else if (event.type == sf::Event::EventType::KeyReleased)
 		{
-			std::cout << "keyrelesead";
+			//std::cout << "keyrelesead";
 			m_isKeyUp[event.key.code] = true;
 			m_isKeyPressed[event.key.code] = false;
 		}

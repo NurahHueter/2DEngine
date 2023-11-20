@@ -9,6 +9,7 @@
 #include "Camera.h"
 #include "Rocket.h"
 #include "Rocket2.h"
+#include "WindowManager.h"
 
 void MenuState::init()
 {
@@ -42,6 +43,7 @@ void MainState::init()
     rocket->init();
 	rocket2= std::make_shared<Rocket2>();
 	rocket2->init();
+    camera = std::make_shared<Camera>(sf::Vector2f(50, 50), sf::Vector2f(WindowManager::instance().m_window.getSize().x, WindowManager::instance().m_window.getSize().y));
     
 }
 
@@ -56,11 +58,11 @@ void MainState::exit()
 
 void MainState::update(float deltaTime)
 {
-    if (setCamera)
-    {
-        camera->move(sf::Vector2f(0.3f, 0.f));
-        background->swap(camera->getPosition().x);
-    }
+ 
+    camera->move(sf::Vector2f(100.0f* deltaTime, 0.f));
+  
+    background->swap(camera->getPosition().x);
+    
     rocket->update(deltaTime);
 	rocket2->update(deltaTime);
 }
@@ -69,11 +71,7 @@ void MainState::draw(sf::RenderWindow& m_window)
 {
     m_window.clear({ 0, 0, 255 });
     background->draw(m_window);
-    if (!setCamera)
-    {
-        camera = std::make_shared<Camera>(sf::Vector2f(50, 50),sf::Vector2f(m_window.getSize().x, m_window.getSize().y));
-        setCamera = true;
-    }
+   
     rocket->draw(m_window);
 	rocket2->draw(m_window);
     camera->draw(m_window);

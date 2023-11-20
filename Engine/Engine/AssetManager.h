@@ -28,10 +28,7 @@ struct AssetManager
 
 private:
 
-	AssetManager() 
-	{
-		
-	}
+	AssetManager() {}
 	~AssetManager() {}
 
 };
