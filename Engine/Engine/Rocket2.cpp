@@ -30,7 +30,7 @@ void Rocket2::update(float deltatime)
 	if (InputManager::instance().isKeyDown("leftclick", 2))
 	{
 		// Holen Sie sich die aktuelle Mausposition im Fenster
-		sf::Vector2f worldMousePosition = WindowManager::instance().m_window.mapPixelToCoords(sf::Mouse::getPosition(WindowManager::instance().m_window));
+		sf::Vector2f worldMousePosition = InputManager::instance().getMousPosition();
 		sf::Vector2f direction = worldMousePosition - this->getPosition();
 		//std::cout << worldMousePosition.x << " und " << worldMousePosition.y <<std::endl;
 

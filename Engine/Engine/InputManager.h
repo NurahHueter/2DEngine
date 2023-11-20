@@ -27,6 +27,8 @@ struct InputManager
     bool isKeyUp(const std::string& action, int playerIdx);
     bool isKeyPressed(const std::string& action, int playerIdx);
 
+    sf::Vector2f getMousPosition();
+
     // Tastenaktionen binden und lösen
     void bind(const std::string& name, int keyCode, int playerIdx);
     void unbind(const std::string& name, int playerIdx);
