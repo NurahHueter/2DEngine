@@ -11,7 +11,7 @@ public:
 	void draw(sf::RenderWindow& window) override;
 	void update(float deltatime) override;
 private:
-	std::vector<Projectile> projectiles;
+	/*std::vector<Projectile> projectiles;*/
 	std::shared_ptr<RenderCmp> renderComponent;
 	std::shared_ptr<MoveCmp> moveComponent;
 };

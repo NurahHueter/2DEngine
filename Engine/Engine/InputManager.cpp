@@ -14,6 +14,14 @@
 		{
 			m_isKeyUp[kv.first] = false;
 		}
+		for (auto& kv : m_isMouseDown)
+		{
+			m_isMouseDown[kv.first] = false;
+		}
+		for (auto& kv : m_isMouseUp)
+		{
+			m_isMouseUp[kv.first] = false;
+		}
 	};
 
 	bool InputManager::isKeyDown(int keyCode)
@@ -63,6 +71,54 @@
 		return false;
 	};
 
+	//MouseInput
+	bool InputManager::isMouseDown(int keyCode)
+	{
+		return m_isMouseDown.find(keyCode) != m_isMouseDown.end() ? m_isMouseDown[keyCode] : false;
+	};
+
+	bool InputManager::isMouseUp(int keyCode)
+	{
+		return m_isMouseUp.find(keyCode) != m_isMouseUp.end() ? m_isMouseUp[keyCode] : false;
+	};
+	bool InputManager::isMousePressed(int keyCode)
+	{
+		return m_isMousePressed.find(keyCode) != m_isMousePressed.end() ? m_isMousePressed[keyCode] : false;
+	};
+
+
+	bool InputManager::isMouseDown(const std::string& action, int playerIdx)
+	{
+		if (m_bindings.find(action) != m_bindings.end()) // Überprüfen, ob "action" im Dictionary vorhanden ist
+		{
+			auto binding = m_bindings[action]; // `binding` enthält die BindingForPlayer-Klasse
+			return isMouseDown(binding.keyCode) && binding.playerIdx == playerIdx; // Wenn ja, dann rufe isKeyDown mit dem KeyCode auf und überprüfe, ob der playerIdx übereinstimmt
+		}
+
+		return false;
+	};
+
+	bool InputManager::isMouseUp(const std::string& action, int playerIdx)
+	{
+		if (m_bindings.find(action) != m_bindings.end())
+		{
+			auto binding = m_bindings[action];
+			return isMouseUp(binding.keyCode) && binding.playerIdx == playerIdx;
+		}
+
+		return false;
+	};
+	bool InputManager::isMousePressed(const std::string& action, int playerIdx)
+	{
+		if (m_bindings.find(action) != m_bindings.end())
+		{
+			auto binding = m_bindings[action];
+			return isMousePressed(binding.keyCode) && binding.playerIdx == playerIdx;
+		}
+
+		return false;
+	};
+
 
 	void InputManager::bind(const std::string& name, int keyCode, int playerIdx)
 	{
@@ -82,29 +138,28 @@
 
 	void InputManager::handleEvents(sf::Event& event)
 	{
-			
 		if (event.type == sf::Event::EventType::KeyPressed)
 		{
 			m_isKeyDown[event.key.code] = true;
 			m_isKeyPressed[event.key.code] = true;
 		}
-		else if (event.type == sf::Event::EventType::KeyReleased)
+		if (event.type == sf::Event::EventType::KeyReleased)
 		{
 			m_isKeyUp[event.key.code] = true;
 			m_isKeyPressed[event.key.code] = false;
 		}
 		if (event.type == sf::Event::EventType::MouseButtonPressed)
 		{
-			m_isKeyDown[event.key.code] = true;
-			m_isKeyPressed[event.key.code] = true;
+				m_isMouseDown[event.key.code] = true;
+				m_isMousePressed[event.key.code] = true;
 		}
-		else if (event.type == sf::Event::EventType::MouseButtonReleased)
+		if (event.type == sf::Event::EventType::MouseButtonReleased)
 		{
-			m_isKeyUp[event.key.code] = true;
-			m_isKeyPressed[event.key.code] = false;
+			m_isMouseUp[event.key.code] = true;
+			m_isMousePressed[event.key.code] = false;
 		}
-			
 	}
+
 
 	sf::Vector2f InputManager::getMousPosition()
 	{

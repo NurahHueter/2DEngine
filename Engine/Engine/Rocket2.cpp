@@ -10,7 +10,7 @@ void Rocket2::init()
 {
 	renderComponent = std::make_shared<RenderCmp>(std::weak_ptr<GameObject>(shared_from_this()), "../Assets/rocket.png", "rocket2");
 	renderComponent->init();
-	moveComponent = std::make_shared<MoveCmp>(std::weak_ptr<GameObject>(shared_from_this()), sf::Vector2f(0, 0), 200.f);
+	moveComponent = std::make_shared<MoveCmp>(std::weak_ptr<GameObject>(shared_from_this()), sf::Vector2f(0, 0), 100.f);
 	moveComponent->init();
 	this->setPosition(sf::Vector2f(300, 500));
 };
@@ -21,20 +21,24 @@ void Rocket2::draw(sf::RenderWindow& window )
 
 void Rocket2::update(float deltatime)
 {
+
+	if (InputManager::instance().isMouseDown("leftclick", 2))
+	{
+		targetPosition = InputManager::instance().getMousPosition();
+	}
+	sf::Vector2f direction = targetPosition - getPosition();// Man berechnet den vektor von der Rakte zum MausClick
+	float distance = std::sqrt(direction.x * direction.x + direction.y * direction.y);
+	if (distance > 1.0f) 
+	{
+		moveComponent->setDirection(direction);
+		moveComponent->setSpeed(2.0f);
+	}
+	else
+	{
+		moveComponent->setSpeed(0.f);
+	}
+	
 	moveComponent->update(deltatime);
-	moveComponent->setDirection(sf::Vector2f(0, 0));
 	renderComponent->update(deltatime);
 
-	// Konvertiere die Mausposition in die Spielkoordinaten
-
-	if (InputManager::instance().isKeyDown("leftclick", 2))
-	{
-		// Holen Sie sich die aktuelle Mausposition im Fenster
-		sf::Vector2f worldMousePosition = InputManager::instance().getMousPosition();
-		sf::Vector2f direction = worldMousePosition - this->getPosition();
-		//std::cout << worldMousePosition.x << " und " << worldMousePosition.y <<std::endl;
-
-		// Setze die Richtung für die Bewegungskomponente
-		moveComponent->setDirection(direction);
-	}
 };

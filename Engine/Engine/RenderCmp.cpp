@@ -5,10 +5,10 @@
 #include"AssetManager.h"
 
 
-RenderCmp::~RenderCmp()
-{
-	AssetManager::instance().UnloadTexture(textureName);
-}
+//RenderCmp::~RenderCmp()
+//{
+//	AssetManager::instance().UnloadTexture(textureName);
+//}
 void RenderCmp::init()
 {
 	AssetManager::instance().LoadTexture(textureName, textureFilePath);

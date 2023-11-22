@@ -9,7 +9,7 @@ class RenderCmp : public Component
 public:                                                         
 	RenderCmp(std::weak_ptr<GameObject> gameObject,std::string textureFilePath, std::string textureName)
 		: gameObject(gameObject), textureFilePath(textureFilePath), textureName(textureName) {};
-	~RenderCmp();
+	~RenderCmp() {};
 	void init() override; 
 	void update(float deltaTime) override;
 	void draw(sf::RenderWindow& window) override;

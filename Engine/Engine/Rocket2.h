@@ -11,6 +11,7 @@ public:
 	void update(float deltatime) override;
 
 private:
+	sf::Vector2f targetPosition = sf::Vector2f(300, 500);
 	std::shared_ptr<RenderCmp> renderComponent;
 	std::shared_ptr<MoveCmp> moveComponent;
 };
