@@ -8,7 +8,7 @@
 
 void Rocket2::init()
 {
-	renderComponent = std::make_shared<RenderCmp>(std::weak_ptr<GameObject>(shared_from_this()), "../Assets/rocket.png", "rocket2");
+	renderComponent = std::make_shared<RenderCmp>(std::weak_ptr<GameObject>(shared_from_this()), "../Assets/Hunter1-right.bmp", "rocket2");
 	renderComponent->init();
 	moveComponent = std::make_shared<MoveCmp>(std::weak_ptr<GameObject>(shared_from_this()), sf::Vector2f(0, 0), 100.f);
 	moveComponent->init();

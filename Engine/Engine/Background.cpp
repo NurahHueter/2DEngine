@@ -5,9 +5,9 @@
 
 void Background::init()
 {
-	renderComponent = std::make_shared<RenderCmp>(std::weak_ptr<GameObject>(shared_from_this()), "../Assets/Space.jpg", "Space");
+	renderComponent = std::make_shared<RenderCmp>(std::weak_ptr<GameObject>(shared_from_this()), "../Assets/bg_space_seamless.png", "Space");
 	renderComponent->init();
-	renderComponent2 = std::make_shared<RenderCmp>(std::weak_ptr<GameObject>(shared_from_this()), "../Assets/Space.jpg", "Space2");
+	renderComponent2 = std::make_shared<RenderCmp>(std::weak_ptr<GameObject>(shared_from_this()), "../Assets/bg_space_seamless.png", "Space2");
 	renderComponent2->init();
 
 	renderComponent2->sprite->setPosition(sf::Vector2f(renderComponent->sprite->getPosition().x + renderComponent->sprite->getTextureRect().width, renderComponent->sprite->getPosition().y));

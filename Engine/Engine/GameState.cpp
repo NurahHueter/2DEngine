@@ -59,12 +59,21 @@ void MainState::exit()
 void MainState::update(float deltaTime)
 {
  
-    camera->move(sf::Vector2f(10.0f* deltaTime, 0.f));
+    camera->move(sf::Vector2f(50.0f* deltaTime, 0.f));
   
     background->swap(camera->getPosition().x);
     
     rocket->update(deltaTime);
 	rocket2->update(deltaTime);
+
+    if (rocket->getPosition().x <= camera->getPosition().x)
+    {
+        rocket->setPosition(camera->getPosition().x, rocket->getPosition().y);
+    }
+    if (rocket2->getPosition().x <= camera->getPosition().x)
+    {
+        rocket2->setPosition(camera->getPosition().x, rocket2->getPosition().y);
+    }
 }
 
 void MainState::draw(sf::RenderWindow& m_window)

@@ -13,8 +13,6 @@ void RenderCmp::init()
 {
 	AssetManager::instance().LoadTexture(textureName, textureFilePath);
 	sprite->setTexture(*AssetManager::instance().m_Textures[textureName]);
-	/*sprite->setScale(scale);*/
-	/*sprite->setOrigin(sprite->getTextureRect() / 2.f, sprite->getTextureRect() / 2.f);*/ 
 }
 
 void RenderCmp::update(float deltetime)
