@@ -12,6 +12,8 @@ void Rocket::init()
 	moveComponent = std::make_shared<MoveCmp>(std::weak_ptr<GameObject>(shared_from_this()), sf::Vector2f(0, 0), 200.f);
 	moveComponent->init();
 	this->setPosition(sf::Vector2f(300, 50));
+	
+
 };
 void Rocket::draw(sf::RenderWindow& window) 
 {

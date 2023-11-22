@@ -144,6 +144,7 @@ sfml-window-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
   <ItemGroup>
     <ClCompile Include="AssetManager.cpp" />
     <ClCompile Include="Background.cpp" />
+    <ClCompile Include="Projectile.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="CollisionCmp.cpp" />
     <ClCompile Include="Component.cpp" />
@@ -166,6 +167,7 @@ sfml-window-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
   <ItemGroup>
     <ClInclude Include="AssetManager.h" />
     <ClInclude Include="Background.h" />
+    <ClInclude Include="Projectile.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="CollisionCmp.h" />
     <ClInclude Include="Component.h" />
@@ -177,7 +179,6 @@ sfml-window-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     <ClInclude Include="MoveCmp.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Rocket.h" />
-    <ClInclude Include="Projectiles.h" />
     <ClInclude Include="RenderCmp.h" />
     <ClInclude Include="Rocket2.h" />
     <ClInclude Include="WindowManager.h" />
