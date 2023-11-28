@@ -6,7 +6,6 @@ class Game
 {
 public:
 	void Run();
-	~Game() {};
 
 	Game() 
 	{
@@ -20,7 +19,6 @@ private:
 	void Update(float deltaTime);
 	void HandleEvents();
 	void CloseGame(sf::Event::KeyEvent& e);
-	//void Draw();
 
 	sf::Clock m_clock;
 	

@@ -2,10 +2,7 @@
     #pragma once
     #include <SFML/Graphics/RenderWindow.hpp>
    
-    class Background;
-    class Camera;
-    class Rocket2;
-    class Rocket;
+    class GameObject;
     class GameStateManager;
     class GameState
     {
@@ -15,8 +12,9 @@
         virtual void update(float deltaTime) = 0;
         virtual void draw(sf::RenderWindow& window) = 0;
  
-    private:
+    protected:
         GameStateManager* manager;
+        std::map<std::string, GameObject> gameObjects = {};
         
     };
 

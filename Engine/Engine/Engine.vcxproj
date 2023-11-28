@@ -144,6 +144,7 @@ sfml-window-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
   <ItemGroup>
     <ClCompile Include="AssetManager.cpp" />
     <ClCompile Include="Background.cpp" />
+    <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="Projectile.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="CollisionCmp.cpp" />

@@ -8,11 +8,11 @@ class RenderCmp : public Component
 {
 public:                                                         
 	RenderCmp(std::weak_ptr<GameObject> gameObject,std::string textureFilePath, std::string textureName)
-		: gameObject(gameObject), textureFilePath(textureFilePath), textureName(textureName) {};
+		: Component(id), gameObject(gameObject), textureFilePath(textureFilePath), textureName(textureName) {};
 	~RenderCmp() {};
-	void init() override; 
-	void update(float deltaTime) override;
-	void draw(sf::RenderWindow& window) override;
+	virtual void init() override; 
+	virtual void update(float deltaTime) override;
+	virtual void draw(sf::RenderWindow& window) override;
 	
 	std::weak_ptr<GameObject> gameObject;
 	std::string textureFilePath;

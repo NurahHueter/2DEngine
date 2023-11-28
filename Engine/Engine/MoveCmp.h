@@ -8,7 +8,7 @@ class MoveCmp : public Component
 {
 public:
 	MoveCmp(std::weak_ptr<GameObject> gameObject, sf::Vector2f direction, float speed)
-		: gameObject(gameObject), direction(direction), speed(speed) {};
+		:Component(id), gameObject(gameObject), direction(direction), speed(speed) {};
 	void init() override {};
 	void update(float deltaTime) override;
 	void draw(sf::RenderWindow& window) override {};

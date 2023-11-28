@@ -12,7 +12,7 @@ public:
 	void update(float deltatime) override;
 
 private:
-	std::vector<std::shared_ptr<Projectile>> objectPool[100];
+	/*std::vector<std::shared_ptr<Projectile>> objectPool[100];*/
 	std::shared_ptr<RenderCmp> renderComponent;
 	std::shared_ptr<MoveCmp> moveComponent;
 };
