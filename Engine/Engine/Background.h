@@ -2,7 +2,8 @@
 #include <memory>
 #include "GameObject.h"
 class RenderCmp;
-class Background : public GameObject
+class Background : public GameObject, public std::enable_shared_from_this<Background>
+
 {
 public:
 	~Background() {};

@@ -3,6 +3,7 @@
 #include"Background.h"
 #include"RenderCmp.h"
 
+
 void Background::init()
 {
 	renderComponent = std::make_shared<RenderCmp>(std::weak_ptr<GameObject>(shared_from_this()), "../Assets/bg_space_seamless.png", "Space");

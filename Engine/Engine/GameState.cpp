@@ -36,25 +36,28 @@ void MenuState::draw(sf::RenderWindow& m_window)
 
 void MainState::init()
 {
+    // Laden von Sound-Buffer und Musik
     AssetManager::instance().LoadSoundBuffer("coolerSound", "../Assets/completeSound.wav");
     AssetManager::instance().LoadMusic("cooleMusik", "../Assets/musicTrack.ogg");
-   
- //   background = std::make_shared<Background>();
- //   background->init();
- //   rocket = std::make_shared<Rocket>();
- //   rocket->init();
-	//rocket2= std::make_shared<Rocket2>();
-	//rocket2->init();
- //   camera = std::make_shared<Camera>(sf::Vector2f(50, 50), sf::Vector2f(WindowManager::instance().m_window.getSize().x, WindowManager::instance().m_window.getSize().y));
-    std::shared_ptr<GameObject> rocket_one = std::make_shared<GameObject>();
-    std::shared_ptr<RenderCmp> renderRocket = std::make_shared<RenderCmp>("RenderRocket", rocket_one, "../Assets/Hunter1-right.bmp", "rocket");
-    std::shared_ptr<MoveCmp> moveRocket = std::make_shared<MoveCmp>("MoveRocket",rocket_one, sf::Vector2f(0, 0), 200.f);
 
+    // Erstellen und Initialisieren eines GameObjects für eine Rakete
+    std::shared_ptr<GameObject> rocket_one = std::make_shared<GameObject>();
+
+    // Erstellen von Render- und Move-Komponenten für die Rakete
+    std::shared_ptr<RenderCmp> renderRocket = std::make_shared<RenderCmp>("RenderRocket", rocket_one, "../Assets/Hunter1-right.bmp", "rocket");
+    std::shared_ptr<MoveCmp> moveRocket = std::make_shared<MoveCmp>("MoveRocket", rocket_one, sf::Vector2f(0, 0), 200.f);
+
+    // Hinzufügen der Komponenten zum GameObject
     rocket_one->addComponent(std::static_pointer_cast<Component>(renderRocket));
+    rocket_one->addComponent(std::static_pointer_cast<Component>(moveRocket));
+
+    // Setzen der Position des GameObjects
     rocket_one->setPosition(sf::Vector2f(300, 500));
 
+    // Hinzufügen des GameObjects zur Liste der Gameobjekte
     gameObjects.insert("rocket_one", rocket_one);
 }
+
 
 void MainState::exit()
 {

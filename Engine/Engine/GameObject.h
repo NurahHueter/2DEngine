@@ -10,7 +10,7 @@ public:
 	virtual void update(float deltaTime) = 0;
 	virtual void draw(sf::RenderWindow& window) = 0;
 
-	void addComponent(std::shared_ptr<Component> component);
+	void addComponent( std::string,std::shared_ptr<Component> component);
 	std::shared_ptr<Component> getComponent(std::string id);
 	void deleteComponent(std::shared_ptr<Component> component);
 	std::map< std::string, std::shared_ptr<Component>> components;

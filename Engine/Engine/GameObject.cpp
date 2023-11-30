@@ -7,26 +7,26 @@ void GameObject::init()
 {
     for (const auto& component : components)
     {
-        component->init();
+        component.second->init();
     }
 };
 void GameObject::update(float deltaTime)
 {
     for (const auto& component : components)
     {
-        component->update(deltaTime);
+        component.second->update(deltaTime);
     }
 };
 void GameObject::draw(sf::RenderWindow& window)
 {
     for (const auto& component : components)
     {
-        component->draw(window);
+        component.second->draw(window);
     }
 };
-void GameObject::addComponent(std::shared_ptr<Component> component)
+void GameObject::addComponent(std::string key,std::shared_ptr<Component> component)
 {
-    components.push_back(component);
+    components.insert(std::make_pair(key, component));
 };
 std::shared_ptr<Component> GameObject::getComponent(std::string id)
 {
@@ -34,6 +34,11 @@ std::shared_ptr<Component> GameObject::getComponent(std::string id)
 }
 void GameObject::deleteComponent(std::shared_ptr<Component> component)
 {
-	components.push_back(component);
+    auto it = components.find(component->getId());
+
+    if (it != components.end())
+    {
+        components.erase(it);
+    }
 };
 
