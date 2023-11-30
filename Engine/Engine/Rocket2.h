@@ -3,7 +3,7 @@
 #include "GameObject.h"
 class RenderCmp;
 class MoveCmp;
-class Rocket2 : public GameObject
+class Rocket2 : public GameObject, public std::enable_shared_from_this<Rocket2>
 {
 public:
 	void init() override;

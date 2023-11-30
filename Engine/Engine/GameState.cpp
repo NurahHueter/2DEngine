@@ -48,14 +48,14 @@ void MainState::init()
     std::shared_ptr<MoveCmp> moveRocket = std::make_shared<MoveCmp>("MoveRocket", rocket_one, sf::Vector2f(0, 0), 200.f);
 
     // Hinzufügen der Komponenten zum GameObject
-    rocket_one->addComponent(std::static_pointer_cast<Component>(renderRocket));
-    rocket_one->addComponent(std::static_pointer_cast<Component>(moveRocket));
+    rocket_one->addComponent("RenderRocket" ,std::dynamic_pointer_cast<Component>(renderRocket));
+    rocket_one->addComponent("MoveRocket",std::dynamic_pointer_cast<Component>(moveRocket));
 
     // Setzen der Position des GameObjects
     rocket_one->setPosition(sf::Vector2f(300, 500));
 
     // Hinzufügen des GameObjects zur Liste der Gameobjekte
-    gameObjects.insert("rocket_one", rocket_one);
+    gameObjects.insert(std::make_pair("rocket_one", rocket_one));
 }
 
 
@@ -75,24 +75,24 @@ void MainState::update(float deltaTime)
   
     //background->swap(camera->getPosition().x);
 
-    if (InputManager::instance().isKeyPressed("up", 1))
-    {
-        moveComponent->setDirection(moveComponent->getDirection() + sf::Vector2f(0, -1));
-    }
-    if (InputManager::instance().isKeyPressed("down", 1))
-    {
-        moveComponent->setDirection(moveComponent->getDirection() + sf::Vector2f(0, 1));
-    }
-    if (InputManager::instance().isKeyPressed("left", 1))
-    {
-        moveComponent->setDirection(moveComponent->getDirection() + sf::Vector2f(-1, 0));
-    }
-    if (InputManager::instance().isKeyPressed("right", 1))
-    {
-        moveComponent->setDirection(moveComponent->getDirection() + sf::Vector2f(1, 0));
-    }
-    
-    rocket_one->update(deltaTime);
+    //if (InputManager::instance().isKeyPressed("up", 1))
+    //{
+    //    moveComponent->setDirection(moveComponent->getDirection() + sf::Vector2f(0, -1));
+    //}
+    //if (InputManager::instance().isKeyPressed("down", 1))
+    //{
+    //    moveComponent->setDirection(moveComponent->getDirection() + sf::Vector2f(0, 1));
+    //}
+    //if (InputManager::instance().isKeyPressed("left", 1))
+    //{
+    //    moveComponent->setDirection(moveComponent->getDirection() + sf::Vector2f(-1, 0));
+    //}
+    //if (InputManager::instance().isKeyPressed("right", 1))
+    //{
+    //    moveComponent->setDirection(moveComponent->getDirection() + sf::Vector2f(1, 0));
+    //}
+    //
+   // rocket_one->update(deltaTime);
 
     //if (rocket->getPosition().x <= camera->getPosition().x)
     //{

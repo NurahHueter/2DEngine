@@ -12,7 +12,5 @@ public:
 	virtual void init() = 0;
 	virtual void update(float deltaTime) = 0;
 	virtual void draw(sf::RenderWindow& window) = 0;
-
-protected: 
 	std::string id;
 };

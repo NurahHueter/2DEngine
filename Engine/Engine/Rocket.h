@@ -4,7 +4,7 @@
 #include "Projectile.h"
 class RenderCmp;
 class MoveCmp;
-class Rocket : public GameObject
+class Rocket : public GameObject, public std::enable_shared_from_this<Rocket>
 {
 public:
 	void init() override;

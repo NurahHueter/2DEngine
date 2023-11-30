@@ -14,7 +14,7 @@
  
     protected:
         GameStateManager* manager;
-        std::map<std::string, GameObject> gameObjects = {};
+        std::map<std::string, std::shared_ptr<GameObject>> gameObjects = {};
         
     };
 

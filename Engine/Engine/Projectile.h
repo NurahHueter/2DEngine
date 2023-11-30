@@ -3,7 +3,7 @@
 #include "GameObject.h"
 class RenderCmp;
 class MoveCmp;
-class Projectile : public GameObject
+class Projectile : public GameObject, public std::enable_shared_from_this<Projectile>
 {
 public:
 	Projectile(sf::Vector2f direction, float speed, sf::Vector2f startPosition, float lifeDistance) : direction(direction), speed(speed), startPosition(startPosition), lifeDistance(lifeDistance) {};
