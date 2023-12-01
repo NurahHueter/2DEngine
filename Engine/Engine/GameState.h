@@ -42,6 +42,5 @@
         bool setCamera = false;
         std::shared_ptr<Background> background;
         std::shared_ptr<Camera> camera;
-        std::shared_ptr<Rocket> rocket;
         std::shared_ptr<Rocket2> rocket2;
     };
