@@ -6,9 +6,7 @@
 #include "InputManager.h"
 #include "GameStateManager.h"
 #include "GameState.h"
-#include "Background.h"
-#include "Camera.h"
-#include "Rocket2.h"
+#include "CameraCmp.h"
 #include "WindowManager.h"
 #include "GameObject.h"
 #include "RenderCmp.h"
@@ -37,10 +35,10 @@ void MenuState::draw(sf::RenderWindow& m_window)
 
 void MainState::init()
 {
-    AssetManager::instance().LoadSoundBuffer("coolerSound", "../Assets/completeSound.wav");
-    AssetManager::instance().LoadMusic("cooleMusik", "../Assets/musicTrack.ogg");
-
-    //rocket
+    //Still TODO rocket_two 
+    // projectile
+    
+    //rocket_one -> mit WASD
     std::shared_ptr<GameObject> rocket_one = std::make_shared<GameObject>();
     std::shared_ptr<Component> renderRocket = std::make_shared<RenderCmp>("RenderRocket", rocket_one, "../Assets/Hunter1-right.bmp", "rocket");
     std::shared_ptr<Component> moveRocket = std::make_shared<MoveCmp>("MoveRocket", rocket_one, sf::Vector2f(0, 0), 200.f);
@@ -70,41 +68,76 @@ void MainState::init()
     }
     background_two->setPosition(sf::Vector2f(background_one->getPosition().x + width_texture, background_one->getPosition().y));
 
-    //add to map
+    //camera
+    std::shared_ptr<GameObject> camera = std::make_shared<GameObject>();
+    //set size of size from window
+    std::shared_ptr<Component> cameraCmp = std::make_shared<CameraCmp>("camera", camera, sf::Vector2f(WindowManager::instance().m_window.getSize().x, WindowManager::instance().m_window.getSize().y));
+    camera->addComponent("camera", cameraCmp);
+
+    //add to map //wichtig auf reihenFolge achten -> wegen Draw
+    gameObjects.insert(std::make_pair("camera", camera));
     gameObjects.insert(std::make_pair("rocket_one", rocket_one));
-    gameObjects.insert(std::make_pair("background_one", background_one));
     gameObjects.insert(std::make_pair("background_two", background_two));
+    gameObjects.insert(std::make_pair("background_one", background_one));
+
+
+  
+
+    //init all Components in all gameObjects
+    for (auto& obj : gameObjects)
+    {
+        for (auto& cmp : obj.second->components)
+        {
+            cmp.second->init();
+        }
+    }
 }
 
 
 void MainState::exit()
 {
-    AssetManager::instance().UnloadSoundBuffer("coolerSound");
-    AssetManager::instance().UnloadMusic("cooleMusik");
-
     //TODO: Assets in RenderCMP unloaden
 }
 
 void MainState::update(float deltaTime)
 {
     
-    //camera->move(sf::Vector2f(50.0f* deltaTime, 0.f));
-  
-    //background->swap(camera->getPosition().x);
-
-    
     for (auto& obj : gameObjects) {
         obj.second->update(deltaTime);
     }
 
-    //if (rocket->getPosition().x <= camera->getPosition().x)
-    //{
-    //    rocket->setPosition(camera->getPosition().x, rocket->getPosition().y);
-    //}
-    //if (rocket2->getPosition().x <= camera->getPosition().x)
-    //{
-    //    rocket2->setPosition(camera->getPosition().x, rocket2->getPosition().y);
-    //}
+    //move camera
+    auto it_cam = gameObjects.find("camera");
+    if (it_cam != gameObjects.end()) 
+    {
+        it_cam->second->setPosition(sf::Vector2f(it_cam->second->getPosition().x + 2.f * deltaTime, it_cam->second->getPosition().y));
+            
+        //switch backgrounds for endless loop
+        auto it_bg1 = gameObjects.find("background_one");
+        auto it_bg2 = gameObjects.find("background_two");
+            if (it_bg1 != gameObjects.end() && it_bg2 != gameObjects.end()) {
+                if (it_cam->second->getPosition().x >= it_bg2->second->getPosition().x)
+                {
+                    float width_texture = 0;
+                    auto it = it_bg1->second->components.find("background_one");
+                    if (it != it_bg1->second->components.end()) {
+                        if (auto temp = std::dynamic_pointer_cast<RenderCmp>(it->second))
+                        {
+                            width_texture = temp->sprite->getTextureRect().width;
+                        }
+                        switchCount % 2 ? it_bg1->second->setPosition(it_bg1->second->getPosition().x + width_texture, 0) : it_bg2->second->setPosition(it_bg2->second->getPosition().x + width_texture, 0);
+                        switchCount++;
+                    }
+                }
+            }
+
+          //check if rockets are in camera view
+            auto it_rocket_one = gameObjects.find("rocket_one");
+            if (it_rocket_one->second->getPosition().x <= it_cam->second->getPosition().x)
+                {
+                    it_rocket_one->second->setPosition(it_cam->second->getPosition().x, it_rocket_one->second->getPosition().y);
+                }
+    }
 }
 
 void MainState::draw(sf::RenderWindow& m_window)

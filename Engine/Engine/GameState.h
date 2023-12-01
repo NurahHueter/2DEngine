@@ -39,8 +39,9 @@
         virtual void draw(sf::RenderWindow& window) override;
 
     private:
+        int switchCount = 0;
         bool setCamera = false;
-        std::shared_ptr<Background> background;
-        std::shared_ptr<Camera> camera;
-        std::shared_ptr<Rocket2> rocket2;
+        //std::shared_ptr<Background> background;
+        //std::shared_ptr<Camera> camera;
+        //std::shared_ptr<Rocket2> rocket2;
     };

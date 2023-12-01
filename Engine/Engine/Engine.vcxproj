@@ -143,10 +143,8 @@ sfml-window-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="AssetManager.cpp" />
-    <ClCompile Include="Background.cpp" />
+    <ClCompile Include="CameraCmp.cpp" />
     <ClCompile Include="GameObject.cpp" />
-    <ClCompile Include="Projectile.cpp" />
-    <ClCompile Include="Camera.cpp" />
     <ClCompile Include="CollisionCmp.cpp" />
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="Engine.cpp" />
@@ -166,9 +164,8 @@ sfml-window-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AssetManager.h" />
-    <ClInclude Include="Background.h" />
+    <ClInclude Include="CameraCmp.h" />
     <ClInclude Include="Projectile.h" />
-    <ClInclude Include="Camera.h" />
     <ClInclude Include="CollisionCmp.h" />
     <ClInclude Include="Component.h" />
     <ClInclude Include="Game.h" />
