@@ -11,6 +11,8 @@
 #include "Rocket2.h"
 #include "WindowManager.h"
 #include "GameObject.h"
+#include "RenderCmp.h"
+#include "MoveCmp.h"
 
 void MenuState::init()
 {
@@ -40,22 +42,22 @@ void MainState::init()
 
     //rocket
     std::shared_ptr<GameObject> rocket_one = std::make_shared<GameObject>();
-    std::shared_ptr<RenderCmp> renderRocket = std::make_shared<RenderCmp>("RenderRocket", rocket_one, "../Assets/Hunter1-right.bmp", "rocket");
-    std::shared_ptr<MoveCmp> moveRocket = std::make_shared<MoveCmp>("MoveRocket", rocket_one, sf::Vector2f(0, 0), 200.f);
+    std::shared_ptr<Component> renderRocket = std::make_shared<RenderCmp>("RenderRocket", rocket_one, "../Assets/Hunter1-right.bmp", "rocket");
+    std::shared_ptr<Component> moveRocket = std::make_shared<MoveCmp>("MoveRocket", rocket_one, sf::Vector2f(0, 0), 200.f);
 
-    rocket_one->addComponent("RenderRocket" ,std::dynamic_pointer_cast<Component>(renderRocket));
-    rocket_one->addComponent("MoveRocket",std::dynamic_pointer_cast<Component>(moveRocket));
+    rocket_one->addComponent("RenderRocket" ,renderRocket);
+    rocket_one->addComponent("MoveRocket",moveRocket);
     rocket_one->setPosition(sf::Vector2f(300, 500));
 
     //background
     std::shared_ptr<GameObject> background_one = std::make_shared<GameObject>();
     std::shared_ptr<GameObject> background_two = std::make_shared<GameObject>();
 
-    std::shared_ptr<RenderCmp> render_background_one = std::make_shared<RenderCmp>("RenderSpace", background_one, "../Assets/bg_space_seamless.png", "Space");
-    std::shared_ptr<RenderCmp> render_background_two = std::make_shared<RenderCmp>("RenderSpace2", background_one, "../Assets/bg_space_seamless.png", "Space2");
+    std::shared_ptr<Component> render_background_one = std::make_shared<RenderCmp>("RenderSpace", background_one, "../Assets/bg_space_seamless.png", "Space");
+    std::shared_ptr<Component> render_background_two = std::make_shared<RenderCmp>("RenderSpace2", background_one, "../Assets/bg_space_seamless.png", "Space2");
 
-    background_one->addComponent("background_one", std::dynamic_pointer_cast<Component>(render_background_one));
-    background_two->addComponent("background_two", std::dynamic_pointer_cast<Component>(render_background_two));
+    background_one->addComponent("background_one", render_background_one);
+    background_two->addComponent("background_two", render_background_two);
 
     //set position of second background after the first
     float width_texture = 0;
