@@ -1,6 +1,6 @@
 #pragma once
-#include <SFML/Graphics/Transformable.hpp>
-class RenderWindow;
+#include<memory>
+#include<SFML/Graphics/Transformable.hpp>
 
 class Component;
 class GameObject : public sf::Transformable		

@@ -36,6 +36,7 @@
 			Update(deltaTime);
 			GameStateManager::instance().draw(WindowManager::instance().m_window);
 			//Draw();
+
 		}
 	};
 
@@ -56,7 +57,7 @@
 		}
 		
 
-		if (InputManager::instance().isKeyUp("switch"))
+		if (InputManager::instance().isKeyUp("switch",1))
 		{
 			if (m_isGameInMenu)
 			{
@@ -85,8 +86,9 @@
 				WindowManager::instance().m_window.close();
 				
 			}
-			CloseGame(event.key);
+			
 			InputManager::instance().handleEvents(event);
+			CloseGame(event.key);
 		}
 	};
 

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <Filter Include="Source Files">
@@ -28,13 +28,13 @@
     <Filter Include="Source Files\Manager\GameStateManager">
       <UniqueIdentifier>{92ce41fc-8aa6-400b-8c7b-5ce0f061b220}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\GameObjects\Components">
-      <UniqueIdentifier>{1e26bee2-fcfc-4e1e-ae5b-ed1bfbbad3b1}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\GameObjects">
       <UniqueIdentifier>{9878e344-1c11-47aa-941d-9a0d2fe4e5d7}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\GameObjects\Components">
+    <Filter Include="Header Files\Components">
+      <UniqueIdentifier>{1e26bee2-fcfc-4e1e-ae5b-ed1bfbbad3b1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Components">
       <UniqueIdentifier>{d38beeaf-2964-42de-946d-42bf352df556}</UniqueIdentifier>
     </Filter>
   </ItemGroup>

@@ -13,7 +13,6 @@
 #include "MoveCmp.h"
 #include "MouseMoveCmp.h"
 
-
 void MenuState::init()
 {
 
@@ -31,7 +30,7 @@ void MenuState::update(float deltaTime)
 void MenuState::draw(sf::RenderWindow& m_window)
 {
     m_window.clear({ 255, 0, 255 });
-    m_window.draw(spriteLava);
+
     m_window.display();
 }
 
