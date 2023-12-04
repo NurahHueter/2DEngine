@@ -41,11 +41,11 @@ void MainState::init()
     //rocket_one -> mit WASD
     std::shared_ptr<GameObject> rocket_one = std::make_shared<GameObject>();
     std::shared_ptr<Component> renderRocket = std::make_shared<RenderCmp>("RenderRocket", rocket_one, "../Assets/Hunter1-right.bmp", "rocket");
-    std::shared_ptr<Component> moveRocket = std::make_shared<MoveCmp>("MoveRocket", rocket_one, sf::Vector2f(0, 0), 200.f);
+    std::shared_ptr<Component> moveRocket = std::make_shared<MoveCmp>("MoveRocket", rocket_one, sf::Vector2f(0, 0), 500.f);
 
     rocket_one->addComponent("RenderRocket" ,renderRocket);
     rocket_one->addComponent("MoveRocket",moveRocket);
-    rocket_one->setPosition(sf::Vector2f(300, 500));
+    rocket_one->setPosition(sf::Vector2f(22, -5));
 
     //background
     std::shared_ptr<GameObject> background_one = std::make_shared<GameObject>();
@@ -56,6 +56,33 @@ void MainState::init()
 
     background_one->addComponent("background_one", render_background_one);
     background_two->addComponent("background_two", render_background_two);
+
+    //camera
+    std::shared_ptr<GameObject> camera = std::make_shared<GameObject>();
+    //set the camera in the center of the screen, if you dont do this the 0,0 point is in the middle 
+    camera->setPosition(WindowManager::instance().m_window.getSize().x / 2, WindowManager::instance().m_window.getSize().y / 2);
+
+    //set size of size from window
+    std::shared_ptr<Component> cameraCmp = std::make_shared<CameraCmp>("camera", camera, sf::Vector2f(WindowManager::instance().m_window.getSize().x, WindowManager::instance().m_window.getSize().y));
+    camera->addComponent("camera", cameraCmp);
+ 
+
+    //add to map //wichtig auf reihenFolge achten -> wegen Draw
+    gameObjects.insert(std::make_pair("background_one", background_one));
+    gameObjects.insert(std::make_pair("background_two", background_two));
+    gameObjects.insert(std::make_pair("rocket_one", rocket_one));
+    gameObjects.insert(std::make_pair("camera", camera));
+
+
+
+    //init all Components in all gameObjects
+    for (auto& obj : gameObjects)
+    {
+        for (auto& cmp : obj.second->components)
+        {
+            cmp.second->init();
+        }
+    }
 
     //set position of second background after the first
     float width_texture = 0;
@@ -68,29 +95,6 @@ void MainState::init()
     }
     background_two->setPosition(sf::Vector2f(background_one->getPosition().x + width_texture, background_one->getPosition().y));
 
-    //camera
-    std::shared_ptr<GameObject> camera = std::make_shared<GameObject>();
-    //set size of size from window
-    std::shared_ptr<Component> cameraCmp = std::make_shared<CameraCmp>("camera", camera, sf::Vector2f(WindowManager::instance().m_window.getSize().x, WindowManager::instance().m_window.getSize().y));
-    camera->addComponent("camera", cameraCmp);
-
-    //add to map //wichtig auf reihenFolge achten -> wegen Draw
-    gameObjects.insert(std::make_pair("camera", camera));
-    gameObjects.insert(std::make_pair("rocket_one", rocket_one));
-    gameObjects.insert(std::make_pair("background_two", background_two));
-    gameObjects.insert(std::make_pair("background_one", background_one));
-
-
-  
-
-    //init all Components in all gameObjects
-    for (auto& obj : gameObjects)
-    {
-        for (auto& cmp : obj.second->components)
-        {
-            cmp.second->init();
-        }
-    }
 }
 
 
@@ -110,13 +114,13 @@ void MainState::update(float deltaTime)
     auto it_cam = gameObjects.find("camera");
     if (it_cam != gameObjects.end()) 
     {
-        it_cam->second->setPosition(sf::Vector2f(it_cam->second->getPosition().x + 2.f * deltaTime, it_cam->second->getPosition().y));
+        it_cam->second->setPosition(sf::Vector2f(it_cam->second->getPosition().x +10.f * deltaTime, it_cam->second->getPosition().y));
             
         //switch backgrounds for endless loop
         auto it_bg1 = gameObjects.find("background_one");
         auto it_bg2 = gameObjects.find("background_two");
             if (it_bg1 != gameObjects.end() && it_bg2 != gameObjects.end()) {
-                if (it_cam->second->getPosition().x >= it_bg2->second->getPosition().x)
+                if ((it_cam->second->getPosition().x) >= it_bg2->second->getPosition().x)
                 {
                     float width_texture = 0;
                     auto it = it_bg1->second->components.find("background_one");
@@ -135,7 +139,7 @@ void MainState::update(float deltaTime)
             auto it_rocket_one = gameObjects.find("rocket_one");
             if (it_rocket_one->second->getPosition().x <= it_cam->second->getPosition().x)
                 {
-                    it_rocket_one->second->setPosition(it_cam->second->getPosition().x, it_rocket_one->second->getPosition().y);
+                    it_rocket_one->second->setPosition(it_cam->second->getPosition().x - WindowManager::instance().m_window.getSize().x / 2, it_rocket_one->second->getPosition().y);
                 }
     }
 }
