@@ -1,7 +1,8 @@
     //GameState.h
     #pragma once
     #include <SFML/Graphics/RenderWindow.hpp>
-
+   
+    class GameObject;
     class GameStateManager;
     class GameState
     {
@@ -10,9 +11,12 @@
         virtual void exit() = 0;
         virtual void update(float deltaTime) = 0;
         virtual void draw(sf::RenderWindow& window) = 0;
-
-    private:
+ 
+    protected:
         GameStateManager* manager;
+        std::vector<std::string> assets;
+        std::map<std::string, std::shared_ptr<GameObject>> gameObjects = {};
+        
     };
 
     class MenuState : public GameState
@@ -23,7 +27,8 @@
         virtual void update(float deltaTime) override;
         virtual void draw(sf::RenderWindow& window) override;
     private:
-        sf::Sprite spriteLava;
+        bool setCamera = false;
+       
     };
 
     class MainState : public GameState
@@ -35,5 +40,9 @@
         virtual void draw(sf::RenderWindow& window) override;
 
     private:
-        sf::Sprite sprite;
+        int switchCount = 0;
+        bool setCamera = false;
+        //std::shared_ptr<Background> background;
+        //std::shared_ptr<Camera> camera;
+        //std::shared_ptr<Rocket2> rocket2;
     };

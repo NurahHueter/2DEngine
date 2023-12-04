@@ -21,6 +21,7 @@ struct AssetManager
 	void LoadSoundBuffer(std::string name, std::string filename);
 	void LoadMusic(std::string name, std::string filename);
 	void LoadFont(std::string name, std::string filename);
+
 	void UnloadTexture(std::string name);
 	void UnloadSoundBuffer(std::string name);
 	void UnloadMusic(std::string name);
@@ -28,10 +29,7 @@ struct AssetManager
 
 private:
 
-	AssetManager() 
-	{
-		
-	}
+	AssetManager() {}
 	~AssetManager() {}
 
 };

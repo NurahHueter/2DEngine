@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <Filter Include="Source Files">
@@ -60,23 +60,35 @@
     <ClCompile Include="InputManager.cpp">
       <Filter>Source Files\Manager</Filter>
     </ClCompile>
+    <ClCompile Include="CollisionCmp.cpp">
+      <Filter>Source Files\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderCmp.cpp">
+      <Filter>Source Files\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Component.cpp">
+      <Filter>Source Files\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="MoveCmp.cpp">
+      <Filter>Source Files\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Rocket2.cpp">
+      <Filter>Source Files\GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="WindowManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="GameObject.cpp">
       <Filter>Source Files\GameObjects</Filter>
     </ClCompile>
-    <ClCompile Include="Component.cpp">
-      <Filter>Source Files\GameObjects</Filter>
+    <ClCompile Include="CameraCmp.cpp">
+      <Filter>Source Files\Components</Filter>
     </ClCompile>
-    <ClCompile Include="CollisionComponent.cpp">
-      <Filter>Source Files\GameObjects\Components</Filter>
+    <ClCompile Include="MouseMoveCmp.cpp">
+      <Filter>Source Files\Components</Filter>
     </ClCompile>
-    <ClCompile Include="RenderComponent.cpp">
-      <Filter>Source Files\GameObjects\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="TransformComponent.cpp">
-      <Filter>Source Files\GameObjects\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="WindowManager.cpp">
-      <Filter>Source Files\Manager</Filter>
+    <ClCompile Include="ProjectilePoolCmp.cpp">
+      <Filter>Source Files\Components</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -101,20 +113,35 @@
     <ClInclude Include="GameState.h">
       <Filter>Header Files\Manager\GameStateManager</Filter>
     </ClInclude>
+    <ClInclude Include="RenderCmp.h">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="CollisionCmp.h">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
     <ClInclude Include="Component.h">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="MoveCmp.h">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Rocket2.h">
       <Filter>Header Files\GameObjects</Filter>
     </ClInclude>
-    <ClInclude Include="RenderComponent.h">
-      <Filter>Header Files\GameObjects\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="TransformComponent.h">
-      <Filter>Header Files\GameObjects\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="CollisionComponent.h">
-      <Filter>Header Files\GameObjects\Components</Filter>
+    <ClInclude Include="Projectile.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="WindowManager.h">
-      <Filter>Header Files\Manager</Filter>
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CameraCmp.h">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="MouseMoveCmp.h">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="ProjectilePoolCmp.h">
+      <Filter>Header Files\Components</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

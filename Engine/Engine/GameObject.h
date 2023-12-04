@@ -2,10 +2,20 @@
 #include <SFML/Graphics/Transformable.hpp>
 class RenderWindow;
 
-class GameObject 
+class Component;
+class GameObject : public sf::Transformable		
 {
-	virtual void Initialize()=0;
-	virtual void Update(float deltaTime)=0;	
+public:
+	void init();
+	void update(float deltaTime);
+	void draw(sf::RenderWindow& window);
+
+	void addComponent( std::string,std::shared_ptr<Component> component);
+	std::shared_ptr<Component> getComponent(std::string id);
+	void deleteComponent(std::shared_ptr<Component> component);
+
+	std::map< std::string, std::shared_ptr<Component>> components;
+
 };		
 
 
