@@ -80,7 +80,6 @@ void AssetManager::UnloadFont(std::string name) {
 }
 
 
-
 //this->Textures[name] = texture;
 
 // Music loadFromFile??

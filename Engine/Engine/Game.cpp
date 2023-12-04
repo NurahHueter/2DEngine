@@ -6,13 +6,21 @@
 #include "AssetManager.h"
 #include "GameStateManager.h"
 #include "GameState.h"
+#include "WindowManager.h"
 
 
 	void Game::Initialize()
 	{
-		//InputManager::instance().Init(m_window);  //pointer?
+		WindowManager::instance().m_window.create({ 800, 400 }, "SFML Window");
 		InputManager::instance().bind("switch", sf::Keyboard::Key::Space,1);
-		InputManager::instance().bind("music", sf::Keyboard::Key::W,1);
+		InputManager::instance().bind("music", sf::Keyboard::Key::M,1);
+		InputManager::instance().bind("up", sf::Keyboard::Key::W, 1);
+		InputManager::instance().bind("down", sf::Keyboard::Key::S, 1);
+		InputManager::instance().bind("left", sf::Keyboard::Key::A, 1);
+		InputManager::instance().bind("right", sf::Keyboard::Key::D, 1);
+		InputManager::instance().bind("shoot", sf::Keyboard::Key::R, 1);
+		InputManager::instance().bind("leftclick", sf::Mouse::Left, 2);
+
 		GameStateManager::instance().Init();
 		GameStateManager::instance().setState("MainState");	
 	};
@@ -21,12 +29,12 @@
 	{
 		Initialize();
 
-		while (m_window.isOpen())
+		while (WindowManager::instance().m_window.isOpen())
 		{
 			float deltaTime = m_clock.restart().asSeconds();
 			HandleEvents();
 			Update(deltaTime);
-			GameStateManager::instance().draw(m_window);
+			GameStateManager::instance().draw(WindowManager::instance().m_window);
 			//Draw();
 
 		}
@@ -35,7 +43,7 @@
 	
 	void Game::Update(float deltaTime)
 	{
-
+		
 		if (InputManager::instance().isKeyDown("music",1))
 		{
 			if (AssetManager::instance().m_Music.find("cooleMusik") != AssetManager::instance().m_Music.end())
@@ -71,11 +79,11 @@
 	void Game::HandleEvents() 
 	{
 		sf::Event event;
-		while (m_window.pollEvent(event))
+		while (WindowManager::instance().m_window.pollEvent(event))
 		{
 			if (event.type == sf::Event::Closed)
 			{
-				m_window.close();
+				WindowManager::instance().m_window.close();
 				
 			}
 			
@@ -88,7 +96,7 @@
 	{
 		if (e.code == sf::Keyboard::Key::Escape)
 		{
-			m_window.close();
+			WindowManager::instance().m_window.close();
 		}
 	};
 
