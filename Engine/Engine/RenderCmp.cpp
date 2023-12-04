@@ -11,8 +11,10 @@
 //}
 void RenderCmp::init()
 {
-	AssetManager::instance().LoadTexture(textureName, textureFilePath);
-	sprite->setTexture(*AssetManager::instance().m_Textures[textureName]);
+	if (std::shared_ptr<sf::Texture> tempP = p_texture.lock()) //check if Gameobject is nullptr
+	{
+		sprite->setTexture(*tempP);
+	}
 }
 
 void RenderCmp::update(float deltetime)

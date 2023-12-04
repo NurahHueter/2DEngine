@@ -14,6 +14,7 @@
  
     protected:
         GameStateManager* manager;
+        std::vector<std::string> assets;
         std::map<std::string, std::shared_ptr<GameObject>> gameObjects = {};
         
     };
