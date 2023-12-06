@@ -1,12 +1,14 @@
     //GameState.h
     #pragma once
     #include <SFML/Graphics/RenderWindow.hpp>
+    #include "MapTile.h"
    
     class GameObject;
     class GameStateManager;
     class GameState
     {
     public:
+        MapTile mapTile;
         virtual void init() = 0;
         virtual void exit() = 0;
         virtual void update(float deltaTime) = 0;
