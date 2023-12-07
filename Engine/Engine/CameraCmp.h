@@ -13,10 +13,10 @@ public:
 	void update(float deltaTime) override;
 	void draw(sf::RenderWindow& window) override;
 
-	void rotate(float degree);
-	void zoom(float zoom);
-	void setSize(sf::Vector2f size);
-	void setViewPort(sf::FloatRect viewPort);
+	void rotate(float& degree);
+	void zoom(float& zoom);
+	void setSize(sf::Vector2f& size);
+	void setViewPort(sf::FloatRect& viewPort);
 
 	std::weak_ptr<GameObject> gameObject;
 	sf::Vector2f size;

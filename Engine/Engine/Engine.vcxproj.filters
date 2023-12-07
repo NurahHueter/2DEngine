@@ -125,9 +125,6 @@
     <ClInclude Include="MoveCmp.h">
       <Filter>Header Files\Components</Filter>
     </ClInclude>
-    <ClInclude Include="Rocket2.h">
-      <Filter>Header Files\GameObjects</Filter>
-    </ClInclude>
     <ClInclude Include="Projectile.h">
       <Filter>Header Files</Filter>
     </ClInclude>

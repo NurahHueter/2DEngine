@@ -55,9 +55,6 @@ private:
     std::map<int, bool> m_isMousePressed{};
     std::map<int, bool> m_isMouseUp{};
 	
- //   void OnKeyPressed(const Event::KeyEvent& e) ;
-	//void OnKeyReleased(const Event::KeyEvent& e);
-
     class BindingForPlayer {
     public:
         int keyCode;

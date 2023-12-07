@@ -26,9 +26,6 @@
         virtual void exit() override;
         virtual void update(float deltaTime) override;
         virtual void draw(sf::RenderWindow& window) override;
-    private:
-        bool setCamera = false;
-       
     };
 
     class MainState : public GameState
@@ -41,8 +38,4 @@
 
     private:
         int switchCount = 0;
-        bool setCamera = false;
-        //std::shared_ptr<Background> background;
-        //std::shared_ptr<Camera> camera;
-        //std::shared_ptr<Rocket2> rocket2;
     };

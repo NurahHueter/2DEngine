@@ -180,7 +180,6 @@ sfml-window-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     <ClInclude Include="pch.h" />
     <ClInclude Include="ProjectilePoolCmp.h" />
     <ClInclude Include="RenderCmp.h" />
-    <ClInclude Include="Rocket2.h" />
     <ClInclude Include="WindowManager.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
