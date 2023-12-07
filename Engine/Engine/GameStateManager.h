@@ -22,8 +22,8 @@ public:
     void draw(sf::RenderWindow& m_window);
     void Init();
     void setState(std::string stateName);
-   
-
+    void CloseGame();
+  
 private:
     ~GameStateManager() {}
     std::map<std::string, std::shared_ptr<GameState>> states;

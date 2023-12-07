@@ -4,7 +4,7 @@
 class Sprite;
 class Texture;
 class GameObject;
-class RenderCmp : public Component, public std::enable_shared_from_this<RenderCmp>
+class RenderCmp : public Component
 {
 public:                                                         
 	RenderCmp(std::string id,std::weak_ptr<GameObject> gameObject, std::weak_ptr<sf::Texture> p_texture)

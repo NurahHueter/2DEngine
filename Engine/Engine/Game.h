@@ -6,12 +6,6 @@ class Game
 {
 public:
 	void Run();
-
-	Game() 
-	{
-		//m_window.setVerticalSyncEnabled(true);
-		//m_window.KeyPressed += CloseGame;		
-	}
 	sf::Color m_bg_color = { 0, 0, 255 };
 
 private: 
@@ -21,6 +15,5 @@ private:
 	void CloseGame(sf::Event::KeyEvent& e);
 
 	sf::Clock m_clock;
-	
 	bool m_isGameInMenu = true;	
 };

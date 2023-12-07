@@ -36,3 +36,9 @@ void GameStateManager::setState(std::string stateName) {
         currentState->init();
     }
 }
+
+void GameStateManager::CloseGame()
+{
+    currentState->exit();
+    states.clear();
+}

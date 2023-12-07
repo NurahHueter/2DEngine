@@ -23,22 +23,22 @@ void CameraCmp::draw(sf::RenderWindow& window)
 	window.setView(view);
 };
 
-void CameraCmp::rotate(float degree)
+void CameraCmp::rotate(float& degree)
 {
 	view.rotate(degree);
 };
 
-void CameraCmp::zoom(float zoom)
+void CameraCmp::zoom(float& zoom)
 {
 	view.rotate(zoom);
 };
 
-void CameraCmp::setSize(sf::Vector2f size)
+void CameraCmp::setSize(sf::Vector2f& size)
 {
 	view.setSize(size);
 };
 
-void CameraCmp::setViewPort(sf::FloatRect viewPort)
+void CameraCmp::setViewPort(sf::FloatRect& viewPort)
 {
 	view.setViewport(viewPort);
 };

@@ -12,6 +12,7 @@
 	void Game::Initialize()
 	{
 		WindowManager::instance().m_window.create({ 800, 400 }, "SFML Window");
+
 		InputManager::instance().bind("switch", sf::Keyboard::Key::Space,1);
 		InputManager::instance().bind("music", sf::Keyboard::Key::M,1);
 		InputManager::instance().bind("up", sf::Keyboard::Key::W, 1);
@@ -35,28 +36,12 @@
 			HandleEvents();
 			Update(deltaTime);
 			GameStateManager::instance().draw(WindowManager::instance().m_window);
-			//Draw();
-
 		}
 	};
 
 	
 	void Game::Update(float deltaTime)
 	{
-		
-		if (InputManager::instance().isKeyDown("music",1))
-		{
-			if (AssetManager::instance().m_Music.find("cooleMusik") != AssetManager::instance().m_Music.end())
-			{
-					AssetManager::instance().m_Music["cooleMusik"]->play();
-			}
-			else
-			{
-				std::cout << "Musik wurde nicht gefunden" << std::endl;
-			}
-		}
-		
-
 		if (InputManager::instance().isKeyUp("switch",1))
 		{
 			if (m_isGameInMenu)
@@ -73,7 +58,6 @@
 
 		GameStateManager::instance().update(deltaTime);
 		InputManager::instance().update();
-
 	}
 
 	void Game::HandleEvents() 
@@ -83,8 +67,9 @@
 		{
 			if (event.type == sf::Event::Closed)
 			{
+				GameStateManager::instance().CloseGame();
+				Game::~Game();
 				WindowManager::instance().m_window.close();
-				
 			}
 			
 			InputManager::instance().handleEvents(event);
@@ -96,7 +81,9 @@
 	{
 		if (e.code == sf::Keyboard::Key::Escape)
 		{
+			GameStateManager::instance().CloseGame();
 			WindowManager::instance().m_window.close();
+			Game::~Game();
 		}
 	};
 
