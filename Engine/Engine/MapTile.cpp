@@ -8,7 +8,6 @@
 #include "GameStateManager.h"
 #include "GameState.h"
 #include "WindowManager.h"
-#include "RenderCmp.h"
 #include "MapTile.h"
 
 

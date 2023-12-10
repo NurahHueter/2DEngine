@@ -5,7 +5,7 @@
 #include <unordered_map>
 #include <vector>
 #include "tileson.hpp"
-#include "RenderCmp.h"
+#include "IRenderComponent.h"
 #include "Game.h"
 #include "InputManager.h"
 #include "AssetManager.h"

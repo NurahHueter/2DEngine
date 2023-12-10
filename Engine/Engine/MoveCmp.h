@@ -1,19 +1,17 @@
 #pragma once
-#include "Component.h"
+#include "IComponent.h"
 #include<memory>
 
 class GameObject;
-class MoveCmp : public Component
+class MoveCmp : public IComponent
 {
 public:
-	MoveCmp(std::string id, std::weak_ptr<GameObject> gameObject, sf::Vector2f direction, float velocity)
-		:Component(id), gameObject(gameObject), direction(direction), velocity(velocity) {};
-	void init() override {};
+	MoveCmp(GameObject& gameObject, sf::Vector2f direction, float velocity)
+		:IComponent(gameObject), direction(direction), velocity(velocity) {};
+	bool init() override {};
 	void update(float deltaTime) override;
-	void draw(sf::RenderWindow& window) override {};
 
 private:
-	std::weak_ptr<GameObject> gameObject;
 	sf::Vector2f direction;
 	float velocity;
 };

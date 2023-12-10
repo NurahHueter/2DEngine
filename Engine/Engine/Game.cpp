@@ -21,6 +21,7 @@
 		InputManager::instance().bind("right", sf::Keyboard::Key::D, 1);
 		InputManager::instance().bind("shoot", sf::Keyboard::Key::R, 1);
 		InputManager::instance().bind("leftclick", sf::Mouse::Left, 2);
+		InputManager::instance().bind("debugdraw", sf::Keyboard::Key::Num0, 1);
 
 		GameStateManager::instance().Init();
 		GameStateManager::instance().setState("MainState");	

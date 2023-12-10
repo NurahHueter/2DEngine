@@ -1,44 +1,52 @@
-#pragma once
 #include "pch.h"
+
 #include "GameObject.h"
-#include "Component.h"
 
-void GameObject::init()
-{
-    for (const auto& component : components)
-    {
-        component.second->init();
-    }
-};
-void GameObject::update(float deltaTime)
-{
-    for (const auto& component : components)
-    {
-        component.second->update(deltaTime);
-    }
-};
-void GameObject::draw(sf::RenderWindow& window)
-{
-    for (const auto& component : components)
-    {
-        component.second->draw(window);
-    }
-};
-void GameObject::addComponent(std::string key,std::shared_ptr<Component> component)
-{
-    components.insert(std::make_pair(key, component));
-};
-std::shared_ptr<Component> GameObject::getComponent(std::string id)
-{
-    return components[id];
-}
-void GameObject::deleteComponent(std::shared_ptr<Component> component)
-{
-    auto it = components.find(component->getId());
+#include "IRenderComponent.h"
 
-    if (it != components.end())
-    {
-        components.erase(it);
-    }
-};
 
+    void GameObject::addComponent(const IComponent::Ptr& component)
+    {
+        m_componentList.push_back(component);
+    }
+
+    void GameObject::removeComponent(const IComponent::Ptr& component)
+    {
+        if (const auto it = std::find(m_componentList.begin(), m_componentList.end(), component); it != m_componentList.end())
+        {
+            m_componentList.erase(it);
+        }
+    }
+
+    void GameObject::update(const float deltaTime) const
+    {
+        for (const auto& comp : m_componentList)
+        {
+            comp->update(deltaTime);
+        }
+    }
+
+    void GameObject::draw() const
+    {
+        for (const auto& component : m_componentList)
+        {
+            if (const auto comp = std::dynamic_pointer_cast<IRenderComponent>(component))
+            {
+                comp->draw();
+            }
+        }
+    }
+
+    bool GameObject::init() const
+    {
+        for (const auto& comp : m_componentList) // NOLINT(readability-use-anyofallof)
+        {
+            if (!comp->init())
+            {
+                sf::err() << "Could not initialize component of object " << m_id << std::endl;
+                return false;
+            }
+        }
+        return true;
+    }
+     

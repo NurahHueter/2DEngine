@@ -3,24 +3,20 @@
 #include "GameObject.h"
 #include "CameraCmp.h"
 
-void CameraCmp::init()
+bool CameraCmp::init()
 {
-	if (std::shared_ptr<GameObject> tempP = gameObject.lock()) //check if Gameobject is nullptr
-	{
-		view.reset(sf::FloatRect(tempP->getPosition(), size));
-	}
+	view.reset(sf::FloatRect(gameObject.getPosition(), size));
+	return true;
 }
 void CameraCmp::update(float deltaTime)
 {
-	if (std::shared_ptr<GameObject> tempP = gameObject.lock())
-	{
-		view.setCenter(tempP->getPosition());
-	}
+	view.setCenter(gameObject.getPosition());
+
 }
 
-void CameraCmp::draw(sf::RenderWindow& window)
+void CameraCmp::draw()
 {
-	window.setView(view);
+	m_renderWindow.setView(view);
 };
 
 void CameraCmp::rotate(float& degree)
