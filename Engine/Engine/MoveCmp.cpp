@@ -3,13 +3,14 @@
 #include "GameObject.h"
 #include "InputManager.h"
 #include "MoveCmp.h"
-
-void MoveCmp::update(float deltaTime) 
+namespace mmt_gd
 {
+    void MoveCmp::update(float deltaTime)
+    {
 
         if (InputManager::instance().isKeyPressed("up", 1))
         {
-         direction = sf::Vector2f(0, -1);
+            direction = sf::Vector2f(0, -1);
         }
         if (InputManager::instance().isKeyPressed("down", 1))
         {
@@ -28,4 +29,5 @@ void MoveCmp::update(float deltaTime)
         gameObject.setPosition(newPos);
         direction = sf::Vector2f(0, 0);
 
-};
+    };
+}

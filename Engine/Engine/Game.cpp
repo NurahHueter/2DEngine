@@ -7,14 +7,15 @@
 #include "GameStateManager.h"
 #include "GameState.h"
 #include "WindowManager.h"
-
+namespace mmt_gd
+{
 
 	void Game::Initialize()
 	{
 		WindowManager::instance().m_window.create({ 800, 400 }, "SFML Window");
 
-		InputManager::instance().bind("switch", sf::Keyboard::Key::Space,1);
-		InputManager::instance().bind("music", sf::Keyboard::Key::M,1);
+		InputManager::instance().bind("switch", sf::Keyboard::Key::Space, 1);
+		InputManager::instance().bind("music", sf::Keyboard::Key::M, 1);
 		InputManager::instance().bind("up", sf::Keyboard::Key::W, 1);
 		InputManager::instance().bind("down", sf::Keyboard::Key::S, 1);
 		InputManager::instance().bind("left", sf::Keyboard::Key::A, 1);
@@ -24,10 +25,10 @@
 		InputManager::instance().bind("debugdraw", sf::Keyboard::Key::Num0, 1);
 
 		GameStateManager::instance().Init();
-		GameStateManager::instance().setState("MainState");	
+		GameStateManager::instance().setState("MainState");
 	};
 
-	void Game::Run() 
+	void Game::Run()
 	{
 		Initialize();
 
@@ -40,10 +41,10 @@
 		}
 	};
 
-	
+
 	void Game::Update(float deltaTime)
 	{
-		if (InputManager::instance().isKeyUp("switch",1))
+		if (InputManager::instance().isKeyUp("switch", 1))
 		{
 			if (m_isGameInMenu)
 			{
@@ -54,14 +55,14 @@
 			{
 				GameStateManager::instance().setState("MainState");
 				m_isGameInMenu = true;
-			}	
+			}
 		}
 
 		GameStateManager::instance().update(deltaTime);
 		InputManager::instance().update();
 	}
 
-	void Game::HandleEvents() 
+	void Game::HandleEvents()
 	{
 		sf::Event event;
 		while (WindowManager::instance().m_window.pollEvent(event))
@@ -72,7 +73,7 @@
 				Game::~Game();
 				WindowManager::instance().m_window.close();
 			}
-			
+
 			InputManager::instance().handleEvents(event);
 			CloseGame(event.key);
 		}
@@ -87,5 +88,5 @@
 			Game::~Game();
 		}
 	};
-
+}
 

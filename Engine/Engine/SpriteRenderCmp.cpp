@@ -2,24 +2,26 @@
 #include"pch.h"
 #include"SpriteRenderCmp.h"
 #include "GameObject.h"
-
-
- bool SpriteRenderCmp::init()
+namespace mmt_gd
 {
-	if (std::shared_ptr<sf::Texture> tempP = p_texture.lock()) //check if Texture is nullptr
+
+	bool SpriteRenderCmp::init()
 	{
-		sprite->setTexture(*tempP);
-		return true;
+		if (std::shared_ptr<sf::Texture> tempP = p_texture.lock()) //check if Texture is nullptr
+		{
+			sprite->setTexture(*tempP);
+			return true;
+		}
+		return false;
 	}
-	return false;
-}
 
-void SpriteRenderCmp::update(float deltetime)
-{
+	void SpriteRenderCmp::update(float deltetime)
+	{
 		sprite->setPosition(gameObject.getPosition());
-}
+	}
 
-void SpriteRenderCmp::draw()
-{
-	m_renderWindow.draw(*sprite);
+	void SpriteRenderCmp::draw()
+	{
+		m_renderWindow.draw(*sprite);
+	}
 }

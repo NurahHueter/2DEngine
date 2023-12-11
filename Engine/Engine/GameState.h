@@ -2,7 +2,8 @@
     #pragma once
     #include <SFML/Graphics/RenderWindow.hpp>
     #include "MapTile.h"
-   
+namespace mmt_gd
+{
     class GameObject;
     class GameStateManager;
     class GameState
@@ -13,12 +14,12 @@
         virtual void exit() = 0;
         virtual void update(float deltaTime) = 0;
         virtual void draw(sf::RenderWindow& window) = 0;
- 
+
     protected:
         GameStateManager* manager;
         std::vector<std::string> assets;
         std::map<std::string, std::shared_ptr<GameObject>> gameObjects = {};
-        
+
     };
 
     class MenuState : public GameState
@@ -41,3 +42,4 @@
     private:
         int switchCount = 0;
     };
+}

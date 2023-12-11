@@ -4,7 +4,8 @@
 
 #include "IRenderComponent.h"
 
-
+namespace mmt_gd
+{
     void GameObject::addComponent(const IComponent::Ptr& component)
     {
         m_componentList.push_back(component);
@@ -49,4 +50,5 @@
         }
         return true;
     }
+}
      

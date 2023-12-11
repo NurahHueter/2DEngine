@@ -1,69 +1,71 @@
 #include "pch.h"
 #include "GameObjectManager.h"
-
-void GameObjectManager::init()
+namespace mmt_gd
 {
-}
-
-void GameObjectManager::shutdown()
-{
-    m_gameObjects.clear();
-}
-
-void GameObjectManager::update(const float deltaTime)
-{
-    std::vector<GameObject::Ptr> gameObjectsToDelete{};
-
-    for (const auto& goPair : getGameObjects())
+    void GameObjectManager::init()
     {
-        if (goPair.second->isMarkedForDelete())
+    }
+
+    void GameObjectManager::shutdown()
+    {
+        m_gameObjects.clear();
+    }
+
+    void GameObjectManager::update(const float deltaTime)
+    {
+        std::vector<GameObject::Ptr> gameObjectsToDelete{};
+
+        for (const auto& goPair : getGameObjects())
         {
-            gameObjectsToDelete.push_back(goPair.second);
+            if (goPair.second->isMarkedForDelete())
+            {
+                gameObjectsToDelete.push_back(goPair.second);
+            }
+            else if (goPair.second->isActive())
+            {
+                goPair.second->update(deltaTime);
+            }
         }
-        else if (goPair.second->isActive())
+        for (const auto& go : gameObjectsToDelete)
         {
-            goPair.second->update(deltaTime);
+            removeGameObject(go);
         }
     }
-    for (const auto& go : gameObjectsToDelete)
-    {
-        removeGameObject(go);
-    }
-}
 
-void GameObjectManager::draw()
-{
-    for (const auto& goPair : getGameObjects())
+    void GameObjectManager::draw()
     {
-        goPair.second->draw();
+        for (const auto& goPair : getGameObjects())
+        {
+            goPair.second->draw();
+        }
     }
-}
 
-void GameObjectManager::addGameObject(const GameObject::Ptr& gameObject)
-{
-    if (m_gameObjects.find(gameObject->getId()) == m_gameObjects.end())
+    void GameObjectManager::addGameObject(const GameObject::Ptr& gameObject)
     {
-       std::cout << "Game object with this m_id already exists " << gameObject->getId() << std::endl;
-        m_gameObjects[gameObject->getId()] = gameObject;
+        if (m_gameObjects.find(gameObject->getId()) == m_gameObjects.end())
+        {
+            std::cout << "Game object with this m_id already exists " << gameObject->getId() << std::endl;
+            m_gameObjects[gameObject->getId()] = gameObject;
+        }
+
     }
-     
-}
 
-GameObject::Ptr GameObjectManager::getGameObject(const std::string& id) const
-{
-    const auto it = m_gameObjects.find(id);
-    if (it == m_gameObjects.end())
+    GameObject::Ptr GameObjectManager::getGameObject(const std::string& id) const
     {
-        std::cout << "Could not find gameobject with m_id " + id ;
-        return nullptr;
+        const auto it = m_gameObjects.find(id);
+        if (it == m_gameObjects.end())
+        {
+            std::cout << "Could not find gameobject with m_id " + id;
+            return nullptr;
+        }
+        return it->second;
     }
-    return it->second;
-}
 
-void GameObjectManager::removeGameObject(const std::shared_ptr<GameObject>& go)
-{
-    if (m_gameObjects.find(go->getId()) != m_gameObjects.end())
+    void GameObjectManager::removeGameObject(const std::shared_ptr<GameObject>& go)
     {
-        m_gameObjects.erase(go->getId());
+        if (m_gameObjects.find(go->getId()) != m_gameObjects.end())
+        {
+            m_gameObjects.erase(go->getId());
+        }
     }
 }

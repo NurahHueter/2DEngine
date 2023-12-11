@@ -5,7 +5,8 @@
 #include "InputManager.h"
 #include "VectorAlgebra2D.h"
 
-
+namespace mmt_gd
+{
 
     DebugDraw::DebugDraw() : m_enabled(true)
     {
@@ -158,4 +159,4 @@
 
         m_shapes.clear();
     }
-
+}

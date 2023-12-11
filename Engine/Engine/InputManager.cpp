@@ -3,7 +3,8 @@
 #include "InputManager.h"
 #include "WindowManager.h"
 
-
+namespace mmt_gd
+{
 	void InputManager::update()
 	{
 		for (auto& kv : m_isKeyDown)
@@ -52,7 +53,7 @@
 
 	bool InputManager::isKeyUp(const std::string& action, int playerIdx)
 	{
-		if (m_bindings.find(action) != m_bindings.end())	
+		if (m_bindings.find(action) != m_bindings.end())
 		{
 			auto binding = m_bindings[action];
 			return isKeyUp(binding.keyCode) && binding.playerIdx == playerIdx;
@@ -150,8 +151,8 @@
 		}
 		if (event.type == sf::Event::EventType::MouseButtonPressed)
 		{
-				m_isMouseDown[event.key.code] = true;
-				m_isMousePressed[event.key.code] = true;
+			m_isMouseDown[event.key.code] = true;
+			m_isMousePressed[event.key.code] = true;
 		}
 		if (event.type == sf::Event::EventType::MouseButtonReleased)
 		{
@@ -166,3 +167,4 @@
 		sf::Vector2f worldMousePosition = WindowManager::instance().m_window.mapPixelToCoords(sf::Mouse::getPosition(WindowManager::instance().m_window));
 		return worldMousePosition;
 	}
+}
