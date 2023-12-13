@@ -63,10 +63,6 @@
             return std::move(result);
         }
 
-        /**
-         * \brief Initialize all added components
-         * \return true if all components were initialized successfully
-         */
         bool init() const;
 
         void update(float deltaTime) const;

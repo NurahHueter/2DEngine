@@ -10,6 +10,7 @@ void MouseMoveCmp::update(float deltaTime)
         if (InputManager::instance().isMouseDown("leftclick", 2))
         {
             targetPosition = InputManager::instance().getMousPosition();
+            std::cout << "yay" << std::endl;
         }
         direction = targetPosition - gameObject.getPosition();// Man berechnet den vektor von der Rakte zum MausClick
         float distance = std::sqrt(direction.x * direction.x + direction.y * direction.y);

@@ -8,7 +8,7 @@ class MoveCmp : public IComponent
 public:
 	MoveCmp(GameObject& gameObject, sf::Vector2f direction, float velocity)
 		:IComponent(gameObject), direction(direction), velocity(velocity) {};
-	bool init() override {};
+	bool init() override { return true; };
 	void update(float deltaTime) override;
 
 private:

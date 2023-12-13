@@ -1,6 +1,7 @@
     //GameState.h
     #pragma once
     #include <SFML/Graphics/RenderWindow.hpp>
+    #include "GameObjectManager.h"
     #include "MapTile.h"
    
     class GameObject;
@@ -17,8 +18,6 @@
     protected:
         GameStateManager* manager;
         std::vector<std::string> assets;
-        std::map<std::string, std::shared_ptr<GameObject>> gameObjects = {};
-        
     };
 
     class MenuState : public GameState
@@ -39,5 +38,5 @@
         virtual void draw(sf::RenderWindow& window) override;
 
     private:
-        int switchCount = 0;
+        GameObjectManager m_gameObjectManager;
     };

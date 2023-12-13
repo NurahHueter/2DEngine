@@ -6,8 +6,8 @@ class GameObject;
 class CameraCmp final : public IRenderComponent
 {
 public:
-	CameraCmp(GameObject& gameObject, sf::RenderWindow& renderWindow, sf::Vector2f size)
-		:IRenderComponent(gameObject, renderWindow), size(size) {};
+	CameraCmp(GameObject& gameObject, sf::RenderWindow& renderWindow, sf::Vector2f size, GameObject& target)
+		:IRenderComponent(gameObject, renderWindow), size(size), target(target) {};
 
 	bool init() override;
 	void update(float deltaTime) override;
@@ -20,4 +20,6 @@ public:
 
 	sf::Vector2f size;
 	sf::View view;
+
+	GameObject& target;
 };

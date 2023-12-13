@@ -9,6 +9,7 @@
 #include "GameState.h"
 #include "WindowManager.h"
 #include "MapTile.h"
+#include "GameObject.h"
 
 
 using namespace sf;

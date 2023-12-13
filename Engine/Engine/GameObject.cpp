@@ -46,6 +46,10 @@
                 sf::err() << "Could not initialize component of object " << m_id << std::endl;
                 return false;
             }
+            else
+            {
+                comp->init();
+            }
         }
         return true;
     }

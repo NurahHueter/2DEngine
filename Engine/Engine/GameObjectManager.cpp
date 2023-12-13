@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "GameObjectManager.h"
+#include "Debug.h"
 
 void GameObjectManager::init()
 {
@@ -41,11 +42,10 @@ void GameObjectManager::draw()
 
 void GameObjectManager::addGameObject(const GameObject::Ptr& gameObject)
 {
-    if (m_gameObjects.find(gameObject->getId()) == m_gameObjects.end())
-    {
-       std::cout << "Game object with this m_id already exists " << gameObject->getId() << std::endl;
+    ffAssertMsg(m_gameObjects.find(gameObject->getId()) == m_gameObjects.end(),
+        "Game object with this m_id already exists " + gameObject->getId())
+
         m_gameObjects[gameObject->getId()] = gameObject;
-    }
      
 }
 
@@ -54,8 +54,7 @@ GameObject::Ptr GameObjectManager::getGameObject(const std::string& id) const
     const auto it = m_gameObjects.find(id);
     if (it == m_gameObjects.end())
     {
-        std::cout << "Could not find gameobject with m_id " + id ;
-        return nullptr;
+        ffErrorMsg("Could not find gameobject with m_id " + id) return nullptr;
     }
     return it->second;
 }

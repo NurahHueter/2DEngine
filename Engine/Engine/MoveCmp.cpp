@@ -27,5 +27,4 @@ void MoveCmp::update(float deltaTime)
         sf::Vector2f newPos = gameObject.getPosition() + direction * velocity * deltaTime;
         gameObject.setPosition(newPos);
         direction = sf::Vector2f(0, 0);
-
 };
