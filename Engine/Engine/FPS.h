@@ -1,6 +1,7 @@
 #pragma once
 #include <SFML/System.hpp>
-
+namespace mmt_gd
+{
     /**
      * \brief FPS-Counter inspired by https://gist.github.com/kenpower/7233967
      */
@@ -35,3 +36,4 @@
         }
     };
 
+}

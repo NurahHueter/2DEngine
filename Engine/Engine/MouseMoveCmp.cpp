@@ -3,9 +3,10 @@
 #include "GameObject.h"
 #include "InputManager.h"
 #include "MouseMoveCmp.h"
-
-void MouseMoveCmp::update(float deltaTime)
+namespace mmt_gd
 {
+    void MouseMoveCmp::update(float deltaTime)
+    {
 
         if (InputManager::instance().isMouseDown("leftclick", 2))
         {
@@ -26,5 +27,6 @@ void MouseMoveCmp::update(float deltaTime)
         sf::Vector2f newPos = gameObject.getPosition() + direction * velocity * deltaTime;
         gameObject.setPosition(newPos);
         direction = sf::Vector2f(0, 0);
-  
-};
+
+    };
+}

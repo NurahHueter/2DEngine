@@ -13,8 +13,7 @@
 #include "SpriteRenderCmp.h"
 #include "MoveCmp.h"
 #include "MouseMoveCmp.h"
-
-void MainState::init()
+namespace mmt_gd
 {
     //all AsstetsforTheState
     AssetManager::instance().LoadTexture("rocket", "../Assets/Hunter1-right.bmp");

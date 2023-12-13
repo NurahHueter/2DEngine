@@ -1,29 +1,31 @@
 #pragma once
 #include"pch.h"
-
-struct WindowManager
+namespace mmt_gd
 {
-	static
-		WindowManager&
-		instance()
+	struct WindowManager
 	{
-		static WindowManager w;
-		return w;
-	} // instance
+		static
+			WindowManager&
+			instance()
+		{
+			static WindowManager w;
+			return w;
+		} // instance
 
-	WindowManager(const WindowManager&) = delete;
-	WindowManager& operator = (const WindowManager&) = delete;
-	
+		WindowManager(const WindowManager&) = delete;
+		WindowManager& operator = (const WindowManager&) = delete;
 
-	sf::RenderWindow m_window;
 
-private:
+		sf::RenderWindow m_window;
 
-	WindowManager()
-	{
-		m_window.setVerticalSyncEnabled(true);
-		//m_window.KeyPressed += CloseGame;		
-	}
-	~WindowManager() {}
+	private:
 
-};
+		WindowManager()
+		{
+			m_window.setVerticalSyncEnabled(true);
+			//m_window.KeyPressed += CloseGame;		
+		}
+		~WindowManager() {}
+
+	};
+}

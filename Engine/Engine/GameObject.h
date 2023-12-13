@@ -7,7 +7,8 @@
 #include <string>
 #include <utility>
 
-
+namespace mmt_gd
+{
     class GameObject final : public sf::Transformable
     {
     public:
@@ -105,4 +106,5 @@
 
         std::vector<IComponent::Ptr> m_componentList;
     };
+}
 

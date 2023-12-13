@@ -7,7 +7,7 @@
     {
         {
             std::cout << "Läuft ;)" << std::endl;
-            std::unique_ptr<Game> game = std::make_unique<Game>();
+            std::unique_ptr<mmt_gd::Game> game = std::make_unique<mmt_gd::Game>();
             game->Run();
 
 
@@ -17,4 +17,3 @@
 
         return 0;
     }
-

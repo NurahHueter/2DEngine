@@ -3,7 +3,8 @@
     #include <SFML/Graphics/RenderWindow.hpp>
     #include "GameObjectManager.h"
     #include "MapTile.h"
-   
+namespace mmt_gd
+{
     class GameObject;
     class GameStateManager;
     class GameState
@@ -14,7 +15,7 @@
         virtual void exit() = 0;
         virtual void update(float deltaTime) = 0;
         virtual void draw(sf::RenderWindow& window) = 0;
- 
+
     protected:
         GameStateManager* manager;
         std::vector<std::string> assets;
@@ -40,3 +41,4 @@
     private:
         GameObjectManager m_gameObjectManager;
     };
+}

@@ -1,22 +1,20 @@
 #pragma once
 #include "IRenderComponent.h"
 #include<memory>
-
-class GameObject;
-class CameraCmp final : public IRenderComponent
+namespace mmt_gd
 {
 public:
 	CameraCmp(GameObject& gameObject, sf::RenderWindow& renderWindow, sf::Vector2f size, GameObject& target)
 		:IRenderComponent(gameObject, renderWindow), size(size), target(target) {};
 
-	bool init() override;
-	void update(float deltaTime) override;
-	void draw() override;
+		bool init() override;
+		void update(float deltaTime) override;
+		void draw() override;
 
-	void rotate(float& degree);
-	void zoom(float& zoom);
-	void setSize(sf::Vector2f& size);
-	void setViewPort(sf::FloatRect& viewPort);
+		void rotate(float& degree);
+		void zoom(float& zoom);
+		void setSize(sf::Vector2f& size);
+		void setViewPort(sf::FloatRect& viewPort);
 
 	sf::Vector2f size;
 	sf::View view;

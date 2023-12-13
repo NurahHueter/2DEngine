@@ -1,19 +1,21 @@
 // Game.h
 
 #pragma once
-
-class Game
+namespace mmt_gd
 {
-public:
-	void Run();
-	sf::Color m_bg_color = { 0, 0, 255 };
+	class Game
+	{
+	public:
+		void Run();
+		sf::Color m_bg_color = { 0, 0, 255 };
 
-private: 
-	void Initialize();
-	void Update(float deltaTime);
-	void HandleEvents();
-	void CloseGame(sf::Event::KeyEvent& e);
+	private:
+		void Initialize();
+		void Update(float deltaTime);
+		void HandleEvents();
+		void CloseGame(sf::Event::KeyEvent& e);
 
-	sf::Clock m_clock;
-	bool m_isGameInMenu = true;	
-};
+		sf::Clock m_clock;
+		bool m_isGameInMenu = true;
+	};
+}

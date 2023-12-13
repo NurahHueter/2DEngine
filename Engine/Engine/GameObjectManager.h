@@ -2,26 +2,28 @@
 #include <string>
 #include <unordered_map>
 #include "GameObject.h"
-
-class GameObjectManager
+namespace mmt_gd
 {
-public:
-    using GameObjectMap = std::map<std::string, GameObject::Ptr>;
-
-    static void     init();
-    void            shutdown();
-    void            update(float deltaTime);
-    void            draw();
-    void            addGameObject(const GameObject::Ptr& gameObject);
-    GameObject::Ptr getGameObject(const std::string& id) const;
-
-    GameObjectMap& getGameObjects()
+    class GameObjectManager
     {
-        return m_gameObjects;
-    }
+    public:
+        using GameObjectMap = std::map<std::string, GameObject::Ptr>;
 
-    void removeGameObject(const std::shared_ptr<GameObject>& go);
+        static void     init();
+        void            shutdown();
+        void            update(float deltaTime);
+        void            draw();
+        void            addGameObject(const GameObject::Ptr& gameObject);
+        GameObject::Ptr getGameObject(const std::string& id) const;
 
-private:
-    GameObjectMap m_gameObjects;
-};
+        GameObjectMap& getGameObjects()
+        {
+            return m_gameObjects;
+        }
+
+        void removeGameObject(const std::shared_ptr<GameObject>& go);
+
+    private:
+        GameObjectMap m_gameObjects;
+    };
+}

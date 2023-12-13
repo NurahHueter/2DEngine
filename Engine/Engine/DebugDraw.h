@@ -6,17 +6,19 @@
 #include <string>
 #include <vector>
 
-namespace sf
-{
-    class Drawable;
-    class RenderWindow;
-    class Color;
-} // namespace sf
+    namespace sf
+    {
+        class Drawable;
+        class RenderWindow;
+        class Color;
+    } // namespace sf
 
-    /**
-     * \brief Simple debug draw functionality.
-     * Use the relevant draw* method to render debug stuff in the current frame
-     */
+        /**
+         * \brief Simple debug draw functionality.
+         * Use the relevant draw* method to render debug stuff in the current frame
+         */
+namespace mmt_gd
+{
     class DebugDraw
     {
     public:
@@ -67,3 +69,4 @@ namespace sf
         sf::Font                                   m_font;
     };
 
+}

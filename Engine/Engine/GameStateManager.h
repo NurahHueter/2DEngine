@@ -2,30 +2,32 @@
 #pragma once
 #include <map>
 #include <SFML/Graphics/RenderWindow.hpp>
-
-class GameState; // forward declaration to avoid circular header file dependency
-
-class GameStateManager
+namespace mmt_gd
 {
-public:
-    static GameStateManager& instance() {
-        static GameStateManager s;
-        return s;
-    }
+    class GameState; // forward declaration to avoid circular header file dependency
 
-    GameStateManager(const GameStateManager&) = delete;
-    GameStateManager& operator=(const GameStateManager&) = delete;
+    class GameStateManager
+    {
+    public:
+        static GameStateManager& instance() {
+            static GameStateManager s;
+            return s;
+        }
 
-    GameStateManager() : currentState(nullptr) {}
+        GameStateManager(const GameStateManager&) = delete;
+        GameStateManager& operator=(const GameStateManager&) = delete;
 
-    void update(float deltaTime);
-    void draw(sf::RenderWindow& m_window);
-    void Init();
-    void setState(std::string stateName);
-    void CloseGame();
-  
-private:
-    ~GameStateManager() {}
-    std::map<std::string, std::shared_ptr<GameState>> states;
-    std::shared_ptr<GameState> currentState;
-};
+        GameStateManager() : currentState(nullptr) {}
+
+        void update(float deltaTime);
+        void draw(sf::RenderWindow& m_window);
+        void Init();
+        void setState(std::string stateName);
+        void CloseGame();
+
+    private:
+        ~GameStateManager() {}
+        std::map<std::string, std::shared_ptr<GameState>> states;
+        std::shared_ptr<GameState> currentState;
+    };
+}
