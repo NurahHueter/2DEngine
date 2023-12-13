@@ -15,6 +15,8 @@
 #include "MouseMoveCmp.h"
 namespace mmt_gd
 {
+void MainState::init()
+    {
     //all AsstetsforTheState
     AssetManager::instance().LoadTexture("rocket", "../Assets/Hunter1-right.bmp");
     std::shared_ptr<sf::Texture> rocket_T = AssetManager::instance().m_Textures["rocket"];
@@ -87,4 +89,5 @@ void MainState::draw(sf::RenderWindow& m_window)
     m_gameObjectManager.draw();
 
     m_window.display();
+}
 }

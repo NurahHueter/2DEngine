@@ -4,11 +4,13 @@
 #include "CameraCmp.h"
 namespace mmt_gd
 {
-	view.reset(sf::FloatRect(target.getPosition(), size));
-	return true;
-}
-void CameraCmp::update(float deltaTime)
-{
+	bool CameraCmp::init()
+	{
+		view.reset(sf::FloatRect(target.getPosition(), size));
+		return true;
+	}
+	void CameraCmp::update(float deltaTime)
+	{
 	view.setCenter(target.getPosition());
 
 	}

@@ -3,9 +3,11 @@
 #include<memory>
 namespace mmt_gd
 {
-public:
-	CameraCmp(GameObject& gameObject, sf::RenderWindow& renderWindow, sf::Vector2f size, GameObject& target)
-		:IRenderComponent(gameObject, renderWindow), size(size), target(target) {};
+	class CameraCmp : public IRenderComponent
+	{
+	public:
+		CameraCmp(GameObject& gameObject, sf::RenderWindow& renderWindow, sf::Vector2f size, GameObject& target)
+			:IRenderComponent(gameObject, renderWindow), size(size), target(target) {};
 
 		bool init() override;
 		void update(float deltaTime) override;
@@ -16,8 +18,9 @@ public:
 		void setSize(sf::Vector2f& size);
 		void setViewPort(sf::FloatRect& viewPort);
 
-	sf::Vector2f size;
-	sf::View view;
+		sf::Vector2f size;
+		sf::View view;
 
-	GameObject& target;
+		GameObject& target;
+	};
 };

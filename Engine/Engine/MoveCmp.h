@@ -3,14 +3,16 @@
 #include<memory>
 namespace mmt_gd
 {
-public:
-	MoveCmp(GameObject& gameObject, sf::Vector2f direction, float velocity)
-		:IComponent(gameObject), direction(direction), velocity(velocity) {};
-	bool init() override { return true; };
-	void update(float deltaTime) override;
+	class MoveCmp : public IComponent
+	{
+	public:
+		MoveCmp(GameObject& gameObject, sf::Vector2f direction, float velocity)
+			:IComponent(gameObject), direction(direction), velocity(velocity) {};
+		bool init() override { return true; };
+		void update(float deltaTime) override;
 
 	private:
-		sf::Vector2f direction;
-		float velocity;
+			sf::Vector2f direction;
+			float velocity;
 	};
 }
