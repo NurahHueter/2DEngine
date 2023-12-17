@@ -27,7 +27,7 @@ void MainState::init()
     assets.push_back("rocket");
     assets.push_back("background");
 
-    // projectile
+    const auto& map = std::make_shared<GameObject>("map");
 
     //rocket_one -> mit WASD
     const auto& rocket_one = std::make_shared<GameObject>("rocket_one");

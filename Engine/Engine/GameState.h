@@ -28,6 +28,8 @@ namespace mmt_gd
         virtual void exit() override;
         virtual void update(float deltaTime) override;
         virtual void draw(sf::RenderWindow& window) override;
+    private:
+        GameObjectManager m_gameObjectManager;
     };
 
     class MainState : public GameState

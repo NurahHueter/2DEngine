@@ -165,6 +165,7 @@ sfml-window-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </ClCompile>
     <ClCompile Include="ProjectilePoolCmp.cpp" />
     <ClCompile Include="SpriteRenderCmp.cpp" />
+    <ClCompile Include="TileLayerCmp.cpp" />
     <ClCompile Include="WindowManager.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -188,6 +189,7 @@ sfml-window-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     <ClInclude Include="pch.h" />
     <ClInclude Include="ProjectilePoolCmp.h" />
     <ClInclude Include="SpriteRenderCmp.h" />
+    <ClInclude Include="TileLayerCmp.h" />
     <ClInclude Include="tileson.hpp" />
     <ClInclude Include="Trigonometry.h" />
     <ClInclude Include="VectorAlgebra2D.h" />

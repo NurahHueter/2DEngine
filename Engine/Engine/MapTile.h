@@ -20,14 +20,16 @@ namespace mmt_gd
     class MapTile
     {
     public:
-		struct GameObject
+		struct GameObjectTiled
 		{
 			sf::Texture m_texture;
 			sf::Sprite m_sprite;
 		};
        
-        void loadMap(const std::filesystem::path& filename, const sf::Vector2f& offset);
-		std::shared_ptr<GameObject> loadSprite(tson::Object& object);
+       void loadMap(const std::unique_ptr<tson::Map>& map);
+		std::shared_ptr<GameObjectTiled> loadSprite(tson::Object& object);
+
+       void getTiledLayer(GameObject& gameObject, const std::unique_ptr<tson::Map>& map);
         void drawLayer(sf::RenderWindow& m_window, const std::vector<std::shared_ptr<sf::Sprite>>& layer);
 
         sf::RenderWindow m_window;
@@ -40,7 +42,7 @@ namespace mmt_gd
    
 
         std::vector<std::vector<std::shared_ptr<sf::Sprite>>> m_layers;
-        std::unordered_map<std::string, std::shared_ptr<GameObject>> m_objects;
+        std::unordered_map<std::string, std::shared_ptr<GameObjectTiled>> m_objects;
 
         const fs::path m_resourcePath{ "Assets" };
 

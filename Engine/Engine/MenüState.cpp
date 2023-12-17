@@ -2,41 +2,40 @@
 
 #include "pch.h"
 #include "GameState.h"
+#include "CameraCmp.h"
+#include "MapTile.h"
 namespace mmt_gd
 {
     void MenuState::init()
     {
-        mapTile.loadMap(mapTile.m_resourcePath / "game.tmj", sf::Vector2f());
+       
+        tson::Tileson t;
+        const std::unique_ptr<tson::Map> map = t.parse(mapTile.m_resourcePath / "game.tmj");
+        mapTile.loadMap(map);
 
+        const auto& mapObj = std::make_shared<GameObject>("map");
+        mapTile.getTiledLayer(*mapObj, map);
+
+        mapObj->init();
+        m_gameObjectManager.addGameObject(mapObj);
 
     }
 
     void MenuState::exit()
     {
-        // Leere die Layer-Vektoren in der MapTile-Instanz
-        mapTile.m_layers.clear();
-
-        // Leere die Textur-Map in der MapTile-Instanz
-        mapTile.m_tileSetTexture.clear();
-
-        std::cout << "Tiled cleared" << std::endl;
+        m_gameObjectManager.shutdown();
     }
 
     void MenuState::update(float deltaTime)
     {
+        m_gameObjectManager.update(deltaTime);
     }
 
     void MenuState::draw(sf::RenderWindow& m_window)
     {
         m_window.clear({ 0, 0, 0 });
 
-        mapTile.drawLayer(m_window, mapTile.m_layers[0]); // Floor
-        mapTile.drawLayer(m_window, mapTile.m_layers[1]); // Background
-        for (auto& object : mapTile.m_objects)
-        {
-            m_window.draw(object.second->m_sprite);
-        }
-        mapTile.drawLayer(m_window, mapTile.m_layers[2]); // Objects
+        m_gameObjectManager.draw();
 
         m_window.display();
     }
