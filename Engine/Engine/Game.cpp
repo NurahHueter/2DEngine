@@ -12,8 +12,8 @@ namespace mmt_gd
 
 	void Game::Initialize()
 	{
-		WindowManager::instance().m_window.create({ 800, 400 }, "SFML Window");
-
+		WindowManager::instance().m_window.create({ 800, 600 }, "SFML Window");
+		WindowManager::instance().m_window.setFramerateLimit(60);
 		InputManager::instance().bind("switch", sf::Keyboard::Key::Space, 1);
 		InputManager::instance().bind("music", sf::Keyboard::Key::M, 1);
 		InputManager::instance().bind("up", sf::Keyboard::Key::W, 1);

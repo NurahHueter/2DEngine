@@ -16,10 +16,6 @@ namespace mmt_gd
 	using namespace sf;
 	using namespace std;
 
-	using GameObjectPtr = shared_ptr<GameObject>;
-	using TexturePtr = shared_ptr<sf::Texture>;
-	using SpritePtr = shared_ptr<sf::Sprite>;
-
 	void MapTile::loadMap(const fs::path& filename, const Vector2f& offset)
 	{
 		tson::Tileson t;
@@ -27,7 +23,6 @@ namespace mmt_gd
 
 		if (map->getStatus() == tson::ParseStatus::OK)
 		{
-
 			err() << "Load tile map with size: " << map->getSize().x << ", "
 				<< map->getSize().y << " and tile size: " << map->getTileSize().x
 				<< ", " << map->getTileSize().y << std::endl;
@@ -36,7 +31,7 @@ namespace mmt_gd
 			{
 				fs::path tileSetPath = tileSet.getImage().u8string();
 
-				const auto texture = make_shared<sf::Texture>();
+				const auto texture = make_shared<Texture>();
 				if (!texture->loadFromFile((m_resourcePath / tileSetPath).string()))
 				{
 					err() << "Could not load texture " << m_resourcePath / tileSetPath << endl;
@@ -74,7 +69,7 @@ namespace mmt_gd
 				// get tile set for tile and allocate the corresponding tileSet texture
 				const auto* const tileSet = map->getTilesetByGid(gid);
 				const Vector2i tileSize(map->getTileSize().x, map->getTileSize().y);
-				sf::Texture& texture = *m_tileSetTexture[tileSet->getName()];
+				Texture& texture = *m_tileSetTexture[tileSet->getName()];
 
 				// calculate position of tile
 				Vector2f position;
@@ -101,7 +96,7 @@ namespace mmt_gd
 				// (foreground, background, ...)			
 
 				// create tile (Sprite) and put it into the appropriate layer.
-				auto sprite = make_shared<sf::Sprite>();
+				auto sprite = make_shared<Sprite>();
 				sprite->setTexture(texture);
 				sprite->setTextureRect(source);
 				sprite->setPosition(position.x, position.y);
@@ -111,8 +106,20 @@ namespace mmt_gd
 		}
 
 
+		//// IMPORTANT: this is the second important loop. Here the game objects defined in the 
+		//// Tiled editor are loaded (object layer). These game objects can easily be converted
+		//// to your GameObjects used in-game. Helper functions help you structure your code, e.g.,
+		//// createEnemy, createPlayer, createTreasureChest, ...
+		//// These helper functions parse the information and create the correct GameObjects and Components
+		//// for the GameObjects. 
+		//// Ideally the GameStates do not contain any object generation code anymore. Objects are loaded
+		//// from the Tiled editor file, i.e., have been placed in the Tiled editor.
+
+	//	//// go through all object layers
+
 		for (auto group : map->getLayers())
 		{
+
 			// go over all objects per layer
 			for (auto object : group.getObjects())
 			{
@@ -123,13 +130,73 @@ namespace mmt_gd
 				FloatRect bounds(position.x, position.y, object.getSize().x, object.getSize().y);
 				// TODO: check out game.tmj and there the content contained within <object group name="Object Layer 1">
 				// there you can see the properties that you can parse, that should help you set up the sprites
-				cout << object.getRotation() << endl;
-				cout << object.getType() << endl;
+
+				cout << object.getName() << endl; //name
+				cout << object.getType() << endl; //classe	
+				cout << object.getPosition().x << object.getPosition().y << endl;
+				cout << object.getSize().x << object.getSize().y << endl;
+
+				// gibt die punkte und den Typ der objekte aus -> BoundingBox,Sprite,...
+
+
+				// TODO check data of object (position, type, etc.) 
+				// type can be used to check for type of component that needs to be created.
+				// In the exercise it is a GameObject by itself, in the assignments/engine 
+				// think about configuring components for a GameObject.
+
+				// TODO use data to initialize a sprite (texture rect, position, texture name, game object id...)
+
+				if (object.getType() == "Sprite")
+				{
+					// IMPORTANT: a very simple sprite GameObject is created here. for your
+					// assignment use the component-based architecture (e.g., GameObject + SpriteRenderComponent)
+					const auto sprite = loadSprite(object);
+					m_objects[object.getName()] = sprite;
+				}
 			}
 		}
 	}
+	std::shared_ptr<MapTile::GameObject> MapTile::loadSprite(tson::Object& object)
+	{
+		auto gameObject = make_shared<GameObject>();
 
-	void MapTile::drawLayer(sf::RenderWindow& m_window, const std::vector<SpritePtr>& layer)
+		IntRect textureRect{};
+		textureRect.width = object.getSize().x;
+		textureRect.height = object.getSize().y;
+
+		// IMPORTANT: note how custom attributes (object->properties) created 
+		// in the Tiled editor are parsed and used to initialize data for Components and
+		// GameObjects.	
+		// also note again: the GameObject is simplified for this example. A SpriteComponent should
+		// be created instead.
+		for (const auto* const property : object.getProperties().get())					//properties sind die unterklassen vom Sprite
+		{
+			cout << property->getName() << endl;
+			auto name = property->getName();
+			if (name == "Texture" &&
+				!gameObject->m_texture.loadFromFile((m_resourcePath / std::any_cast<string>(property->getValue())).string()))
+			{
+				err() << "loadSprite: Could not load texture for sprite: " <<
+					m_resourcePath / std::any_cast<string>(property->getValue()) << endl;
+			}
+			else if (name == "TextureRectLeft")	//wo fängt das sprite an
+			{
+				textureRect.left = std::any_cast<int>(property->getValue())+2;
+			}
+			else if (name == "TextureRectTop")
+			{
+				textureRect.top = std::any_cast<int>(property->getValue())+2;
+			}
+		}
+		gameObject->m_sprite.setTexture(gameObject->m_texture);
+		gameObject->m_sprite.setTextureRect(textureRect);
+		gameObject->m_sprite.setPosition(object.getPosition().x, object.getPosition().y);
+
+		cout << object.getPosition().x << object.getPosition().y << endl;
+		cout << textureRect.top << textureRect.left << endl;
+		return gameObject;
+	}
+	void MapTile::drawLayer(sf::RenderWindow& m_window, const std::vector<shared_ptr<sf::Sprite>>& layer)
 	{
 		for (const auto& sprite : layer)
 		{

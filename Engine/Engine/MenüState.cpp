@@ -8,6 +8,7 @@ namespace mmt_gd
     {
         mapTile.loadMap(mapTile.m_resourcePath / "game.tmj", sf::Vector2f());
 
+
     }
 
     void MenuState::exit()
@@ -31,6 +32,11 @@ namespace mmt_gd
 
         mapTile.drawLayer(m_window, mapTile.m_layers[0]); // Floor
         mapTile.drawLayer(m_window, mapTile.m_layers[1]); // Background
+        for (auto& object : mapTile.m_objects)
+        {
+            m_window.draw(object.second->m_sprite);
+        }
+        mapTile.drawLayer(m_window, mapTile.m_layers[2]); // Objects
 
         m_window.display();
     }
