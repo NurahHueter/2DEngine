@@ -12,7 +12,6 @@
 #include "AssetManager.h"
 #include "GameStateManager.h"
 #include "GameState.h"
-#include "WindowManager.h"
 #include <SFML/Graphics/Texture.hpp>
 namespace mmt_gd
 {
@@ -29,10 +28,8 @@ namespace mmt_gd
        void loadMap(const std::unique_ptr<tson::Map>& map);
 		std::shared_ptr<GameObjectTiled> loadSprite(tson::Object& object);
 
-       void getTiledLayer(GameObject& gameObject, const std::unique_ptr<tson::Map>& map);
-        void drawLayer(sf::RenderWindow& m_window, const std::vector<std::shared_ptr<sf::Sprite>>& layer);
+       void getTiledLayer(GameObject& gameObject, const std::unique_ptr<tson::Map>& map, sf::RenderWindow& window);
 
-        sf::RenderWindow m_window;
         float m_fScrollOffset{};
         float m_fScrollOffsetPixelPrecise{};
         sf::RenderTexture m_offscreen;

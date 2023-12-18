@@ -7,7 +7,6 @@
 #include "GameStateManager.h"
 #include "GameState.h"
 #include "CameraCmp.h"
-#include "WindowManager.h"
 #include "GameObject.h"
 #include "GameObjectManager.h"
 #include "SpriteRenderCmp.h"
@@ -27,11 +26,20 @@ void MainState::init()
     assets.push_back("rocket");
     assets.push_back("background");
 
-    const auto& map = std::make_shared<GameObject>("map");
+    //map
+    tson::Tileson t;
+    const std::unique_ptr<tson::Map> map = t.parse(mapTile.m_resourcePath / "game.tmj");
+    mapTile.loadMap(map);
+
+    const auto& mapObj = std::make_shared<GameObject>("map");
+    mapTile.getTiledLayer(*mapObj, map, m_window);
+
+    mapObj->init();
+    m_gameObjectManager.addGameObject(mapObj);
 
     //rocket_one -> mit WASD
     const auto& rocket_one = std::make_shared<GameObject>("rocket_one");
-    const auto& renderRocket = std::make_shared<SpriteRenderCmp>(*rocket_one, WindowManager::instance().m_window, rocket_T);
+    const auto& renderRocket = std::make_shared<SpriteRenderCmp>(*rocket_one, m_window, rocket_T);
     const auto& moveRocket = std::make_shared<MoveCmp>(*rocket_one, sf::Vector2f(0, 0), 500.f);
     rocket_one->addComponent(renderRocket);
     rocket_one->addComponent(moveRocket);
@@ -42,7 +50,7 @@ void MainState::init()
     //rocket_two -> mit Mouse
     const auto& rocket_two = std::make_shared<GameObject>("rocket_two");
     const auto& mouseMoveRocket = std::make_shared<MouseMoveCmp>(*rocket_two, sf::Vector2f(0, 0), 500.f);
-    const auto& renderRocketTwo = std::make_shared<SpriteRenderCmp>(*rocket_two, WindowManager::instance().m_window, rocket_T);
+    const auto& renderRocketTwo = std::make_shared<SpriteRenderCmp>(*rocket_two, m_window, rocket_T);
     rocket_two->addComponent(renderRocketTwo);
     rocket_two->addComponent(mouseMoveRocket);
     rocket_two->setPosition(sf::Vector2f(30, -5));
@@ -52,10 +60,10 @@ void MainState::init()
     //camera
     const auto& camera = std::make_shared<GameObject>("camera");
     //set the camera in the center of the screen, if you dont do this the 0,0 point is in the middle 
-    camera->setPosition(WindowManager::instance().m_window.getSize().x / 2, WindowManager::instance().m_window.getSize().y / 2);
+    camera->setPosition(m_window.getSize().x / 2, m_window.getSize().y / 2);
 
     ///set size of size from window
-    const auto& cameraCmp = std::make_shared<CameraCmp>(*camera, WindowManager::instance().m_window,sf::Vector2f(WindowManager::instance().m_window.getSize().x, WindowManager::instance().m_window.getSize().y), *rocket_one);
+    const auto& cameraCmp = std::make_shared<CameraCmp>(*camera, m_window,sf::Vector2f(m_window.getSize().x, m_window.getSize().y), *rocket_one);
     camera->addComponent(cameraCmp);
 
     camera->init();
@@ -82,7 +90,7 @@ void MainState::update(float deltaTime)
     m_gameObjectManager.update(deltaTime);
 }
 
-void MainState::draw(sf::RenderWindow& m_window)
+void MainState::draw()
 {
     m_window.clear({ 0, 0, 255 });
 

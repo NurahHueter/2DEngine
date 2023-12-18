@@ -20,8 +20,8 @@ namespace mmt_gd
         GameStateManager() : currentState(nullptr) {}
 
         void update(float deltaTime);
-        void draw(sf::RenderWindow& m_window);
-        void Init();
+        void draw();
+        void addState(std::string stateName,std::shared_ptr<GameState> state);
         void setState(std::string stateName);
         void CloseGame();
 

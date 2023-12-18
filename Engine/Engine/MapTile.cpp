@@ -8,7 +8,6 @@
 #include "GameStateManager.h"
 #include "GameState.h"
 #include "TileLayerCmp.h"
-#include "WindowManager.h"
 #include "MapTile.h"
 #include "GameObject.h"
 namespace mmt_gd
@@ -93,7 +92,7 @@ namespace mmt_gd
 		// 	}
 		// }
 	}
-	void MapTile::getTiledLayer(GameObject& gameObject, const std::unique_ptr<tson::Map>& map)
+	void MapTile::getTiledLayer(GameObject& gameObject, const std::unique_ptr<tson::Map>& map, sf::RenderWindow& window)
 	{
 		std::vector<TileLayer> layers;
 		layers.resize(map->getLayers().size());
@@ -154,7 +153,7 @@ namespace mmt_gd
 
 		for (auto& layer : layers)
 		{
-			const auto& tileLayer = std::make_shared<TileLayerCmp>(gameObject, WindowManager::instance().m_window, layer);
+			const auto& tileLayer = std::make_shared<TileLayerCmp>(gameObject, window, layer);
 			gameObject.addComponent(tileLayer);
 		}
 	}
@@ -199,13 +198,7 @@ namespace mmt_gd
 		cout << textureRect.top << textureRect.left << endl;
 		return gameObject;
 	}
-	void MapTile::drawLayer(sf::RenderWindow& m_window, const std::vector<shared_ptr<sf::Sprite>>& layer)
-	{
-		for (const auto& sprite : layer)
-		{
-			m_window.draw(*sprite);
-		}
-	}
+
 }
 
 

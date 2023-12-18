@@ -1,6 +1,6 @@
 // Game.h
-
 #pragma once
+#include "FPS.h"
 namespace mmt_gd
 {
 	class Game
@@ -16,6 +16,8 @@ namespace mmt_gd
 		void CloseGame(sf::Event::KeyEvent& e);
 
 		sf::Clock m_clock;
+		sf::RenderWindow m_window;
+		Fps m_fps;
 		bool m_isGameInMenu = true;
 	};
 }

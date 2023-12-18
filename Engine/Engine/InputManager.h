@@ -45,8 +45,10 @@ namespace mmt_gd
 
         void handleEvents(sf::Event& event);
 
+        void setWindow(sf::RenderWindow& window);
 
     private:
+        std::shared_ptr<sf::RenderWindow> m_window;
 
         std::map<int, bool> m_isKeyDown{};
         std::map<int, bool> m_isKeyPressed{};

@@ -14,7 +14,6 @@ namespace mmt_gd
 		{
 			if (tile.m_sprite)
 			{
-				std::cout << "test" << std::endl;
 				m_renderWindow.draw(*tile.m_sprite);
 			}
 

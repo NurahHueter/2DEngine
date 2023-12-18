@@ -1,7 +1,7 @@
 #pragma once
 #include "pch.h"
 #include "InputManager.h"
-#include "WindowManager.h"
+
 
 namespace mmt_gd
 {
@@ -161,10 +161,17 @@ namespace mmt_gd
 		}
 	}
 
+	void InputManager::setWindow(sf::RenderWindow& window)
+	{
+		this->m_window.reset(&window, [](sf::RenderWindow*) {});
+	}
 
 	sf::Vector2f InputManager::getMousPosition()
 	{
-		sf::Vector2f worldMousePosition = WindowManager::instance().m_window.mapPixelToCoords(sf::Mouse::getPosition(WindowManager::instance().m_window));
-		return worldMousePosition;
+		if (m_window)
+		{
+			sf::Vector2f worldMousePosition = m_window->mapPixelToCoords(sf::Mouse::getPosition(*m_window));
+			return worldMousePosition;
+		}
 	}
 }

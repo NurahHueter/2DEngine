@@ -6,23 +6,19 @@
 namespace mmt_gd
 {
 
-    void GameStateManager::Init()
+    void GameStateManager::addState(std::string stateName, std::shared_ptr<GameState> state)
     {
-        auto menu = std::make_shared<MenuState>();
-        auto main = std::make_shared<MainState>();
-
-        states["MenuState"] = menu;
-        states["MainState"] = main;
-    }
+        states[stateName] = state;
+    };
 
     void GameStateManager::update(float delta) {
         //std::cout << "update State" <<  std::endl;
         currentState->update(delta);
     }
 
-    void GameStateManager::draw(sf::RenderWindow& m_window) {
+    void GameStateManager::draw() {
         // std::cout << "draw State" << std::endl;
-        currentState->draw(m_window);
+        currentState->draw();
 
     }
 
