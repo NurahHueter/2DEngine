@@ -105,6 +105,9 @@
     <ClCompile Include="TileLayerCmp.cpp">
       <Filter>Source Files\Components</Filter>
     </ClCompile>
+    <ClCompile Include="RenderManager.cpp">
+      <Filter>Source Files\Manager</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -181,6 +184,9 @@
     </ClInclude>
     <ClInclude Include="TileLayerCmp.h">
       <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderManager.h">
+      <Filter>Header Files\Manager</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

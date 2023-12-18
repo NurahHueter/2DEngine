@@ -28,7 +28,7 @@ namespace mmt_gd
        void loadMap(const std::unique_ptr<tson::Map>& map);
 		std::shared_ptr<GameObjectTiled> loadSprite(tson::Object& object);
 
-       void getTiledLayer(GameObject& gameObject, const std::unique_ptr<tson::Map>& map, sf::RenderWindow& window);
+       void getTiledLayer(GameObject& gameObject, const std::unique_ptr<tson::Map>& map, sf::RenderWindow& window, RenderManager& renderManager);
 
         float m_fScrollOffset{};
         float m_fScrollOffsetPixelPrecise{};

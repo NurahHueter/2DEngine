@@ -12,7 +12,6 @@ namespace mmt_gd
         static void     init();
         void            shutdown();
         void            update(float deltaTime);
-        void            draw();
         void            addGameObject(const GameObject::Ptr& gameObject);
         GameObject::Ptr getGameObject(const std::string& id) const;
 

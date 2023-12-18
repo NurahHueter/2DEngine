@@ -164,6 +164,7 @@ sfml-window-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="ProjectilePoolCmp.cpp" />
+    <ClCompile Include="RenderManager.cpp" />
     <ClCompile Include="SpriteRenderCmp.cpp" />
     <ClCompile Include="TileLayerCmp.cpp" />
   </ItemGroup>
@@ -187,6 +188,7 @@ sfml-window-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     <ClInclude Include="MoveCmp.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="ProjectilePoolCmp.h" />
+    <ClInclude Include="RenderManager.h" />
     <ClInclude Include="SpriteRenderCmp.h" />
     <ClInclude Include="TileLayerCmp.h" />
     <ClInclude Include="tileson.hpp" />

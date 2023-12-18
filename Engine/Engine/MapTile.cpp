@@ -10,6 +10,8 @@
 #include "TileLayerCmp.h"
 #include "MapTile.h"
 #include "GameObject.h"
+#include "RenderManager.h"
+
 namespace mmt_gd
 {
 
@@ -92,7 +94,7 @@ namespace mmt_gd
 		// 	}
 		// }
 	}
-	void MapTile::getTiledLayer(GameObject& gameObject, const std::unique_ptr<tson::Map>& map, sf::RenderWindow& window)
+	void MapTile::getTiledLayer(GameObject& gameObject, const std::unique_ptr<tson::Map>& map, sf::RenderWindow& window, RenderManager& renderManager)
 	{
 		std::vector<TileLayer> layers;
 		layers.resize(map->getLayers().size());
@@ -107,7 +109,6 @@ namespace mmt_gd
 
 
 			const int size = layer.getSize().x * layer.getSize().y;
-			layers[layerIdx].m_tiles.resize(size);
 			// iterate over all elements/tiles in the layer
 			for (int i = 0; i < size; i++)
 			{
@@ -141,20 +142,22 @@ namespace mmt_gd
 				// calculate source area of tile in tile set texture
 				IntRect source(idxX * tileSize.x, idxY * tileSize.y, tileSize.x, tileSize.y);
 
-				layers[layerIdx].m_tiles[i].m_idx = i;
-		
-				layers[layerIdx].m_tiles[i].m_sprite = std::make_shared<sf::Sprite>();
-				layers[layerIdx].m_tiles[i].m_sprite->setTexture(texture);
-				layers[layerIdx].m_tiles[i].m_sprite->setTextureRect(source);
-				layers[layerIdx].m_tiles[i].m_sprite->setPosition(position.x, position.y);
-
+				//add Tile Sprite
+				const auto sprite = std::make_shared<sf::Sprite>();
+				sprite->setTexture(texture);
+				sprite->setTextureRect(source);
+				sprite->setPosition(position.x, position.y);
+				layers[layerIdx].m_tiles.push_back({ i, sprite });
 			}
 		}
-
+		int count = 0;
 		for (auto& layer : layers)
 		{
+			renderManager.addLayer(layer.m_name, count);
 			const auto& tileLayer = std::make_shared<TileLayerCmp>(gameObject, window, layer);
+			renderManager.addCompToLayer(layer.m_name, tileLayer);
 			gameObject.addComponent(tileLayer);
+			count++;
 		}
 	}
 

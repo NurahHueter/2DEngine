@@ -2,6 +2,7 @@
     #pragma once
     #include <SFML/Graphics/RenderWindow.hpp>
     #include "GameObjectManager.h"
+    #include "RenderManager.h"
     #include "MapTile.h"
 namespace mmt_gd
 {
@@ -36,7 +37,7 @@ namespace mmt_gd
     class MainState : public GameState
     {
     public:
-        MainState(sf::RenderWindow& m_window) : GameState(m_window) {}
+        MainState(sf::RenderWindow& m_window) : GameState(m_window), m_RenderManager(m_window) {}
         MapTile mapTile;
         virtual void init() override;
         virtual void exit() override;
@@ -44,5 +45,6 @@ namespace mmt_gd
         virtual void draw() override;
     private:
         GameObjectManager m_gameObjectManager;
+        RenderManager m_RenderManager;
     };
 }

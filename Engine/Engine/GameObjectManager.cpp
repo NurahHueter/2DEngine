@@ -35,13 +35,6 @@ namespace mmt_gd
         }
     }
 
-    void GameObjectManager::draw()
-    {
-        for (const auto& goPair : getGameObjects())
-        {
-            goPair.second->draw();
-        }
-    }
         void GameObjectManager::addGameObject(const GameObject::Ptr & gameObject)
         {
             ffAssertMsg(m_gameObjects.find(gameObject->getId()) == m_gameObjects.end(),
