@@ -187,6 +187,8 @@ sfml-window-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     <ClInclude Include="MoveCmp.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="ProjectilePoolCmp.h" />
+    <ClInclude Include="RigidBodyCmp.h" />
+    <ClInclude Include="BoxCollisionCmp.h" />
     <ClInclude Include="SpriteRenderCmp.h" />
     <ClInclude Include="TileLayerCmp.h" />
     <ClInclude Include="tileson.hpp" />

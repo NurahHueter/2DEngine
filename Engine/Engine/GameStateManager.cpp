@@ -19,7 +19,6 @@ namespace mmt_gd
     void GameStateManager::draw() {
         // std::cout << "draw State" << std::endl;
         currentState->draw();
-
     }
 
     void GameStateManager::setState(std::string stateName) {
