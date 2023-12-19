@@ -24,5 +24,6 @@ namespace mmt_gd
 
     private:
         GameObjectMap m_gameObjects;
+        
     };
 }

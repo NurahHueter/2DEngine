@@ -17,14 +17,10 @@ namespace mmt_gd
 void MainState::init()
     {
     //all AsstetsforTheState
-    AssetManager::instance().LoadTexture("rocket", "../Assets/Hunter1-right.bmp");
+    AssetManager::instance().LoadTexture("rocket", "../Engine/Assets/Hunter1-right.bmp");
     std::shared_ptr<sf::Texture> rocket_T = AssetManager::instance().m_Textures["rocket"];
 
-    AssetManager::instance().LoadTexture("background", "../Assets/bg_space_seamless.png");
-    std::shared_ptr<sf::Texture> background_T = AssetManager::instance().m_Textures["background"];
-
     assets.push_back("rocket");
-    assets.push_back("background");
 
     m_RenderManager.addLayer("ObjectLayer", 5);
 
@@ -43,7 +39,7 @@ void MainState::init()
     const auto& rocket_one = std::make_shared<GameObject>("rocket_one");
     const auto& renderRocket = std::make_shared<SpriteRenderCmp>(*rocket_one, m_window, rocket_T);
     m_RenderManager.addCompToLayer("ObjectLayer", renderRocket);
-    const auto& moveRocket = std::make_shared<MoveCmp>(*rocket_one, sf::Vector2f(0, 0), 500.f);
+    const auto& moveRocket = std::make_shared<MoveCmp>(*rocket_one, 500.f);
     rocket_one->addComponent(renderRocket);
     rocket_one->addComponent(moveRocket);
     rocket_one->setPosition(sf::Vector2f(22, -5));

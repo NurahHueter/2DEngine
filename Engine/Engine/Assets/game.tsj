@@ -1,0 +1,14 @@
+{ "columns":20,
+ "image":"WeirdWoods-GrassLand_Free.png",
+ "imageheight":208,
+ "imagewidth":160,
+ "margin":0,
+ "name":"Map",
+ "spacing":0,
+ "tilecount":520,
+ "tiledversion":"1.10.2",
+ "tileheight":8,
+ "tilewidth":8,
+ "type":"tileset",
+ "version":"1.10"
+}
