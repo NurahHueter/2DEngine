@@ -26,8 +26,6 @@ namespace mmt_gd
     {
         m_window.clear({ 0, 0, 0 });
 
-        m_gameObjectManager.draw();
-
         m_window.display();
     }
 }
