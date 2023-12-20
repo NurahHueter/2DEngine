@@ -3,6 +3,7 @@
     #include <SFML/Graphics/RenderWindow.hpp>
     #include "GameObjectManager.h"
     #include "MapTile.h"
+    #include "PhysicsManager.h"
 namespace mmt_gd
 {
     class GameObject;
@@ -21,8 +22,11 @@ namespace mmt_gd
         std::vector<std::string> assets;
     };
 
+
+    
     class MenuState : public GameState
     {
+    
     public:
         MenuState(sf::RenderWindow& m_window) : GameState(m_window) {}
         virtual void init() override;
@@ -31,6 +35,7 @@ namespace mmt_gd
         virtual void draw() override; 
     private:
         GameObjectManager m_gameObjectManager;
+        PhysicsManager    m_physicsManager;
     };
 
     class MainState : public GameState
@@ -44,5 +49,6 @@ namespace mmt_gd
         virtual void draw() override;
     private:
         GameObjectManager m_gameObjectManager;
+        PhysicsManager    m_physicsManager;
     };
 }

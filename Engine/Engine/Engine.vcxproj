@@ -163,6 +163,7 @@ sfml-window-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">pch.h</PrecompiledHeaderFile>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="PhysicsManager.cpp" />
     <ClCompile Include="ProjectilePoolCmp.cpp" />
     <ClCompile Include="SpriteRenderCmp.cpp" />
     <ClCompile Include="TileLayerCmp.cpp" />
@@ -186,6 +187,7 @@ sfml-window-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="MoveCmp.h" />
     <ClInclude Include="pch.h" />
+    <ClInclude Include="PhysicsManager.h" />
     <ClInclude Include="ProjectilePoolCmp.h" />
     <ClInclude Include="RigidBodyCmp.h" />
     <ClInclude Include="BoxCollisionCmp.h" />

@@ -51,10 +51,20 @@ namespace mmt_gd
 
         }
 
-        GameObject::Ptr GameObjectManager::getGameObject(const std::string & id) const
+        GameObject::Ptr GameObjectManager::getGameObject(const std::string& id) const
         {
-            ffErrorMsg("Could not find gameobject with m_id " + id) return nullptr;
+            auto it = m_gameObjects.find(id);
+            if (it != m_gameObjects.end())
+            {
+                return it->second;
+            }
+            else
+            {
+                ffErrorMsg("Could not find gameobject with id " + id);
+                return nullptr;
+            }
         }
+
 
         void GameObjectManager::removeGameObject(const std::shared_ptr<GameObject>&go)
         {
