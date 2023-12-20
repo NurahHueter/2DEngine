@@ -12,6 +12,9 @@
 #include "SpriteRenderCmp.h"
 #include "MoveCmp.h"
 #include "MouseMoveCmp.h"
+#include "RigidBodyCmp.h"
+#include "BoxCollisionCmp.h"
+#include "PhysicsManager.h"
 namespace mmt_gd
 {
 void MainState::init()
@@ -41,21 +44,34 @@ void MainState::init()
     const auto& rocket_one = std::make_shared<GameObject>("rocket_one");
     const auto& renderRocket = std::make_shared<SpriteRenderCmp>(*rocket_one, m_window, rocket_T);
     const auto& moveRocket = std::make_shared<MoveCmp>(*rocket_one, sf::Vector2f(0, 0), 500.f);
+    const auto& rigidbodyRocket = std::make_shared<RigidBodyCmp>(*rocket_one);
+    const auto& boxcollisionBoxRocket = std::make_shared<BoxCollisionCmp>(*rocket_one, sf::Vector2f(10.0f, 10.f), sf::Vector2f(10.0f, 10.f), rigidbodyRocket, false);
+
     rocket_one->addComponent(renderRocket);
     rocket_one->addComponent(moveRocket);
-    rocket_one->setPosition(sf::Vector2f(22, -5));
-
+    rocket_one->addComponent(rigidbodyRocket);
+    rocket_one->addComponent(boxcollisionBoxRocket);
+    rocket_one->setPosition(sf::Vector2f(500, -5));
     rocket_one->init();
 
     //rocket_two -> mit Mouse
     const auto& rocket_two = std::make_shared<GameObject>("rocket_two");
-    const auto& mouseMoveRocket = std::make_shared<MouseMoveCmp>(*rocket_two, sf::Vector2f(0, 0), 500.f);
+    const auto& mouseMoveRocket = std::make_shared<MouseMoveCmp>(*rocket_two, sf::Vector2f(100, 0), 500.f);
     const auto& renderRocketTwo = std::make_shared<SpriteRenderCmp>(*rocket_two, m_window, rocket_T);
+    const auto& rigidbodyRocketTwo = std::make_shared<RigidBodyCmp>(*rocket_two);
+    const auto& boxcollisionBoxRocketTwo = std::make_shared<BoxCollisionCmp>(*rocket_two, sf::Vector2f(10.0f, 10.f), sf::Vector2f(100.0f, 100.f), rigidbodyRocketTwo, false);
+
     rocket_two->addComponent(renderRocketTwo);
     rocket_two->addComponent(mouseMoveRocket);
-    rocket_two->setPosition(sf::Vector2f(30, -5));
-
+    rocket_two->addComponent(rigidbodyRocketTwo);
+    rocket_two->addComponent(boxcollisionBoxRocketTwo);
+    rocket_two->setPosition(sf::Vector2f(0, 0));
     rocket_two->init();
+
+    sf::Vector2f rocketOnePosition = rocket_one->getPosition();
+    sf::Vector2f rocketTwoPosition = rocket_two->getPosition();
+    std::cout<< rocket_one->getPosition().x;
+ 
 
     //camera
     const auto& camera = std::make_shared<GameObject>("camera");
@@ -67,10 +83,14 @@ void MainState::init()
     camera->addComponent(cameraCmp);
 
     camera->init();
-
+    rocket_one->getId();
     m_gameObjectManager.addGameObject(rocket_one);
     m_gameObjectManager.addGameObject(rocket_two);
+    
     m_gameObjectManager.addGameObject(camera);
+
+    std::cout<<m_gameObjectManager.getGameObject("rocket_one")->getPosition().x;
+    m_physicsManager.init(rocketOnePosition, rocketTwoPosition);
 
 }
 
@@ -87,6 +107,8 @@ void MainState::exit()
 
 void MainState::update(float deltaTime)
 {
+    m_physicsManager.findCollisions(m_physicsManager.m_bodies, *m_gameObjectManager.getGameObject("rocket_one"), *m_gameObjectManager.getGameObject("rocket_two"));
+    m_physicsManager.resolveCollisions(m_physicsManager.m_manifolds);
     m_gameObjectManager.update(deltaTime);
 }
 
@@ -96,6 +118,14 @@ void MainState::draw()
 
     m_gameObjectManager.draw();
 
+    
+    for (auto& body : m_physicsManager.m_bodies)
+    {
+        body.m_debugGeometry.setPosition(body.m_position);
+       // std::cout << body.m_position.x;
+        m_window.draw(body.m_debugGeometry);
+        
+    }
     m_window.display();
 }
 }
