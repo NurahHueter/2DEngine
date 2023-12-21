@@ -31,7 +31,6 @@ namespace mmt_gd
 		void UnloadFont(std::string name);
 
 	private:
-
 		AssetManager() {}
 		~AssetManager() {}
 
