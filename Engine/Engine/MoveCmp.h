@@ -6,13 +6,13 @@ namespace mmt_gd
 	class MoveCmp : public IComponent
 	{
 	public:
-		MoveCmp(GameObject& gameObject, sf::Vector2f direction, float velocity)
-			:IComponent(gameObject), direction(direction), velocity(velocity) {};
+		MoveCmp(GameObject& gameObject, float velocity)
+			:IComponent(gameObject), velocity(velocity) {};
 		bool init() override { return true; };
 		void update(float deltaTime) override;
 
 	private:
-			sf::Vector2f direction;
+		sf::Vector2f direction = {0.f, 0.f};
 			float velocity;
 	};
 }

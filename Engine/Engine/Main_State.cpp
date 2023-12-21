@@ -19,15 +19,6 @@ namespace mmt_gd
 {
 void MainState::init()
     {
-    //all AsstetsforTheState
-    AssetManager::instance().LoadTexture("rocket", "../Assets/Hunter1-right.bmp");
-    std::shared_ptr<sf::Texture> rocket_T = AssetManager::instance().m_Textures["rocket"];
-
-    AssetManager::instance().LoadTexture("background", "../Assets/bg_space_seamless.png");
-    std::shared_ptr<sf::Texture> background_T = AssetManager::instance().m_Textures["background"];
-
-    assets.push_back("rocket");
-    assets.push_back("background");
 
     //map
     tson::Tileson t;
@@ -35,8 +26,8 @@ void MainState::init()
     mapTile.loadMap(map);
 
     const auto& mapObj = std::make_shared<GameObject>("map");
-    mapTile.getTiledLayer(*mapObj, map, m_window);
-
+    mapTile.getTiledLayer(*mapObj, map, m_window, m_RenderManager);
+    mapTile.getObjectLayer(map, m_RenderManager, m_gameObjectManager);
     mapObj->init();
     m_gameObjectManager.addGameObject(mapObj);
 
@@ -79,9 +70,17 @@ void MainState::init()
     camera->setPosition(m_window.getSize().x / 2, m_window.getSize().y / 2);
 
     ///set size of size from window
-    const auto& cameraCmp = std::make_shared<CameraCmp>(*camera, m_window,sf::Vector2f(m_window.getSize().x, m_window.getSize().y), *rocket_one);
-    camera->addComponent(cameraCmp);
 
+    if (m_gameObjectManager.getGameObject("Player"))
+    {
+        const auto& cameraCmp = std::make_shared<CameraCmp>(*camera, m_window, sf::Vector2f(m_window.getSize().x, m_window.getSize().y), m_gameObjectManager.getGameObject("Player"));
+        camera->addComponent(cameraCmp);
+        m_RenderManager.addCompToLayer("ObjectLayer", cameraCmp);
+        camera->init();
+
+        m_gameObjectManager.addGameObject(camera);
+        m_RenderManager.addLayer("camera", 20);
+    }
     camera->init();
     rocket_one->getId();
     m_gameObjectManager.addGameObject(rocket_one);
@@ -94,15 +93,10 @@ void MainState::init()
 
 }
 
-
 void MainState::exit()
 {
     m_gameObjectManager.shutdown();
-    std::vector<std::string>::iterator obj;
-    for (obj = assets.begin(); obj < assets.end(); obj++)
-    { 
-       AssetManager::instance().UnloadTexture(*obj);
-    }
+    m_RenderManager.shutdown();
 }
 
 void MainState::update(float deltaTime)
@@ -116,7 +110,7 @@ void MainState::draw()
 {
     m_window.clear({ 0, 0, 255 });
 
-    m_gameObjectManager.draw();
+    m_RenderManager.draw();
 
     
     for (auto& body : m_physicsManager.m_bodies)

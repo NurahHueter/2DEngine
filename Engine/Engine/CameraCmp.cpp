@@ -6,12 +6,12 @@ namespace mmt_gd
 {
 	bool CameraCmp::init()
 	{
-		view.reset(sf::FloatRect(target.getPosition(), size));
+		view.reset(sf::FloatRect(target->getPosition(), size));
 		return true;
 	}
 	void CameraCmp::update(float deltaTime)
 	{
-	view.setCenter(target.getPosition());
+	view.setCenter(target->getPosition());
 
 	}
 

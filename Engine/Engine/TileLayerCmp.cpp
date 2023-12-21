@@ -12,11 +12,7 @@ namespace mmt_gd
 	{
 		for (auto& tile : m_layer.m_tiles)
 		{
-			if (tile.m_sprite)
-			{
 				m_renderWindow.draw(*tile.m_sprite);
-			}
-
 		}
 	};		
 }

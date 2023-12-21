@@ -6,7 +6,7 @@ namespace mmt_gd
 	class CameraCmp : public IRenderComponent
 	{
 	public:
-		CameraCmp(GameObject& gameObject, sf::RenderWindow& renderWindow, sf::Vector2f size, GameObject& target)
+		CameraCmp(GameObject& gameObject, sf::RenderWindow& renderWindow, sf::Vector2f size, std::shared_ptr<GameObject> target)
 			:IRenderComponent(gameObject, renderWindow), size(size), target(target) {};
 
 		bool init() override;
@@ -21,6 +21,6 @@ namespace mmt_gd
 		sf::Vector2f size;
 		sf::View view;
 
-		GameObject& target;
+		std::shared_ptr<GameObject> target;
 	};
 };

@@ -18,6 +18,10 @@ namespace mmt_gd
 		IComponent& operator=(IComponent& other) = delete;
 		IComponent& operator=(IComponent&& other) = delete;
 
+		GameObject& getGameObject() const
+		{
+			return gameObject;
+		}
 
 		const std::string& getId() const { return id; }
 		void setId(const std::string& newId) { id = newId; }
