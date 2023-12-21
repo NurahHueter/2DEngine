@@ -25,7 +25,5 @@ namespace mmt_gd
 
        sf::Vector2f newPos = gameObject.getPosition() + direction * velocity * deltaTime;
        gameObject.setPosition(newPos);
-        direction = sf::Vector2f(0, 0);
-
     };
 }

@@ -49,8 +49,6 @@ void ObjectFactory::loadPlayer(tson::Object& object,
              {
                  if ((texturpath = std::any_cast<std::string>(property->getValue())).length() > 0)
                  {
-                     std::cout << texturpath  << std::endl;
-                     //texturpath = "../Engine/Assets/Hunter1-right.bmp";
                      AssetManager::instance().LoadTexture(object.getName(), texturpath);
                      std::shared_ptr<sf::Texture> texture = AssetManager::instance().m_Textures[object.getName()];
                      const auto& renderCmp = std::make_shared<SpriteRenderCmp>(*gameObject,renderManager.getWindow(),texture);
@@ -63,19 +61,19 @@ void ObjectFactory::loadPlayer(tson::Object& object,
                  if ((id = std::any_cast<std::string>(property->getValue())).length() > 0)
                  {
                      gameObject->setId(id);
+                     std::cout << id << std::endl;
                  }
              }
              else if (name == "velocity")
              {
                  velocity = std::any_cast<float>(property->getValue());
-                 std::cout << velocity << std::endl;
                  if (object.getType() == "Player")
                  {
                      gameObject->addComponent(std::make_shared<MoveCmp>(*gameObject, velocity));
                  }
                  else if (object.getType() == "Enemy")
                  {
-                     gameObject->addComponent(std::make_shared<MouseMoveCmp>(*gameObject, velocity));
+                     gameObject->addComponent(std::make_shared<MouseMoveCmp>(*gameObject,sf::Vector2f((object.getPosition().x), static_cast<float>(object.getPosition().y)), velocity));
                  } 
              }
          }

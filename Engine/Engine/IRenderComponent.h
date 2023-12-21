@@ -7,7 +7,6 @@ namespace mmt_gd
     {
     public:
         using Ptr = std::shared_ptr<IRenderComponent>;
-        using WeakPtr = std::weak_ptr<IRenderComponent>;
 
         IRenderComponent(GameObject& gameObject, sf::RenderWindow& renderWindow) :
             IComponent(gameObject),

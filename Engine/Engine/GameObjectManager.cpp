@@ -44,7 +44,7 @@ namespace mmt_gd
 
         }
 
-        GameObject::Ptr GameObjectManager::getGameObject(const std::string & id) const
+        GameObject::Ptr GameObjectManager::getGameObject(const std::string id) const
         {
             ffErrorMsg("Could not find gameobject with m_id " + id) return nullptr;
         }

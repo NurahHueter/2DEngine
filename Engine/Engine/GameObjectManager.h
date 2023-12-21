@@ -13,7 +13,7 @@ namespace mmt_gd
         void            shutdown();
         void            update(float deltaTime);
         void            addGameObject(const GameObject::Ptr& gameObject);
-        GameObject::Ptr getGameObject(const std::string& id) const;
+        GameObject::Ptr getGameObject(const std::string id) const;
 
         GameObjectMap& getGameObjects()
         {
