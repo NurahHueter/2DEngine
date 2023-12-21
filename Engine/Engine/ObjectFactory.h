@@ -16,8 +16,11 @@ namespace mmt_gd
     public:
         static void processTsonObject(tson::Object& object,
             const tson::Layer& layer,
-            const fs::path& path,
-            const RenderManager& renderManager,
-            const GameObjectManager& gameObjectManager);
+            RenderManager& renderManager,
+           GameObjectManager& gameObjectManager);
+        static void loadPlayer(tson::Object& object,
+            const std::string layer,
+            RenderManager& renderManager,
+            GameObjectManager& gameObjectManager);
     };
 } 

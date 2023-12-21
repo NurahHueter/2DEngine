@@ -11,6 +11,7 @@
 #include "MapTile.h"
 #include "GameObject.h"
 #include "RenderManager.h"
+#include "ObjectFactory.h"
 
 namespace mmt_gd
 {
@@ -44,14 +45,14 @@ namespace mmt_gd
 		}
 	}
 
-	void MapTile::getObjectLayer(GameObject& gameObject, const std::unique_ptr<tson::Map>& map, sf::RenderWindow& window, RenderManager& renderManager, GameObjectManager& gameObjectManager)
+	void MapTile::getObjectLayer(const std::unique_ptr<tson::Map>& map, RenderManager& renderManager, GameObjectManager& gameObjectManager)
 	{
 		for (auto group : map->getLayers())
 		 {
  			// go over all objects per layer
  			for (auto object : group.getObjects())
  			{
-
+				ObjectFactory::processTsonObject(object, group, renderManager, gameObjectManager);
  			}
 		 }
 	}

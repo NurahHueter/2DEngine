@@ -457,9 +457,14 @@
                  "name":"Player",
                  "properties":[
                         {
-                         "name":"Sprite",
+                         "name":"Texture",
                          "type":"string",
-                         "value":"Hunter1-right.bmp"
+                         "value":"..\/Engine\/Assets\/Hunter1-right.bmp"
+                        }, 
+                        {
+                         "name":"id",
+                         "type":"string",
+                         "value":"Player"
                         }, 
                         {
                          "name":"velocity",
@@ -479,9 +484,14 @@
                  "name":"Enemy",
                  "properties":[
                         {
-                         "name":"Sprite",
+                         "name":"Texture",
                          "type":"string",
-                         "value":"Hunter1-right.bmp"
+                         "value":"..\/Engine\/Assets\/Hunter1-right.bmp"
+                        }, 
+                        {
+                         "name":"id",
+                         "type":"string",
+                         "value":"Enemy"
                         }, 
                         {
                          "name":"velocity",

@@ -14,6 +14,11 @@ namespace mmt_gd
         void addLayer(std::string layer, int order);
         void addCompToLayer(const std::string layer, std::shared_ptr<IRenderComponent> comp);
 
+        sf::RenderWindow& getWindow() const
+        {
+            return m_window;
+        }
+
         void shutdown();
         void draw();
 
