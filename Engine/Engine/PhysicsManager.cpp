@@ -4,32 +4,18 @@
 #include "GameStateManager.h"
 #include "GameState.h"
 #include "PhysicsManager.h"
+#include "RigidBodyCmp.h"
 #include "GameObjectManager.h"
 namespace mmt_gd
 {
  
+     void PhysicsManager::addBoxCollisionCmp(std::shared_ptr<BoxCollisionCmp> component)
+     {
 
+         m_bodies.push_back(component);
+         m_bodies.push_back(component);
 
-    void PhysicsManager::init(sf::Vector2f& rocketOnePosition, sf::Vector2f& rocketTwoPosition)
-    {
-
-        m_bodies.push_back(createBody(1.0f, { 0.0f, 0.0f, 30.0f, 30.0f }, { rocketOnePosition }));
-        m_bodies.push_back(createBody(1.0f, { 0.0f, 0.0f, 30.0f, 30.0f }, { rocketTwoPosition }));
-
-    }
-    RigidBody PhysicsManager::createBody(const float mass, const sf::FloatRect& aabb, const sf::Vector2f& position)
-    {
-        RigidBody body{ aabb, sf::RectangleShape({aabb.width, aabb.height}), mass, (mass == 0.0f) ? 0.0f : 1.0f / mass, position };
-
-        body.m_debugGeometry.setFillColor(sf::Color::Transparent);
-        body.m_debugGeometry.setOutlineColor(sf::Color::Red);
-        body.m_debugGeometry.setOutlineThickness(2);
-        std::cout << "ja gezeichnet";
-        return body;
-    }
-
-
-
+     }
 
     bool PhysicsManager::aabbVsAabb(const sf::FloatRect& a, const sf::FloatRect& b, sf::Vector2f& normal, float& penetration)
     {
@@ -79,19 +65,15 @@ namespace mmt_gd
         return false;
     }
 
- /*   void PhysicsManager::update(std::vector<RigidBody>& m_bodies)
+    void PhysicsManager::update()
     {
-        for (auto& body : m_bodies)
-        {
-            body.m_velocity = 100;
-
-        }
-    }*/
+        findCollisions(m_bodies);
+        resolveCollisions(m_manifolds);
+    }
  
-
-    void PhysicsManager::findCollisions(std::vector<RigidBody>& m_bodies, GameObject& gameObject1, GameObject& gameObject2)
+    void PhysicsManager::findCollisions(std::vector<std::shared_ptr<BoxCollisionCmp>>& m_bodies)
     {
-       
+       //geht alle bodies durch und testet jeden mit jedem
         for (auto itA = m_bodies.begin(); itA != m_bodies.end(); ++itA)
         {
             auto& body1 = *itA;
@@ -102,26 +84,25 @@ namespace mmt_gd
 
                 auto& body2 = *itB;
                 // if both object don't have a mass or body is the same skip
-                if (body1.m_mass == 0 && body2.m_mass == 0)
+                if (body1->rigidBody || body2->rigidBody)
                     continue;
-                body1.m_position = gameObject1.getPosition();
-                body2.m_position = gameObject2.getPosition();
-                //std::cout<<gameobj.getGameObject("rocket_two")->getPosition().x;
+
+
                 sf::Transform body1Transform;
-                body1Transform.translate(body1.m_position);
+                body1Transform.translate(body1->getGameObject().getPosition());
                 sf::Transform body2Transform;
-                body2Transform.translate(body2.m_position);
+                body2Transform.translate(body2->getGameObject().getPosition());
 
                 sf::Vector2f normal;
                 float    penetration;
-                if (PhysicsManager::aabbVsAabb(body1Transform.transformRect(body1.m_shape),
-                    body2Transform.transformRect(body2.m_shape),
+                if (PhysicsManager::aabbVsAabb(body1Transform.transformRect(body1->m_shape),
+                    body2Transform.transformRect(body2->m_shape),
                     normal,
                     penetration))
                 {
                     Manifold manifold;
-                    manifold.m_body1 = &body1;
-                    manifold.m_body2 = &body2;
+                    manifold.m_body1 = body1;
+                    manifold.m_body2 = body2;
                     manifold.m_normal = normal;
                     manifold.m_penetration = penetration;
 
@@ -138,7 +119,7 @@ namespace mmt_gd
             // TODO: implement simple collision resolution without restitution. see slides for formulas
             // TODO: add restitution to collision resolution (j)
             // HINT: pay attention to the direction of the normal and relative velocity.
-            sf::Vector2f rv = man.m_body1->m_velocity - man.m_body2->m_velocity;
+            sf::Vector2f rv = man.m_body1->rigidBody->m_velocity - man.m_body2->rigidBody->m_velocity;
            // std::cout << man.m_body1->m_velocity.x;
             // Calculate relative velocity in terms of the normal direction
             float velAlongNormal = rv.x * man.m_normal.x + rv.y * man.m_normal.y;
@@ -150,8 +131,8 @@ namespace mmt_gd
 
             // Apply impulse
             sf::Vector2f impulse = velAlongNormal * man.m_normal;
-            man.m_body1->m_velocity -= 0.5f * impulse;
-            man.m_body2->m_velocity += 0.5f * impulse;
+            man.m_body1->rigidBody->m_velocity -= 0.5f * impulse;
+            man.m_body2->rigidBody->m_velocity += 0.5f * impulse;
             // TODO: implement positional correction (see slides)
         }
     }

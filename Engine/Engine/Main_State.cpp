@@ -31,48 +31,9 @@ void MainState::init()
     mapObj->init();
     m_gameObjectManager.addGameObject(mapObj);
 
-    //rocket_one -> mit WASD
-    const auto& rocket_one = std::make_shared<GameObject>("rocket_one");
-    const auto& renderRocket = std::make_shared<SpriteRenderCmp>(*rocket_one, m_window, rocket_T);
-    const auto& moveRocket = std::make_shared<MoveCmp>(*rocket_one, sf::Vector2f(0, 0), 500.f);
-    const auto& rigidbodyRocket = std::make_shared<RigidBodyCmp>(*rocket_one);
-    const auto& boxcollisionBoxRocket = std::make_shared<BoxCollisionCmp>(*rocket_one, sf::Vector2f(10.0f, 10.f), sf::Vector2f(10.0f, 10.f), rigidbodyRocket, false);
-
-    rocket_one->addComponent(renderRocket);
-    rocket_one->addComponent(moveRocket);
-    rocket_one->addComponent(rigidbodyRocket);
-    rocket_one->addComponent(boxcollisionBoxRocket);
-    rocket_one->setPosition(sf::Vector2f(500, -5));
-    rocket_one->init();
-
-    //rocket_two -> mit Mouse
-    const auto& rocket_two = std::make_shared<GameObject>("rocket_two");
-    const auto& mouseMoveRocket = std::make_shared<MouseMoveCmp>(*rocket_two, sf::Vector2f(100, 0), 500.f);
-    const auto& renderRocketTwo = std::make_shared<SpriteRenderCmp>(*rocket_two, m_window, rocket_T);
-    const auto& rigidbodyRocketTwo = std::make_shared<RigidBodyCmp>(*rocket_two);
-    const auto& boxcollisionBoxRocketTwo = std::make_shared<BoxCollisionCmp>(*rocket_two, sf::Vector2f(10.0f, 10.f), sf::Vector2f(100.0f, 100.f), rigidbodyRocketTwo, false);
-
-    rocket_two->addComponent(renderRocketTwo);
-    rocket_two->addComponent(mouseMoveRocket);
-    rocket_two->addComponent(rigidbodyRocketTwo);
-    rocket_two->addComponent(boxcollisionBoxRocketTwo);
-    rocket_two->setPosition(sf::Vector2f(0, 0));
-    rocket_two->init();
-
-    sf::Vector2f rocketOnePosition = rocket_one->getPosition();
-    sf::Vector2f rocketTwoPosition = rocket_two->getPosition();
-    std::cout<< rocket_one->getPosition().x;
- 
-
-    //camera
-    const auto& camera = std::make_shared<GameObject>("camera");
-    //set the camera in the center of the screen, if you dont do this the 0,0 point is in the middle 
-    camera->setPosition(m_window.getSize().x / 2, m_window.getSize().y / 2);
-
-    ///set size of size from window
-
     if (m_gameObjectManager.getGameObject("Player"))
     {
+        const auto& camera = std::make_shared <GameObject>("camera");
         const auto& cameraCmp = std::make_shared<CameraCmp>(*camera, m_window, sf::Vector2f(m_window.getSize().x, m_window.getSize().y), m_gameObjectManager.getGameObject("Player"));
         camera->addComponent(cameraCmp);
         m_RenderManager.addCompToLayer("ObjectLayer", cameraCmp);
@@ -81,15 +42,6 @@ void MainState::init()
         m_gameObjectManager.addGameObject(camera);
         m_RenderManager.addLayer("camera", 20);
     }
-    camera->init();
-    rocket_one->getId();
-    m_gameObjectManager.addGameObject(rocket_one);
-    m_gameObjectManager.addGameObject(rocket_two);
-    
-    m_gameObjectManager.addGameObject(camera);
-
-    std::cout<<m_gameObjectManager.getGameObject("rocket_one")->getPosition().x;
-    m_physicsManager.init(rocketOnePosition, rocketTwoPosition);
 
 }
 
@@ -101,8 +53,8 @@ void MainState::exit()
 
 void MainState::update(float deltaTime)
 {
-    m_physicsManager.findCollisions(m_physicsManager.m_bodies, *m_gameObjectManager.getGameObject("rocket_one"), *m_gameObjectManager.getGameObject("rocket_two"));
-    m_physicsManager.resolveCollisions(m_physicsManager.m_manifolds);
+
+    PhysicsManager::instance().update();
     m_gameObjectManager.update(deltaTime);
 }
 
@@ -113,11 +65,17 @@ void MainState::draw()
     m_RenderManager.draw();
 
     
-    for (auto& body : m_physicsManager.m_bodies)
+    for (auto& body : PhysicsManager::instance().m_bodies)
     {
-        body.m_debugGeometry.setPosition(body.m_position);
+       sf::RectangleShape m_debugGeometry;
+       m_debugGeometry.setPosition(body->getPosition());
+       m_debugGeometry.setSize(sf::Vector2f(body->getSize().height, body->getSize().width));
+       m_debugGeometry.setFillColor(sf::Color::Transparent);
+       m_debugGeometry.setOutlineColor(sf::Color::Red);
+       m_debugGeometry.setOutlineThickness(2);
+        
        // std::cout << body.m_position.x;
-        m_window.draw(body.m_debugGeometry);
+        m_window.draw(m_debugGeometry);
         
     }
     m_window.display();

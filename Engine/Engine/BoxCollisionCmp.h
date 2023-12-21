@@ -7,30 +7,29 @@ namespace mmt_gd
 {
     class RigidBodyCmp; // Forward declaration
 
-    class BoxCollisionCmp : public IComponent
+    class BoxCollisionCmp : public IComponent , std::enable_shared_from_this< BoxCollisionCmp >
     {
     public:
-        BoxCollisionCmp(GameObject& gameObject, const sf::Vector2f& initialSize = sf::Vector2f(10.0f, 10.0f),
-            const sf::Vector2f& initialPosition = sf::Vector2f(10.0f, 10.0f),
-            std::shared_ptr<RigidBodyCmp> initialRigidBody = nullptr, bool isLogicTrigger = false)
-            : IComponent(gameObject), size(initialSize), position(initialPosition), ownRigidBody(initialRigidBody), logicTrigger(isLogicTrigger) {}
+        BoxCollisionCmp(GameObject& gameObject, sf::FloatRect m_shape)
+            : IComponent(gameObject), m_shape(m_shape) {}
 
-        bool init() override { return true; }
-        void update(float deltaTime) override {}
+        bool init() override;
+        void update(float deltaTime) override {};
+		//BoxCollisionCmp(const BoxCollisionCmp& other) = delete;
 
         // Accessors
-        const sf::Vector2f& getSize() const { return size; }
-        const sf::Vector2f& getPosition() const { return position; }
+        const sf::FloatRect& getSize() const { return m_shape; }
+        const sf::Vector2f& getPosition() const { return m_position; }
         bool isLogicTrigger() const { return logicTrigger; }
-        std::shared_ptr<RigidBodyCmp> getRigidBody() const { return ownRigidBody; }
+        std::shared_ptr<RigidBodyCmp> getRigidBody() const { return rigidBody; }
 
         // Setters
         void setLogicTrigger(bool value) { logicTrigger = value; }
 
-    private:
-        sf::Vector2f size;
-        sf::Vector2f position;
-        std::shared_ptr<RigidBodyCmp> ownRigidBody;
-        bool logicTrigger;
+        std::shared_ptr<RigidBodyCmp> rigidBody = nullptr;
+        
+        sf::FloatRect m_shape;
+        sf::Vector2f m_position;
+        bool logicTrigger = false;
     };
 }

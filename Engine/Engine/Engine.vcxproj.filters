@@ -63,9 +63,6 @@
     <ClCompile Include="InputManager.cpp">
       <Filter>Source Files\Manager</Filter>
     </ClCompile>
-    <ClCompile Include="CollisionCmp.cpp">
-      <Filter>Source Files\Components</Filter>
-    </ClCompile>
     <ClCompile Include="SpriteRenderCmp.cpp">
       <Filter>Source Files\Components</Filter>
     </ClCompile>
@@ -93,9 +90,6 @@
     <ClCompile Include="DebugDraw.cpp">
       <Filter>Source Files\Debug</Filter>
     </ClCompile>
-    <ClCompile Include="MenüState.cpp">
-      <Filter>Source Files\States</Filter>
-    </ClCompile>
     <ClCompile Include="Main_State.cpp">
       <Filter>Source Files\States</Filter>
     </ClCompile>
@@ -113,6 +107,15 @@
     </ClCompile>
     <ClCompile Include="PhysicsManager.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="BoxCollision.cpp">
+      <Filter>Source Files\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="RigidBodyCmp.cpp">
+      <Filter>Source Files\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="MenüState.cpp">
+      <Filter>Source Files\States</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -135,9 +138,6 @@
       <Filter>Header Files\Manager\GameStateManager</Filter>
     </ClInclude>
     <ClInclude Include="SpriteRenderCmp.h">
-      <Filter>Header Files\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="CollisionCmp.h">
       <Filter>Header Files\Components</Filter>
     </ClInclude>
     <ClInclude Include="MoveCmp.h">
@@ -194,9 +194,6 @@
     <ClInclude Include="ObjectFactory.h">
       <Filter>Header Files\GameObjects</Filter>
     </ClInclude>
-    <ClInclude Include="PhysicsManager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="RigidBodyCmp.h">
       <Filter>Header Files\Components</Filter>
     </ClInclude>
@@ -204,6 +201,9 @@
       <Filter>Header Files\Components</Filter>
     </ClInclude>
     <ClInclude Include="Game.h">
+      <Filter>Header Files\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="PhysicsManager.h">
       <Filter>Header Files\Manager</Filter>
     </ClInclude>
   </ItemGroup>

@@ -36,7 +36,6 @@ namespace mmt_gd
         virtual void draw() override; 
     private:
         GameObjectManager m_gameObjectManager;
-        PhysicsManager    m_physicsManager;
     };
 
     class MainState : public GameState
@@ -51,6 +50,5 @@ namespace mmt_gd
     private:
         GameObjectManager m_gameObjectManager;
         RenderManager m_RenderManager;
-        PhysicsManager    m_physicsManager;
     };
 }
