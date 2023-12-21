@@ -68,7 +68,7 @@ void MainState::draw()
     for (auto& body : PhysicsManager::instance().m_bodies)
     {
        sf::RectangleShape m_debugGeometry;
-       m_debugGeometry.setPosition(body->m_position);
+       m_debugGeometry.setPosition(body->m_shape.getPosition());
        m_debugGeometry.setSize(body->m_shape.getSize());
        m_debugGeometry.setFillColor(sf::Color::Transparent);
        m_debugGeometry.setOutlineColor(sf::Color::Red);
