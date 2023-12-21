@@ -50,8 +50,10 @@ namespace mmt_gd
             else
             {
                 comp->init();
+               
             }
         }
+        std::cout << "init go" << std::endl;
         return true;
     }
 }

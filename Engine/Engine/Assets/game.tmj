@@ -356,6 +356,11 @@
                          "value":"Player"
                         }, 
                         {
+                         "name":"mass",
+                         "type":"float",
+                         "value":1
+                        }, 
+                        {
                          "name":"velocity",
                          "type":"float",
                          "value":200
@@ -383,6 +388,11 @@
                          "value":"Enemy"
                         }, 
                         {
+                         "name":"mass",
+                         "type":"float",
+                         "value":1
+                        }, 
+                        {
                          "name":"velocity",
                          "type":"float",
                          "value":200
@@ -393,50 +403,6 @@
                  "width":19,
                  "x":353,
                  "y":396
-                }, 
-                {
-                 "height":18,
-                 "id":3,
-                 "name":"WallTop",
-                 "rotation":0,
-                 "type":"Collider",
-                 "visible":true,
-                 "width":782,
-                 "x":9,
-                 "y":11
-                }, 
-                {
-                 "height":773,
-                 "id":6,
-                 "name":"WallLeft",
-                 "rotation":0,
-                 "type":"Collider",
-                 "visible":true,
-                 "width":18,
-                 "x":4,
-                 "y":26
-                }, 
-                {
-                 "height":775,
-                 "id":7,
-                 "name":"WallRight",
-                 "rotation":0,
-                 "type":"Collider",
-                 "visible":true,
-                 "width":25,
-                 "x":773,
-                 "y":24
-                }, 
-                {
-                 "height":17,
-                 "id":8,
-                 "name":"WallBot",
-                 "rotation":0,
-                 "type":"Collider",
-                 "visible":true,
-                 "width":740,
-                 "x":27,
-                 "y":782
                 }],
          "opacity":1,
          "type":"objectgroup",

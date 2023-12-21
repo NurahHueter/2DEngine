@@ -3,10 +3,12 @@
 #include "GameObject.h"
 #include "InputManager.h"
 #include "MoveCmp.h"
+#include "RigidBodyCmp.h"
 namespace mmt_gd
 {
     void MoveCmp::update(float deltaTime)
     {
+        //if(gameObject.getComponent<RigidBodyCmp>())
 
         if (InputManager::instance().isKeyPressed("up", 1))
         {

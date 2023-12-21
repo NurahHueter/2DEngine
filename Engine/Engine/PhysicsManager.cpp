@@ -11,10 +11,7 @@ namespace mmt_gd
  
      void PhysicsManager::addBoxCollisionCmp(std::shared_ptr<BoxCollisionCmp> component)
      {
-
          m_bodies.push_back(component);
-         m_bodies.push_back(component);
-
      }
 
     bool PhysicsManager::aabbVsAabb(const sf::FloatRect& a, const sf::FloatRect& b, sf::Vector2f& normal, float& penetration)
@@ -22,7 +19,11 @@ namespace mmt_gd
         auto getCenter = [](const sf::FloatRect& rect) -> sf::Vector2f
             { return sf::Vector2f(rect.left, rect.top) + 0.5f * sf::Vector2f(rect.width, rect.height); };
 
+        //std::cout << " b pos x" << b.getPosition().x << std::endl;
+        //std::cout << " b pos y" << b.getPosition().y << std::endl;
 
+        //std::cout << " a pos x" << a.getPosition().x << std::endl;
+        //std::cout << " a pos y" << a.getPosition().y << std::endl;
 
         sf::Vector2f n = getCenter(b) - getCenter(a); // Vector from A to B
         float    a_extent = a.width * 0.5f;              // Calculate half extents along x axis
@@ -38,7 +39,6 @@ namespace mmt_gd
             // SAT test on y axis
             if (y_overlap > 0)
             {
-                std::cout << "ALARM!!";
                 // Find out which axis is axis of least penetration
                 if (x_overlap < y_overlap)
                 {
@@ -67,6 +67,7 @@ namespace mmt_gd
 
     void PhysicsManager::update()
     {
+        m_manifolds.clear();
         findCollisions(m_bodies);
         resolveCollisions(m_manifolds);
     }
@@ -84,22 +85,23 @@ namespace mmt_gd
 
                 auto& body2 = *itB;
                 // if both object don't have a mass or body is the same skip
-                if (body1->rigidBody || body2->rigidBody)
+                if (body1->rigidBody->m_mass == 0.f || body2->rigidBody->m_mass == 0.f)
                     continue;
 
 
                 sf::Transform body1Transform;
-                body1Transform.translate(body1->getGameObject().getPosition());
+                body1Transform.translate(body1->m_position);
                 sf::Transform body2Transform;
-                body2Transform.translate(body2->getGameObject().getPosition());
+                body2Transform.translate(body2->m_position);
 
                 sf::Vector2f normal;
-                float    penetration;
-                if (PhysicsManager::aabbVsAabb(body1Transform.transformRect(body1->m_shape),
+                float    penetration = NAN;
+                if (aabbVsAabb(body1Transform.transformRect(body1->m_shape),
                     body2Transform.transformRect(body2->m_shape),
                     normal,
                     penetration))
                 {
+                    std::cout << "ALARM!!";
                     Manifold manifold;
                     manifold.m_body1 = body1;
                     manifold.m_body2 = body2;
@@ -136,6 +138,5 @@ namespace mmt_gd
             // TODO: implement positional correction (see slides)
         }
     }
-
 
 }

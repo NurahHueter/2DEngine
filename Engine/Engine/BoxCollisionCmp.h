@@ -14,8 +14,7 @@ namespace mmt_gd
             : IComponent(gameObject), m_shape(m_shape) {}
 
         bool init() override;
-        void update(float deltaTime) override {};
-		//BoxCollisionCmp(const BoxCollisionCmp& other) = delete;
+        void update(float deltaTime) override;
 
         // Accessors
         const sf::FloatRect& getSize() const { return m_shape; }

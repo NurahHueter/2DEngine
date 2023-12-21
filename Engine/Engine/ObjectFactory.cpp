@@ -71,17 +71,15 @@ void ObjectFactory::loadPlayer(tson::Object& object,
              else if (name == "velocity")
              {
                  velocity = std::any_cast<float>(property->getValue());
-                 gameObject->addComponent(std::make_shared<RigidBodyCmp>(*gameObject, mass, sf::Vector2f(velocity, velocity)));
-                 const auto& boxCollider = std::make_shared<BoxCollisionCmp>(*gameObject, sf::FloatRect(static_cast<float>(object.getPosition().x), static_cast<float>(object.getPosition().y), static_cast<float>(object.getSize().x), static_cast<float>(object.getSize().y)));
-                 gameObject->addComponent(boxCollider);
-                 PhysicsManager::instance().addBoxCollisionCmp(boxCollider);
+                 std::cout << velocity << std::endl;
+
              }
              else if (name == "mass")
              {
                  mass = std::any_cast<float>(property->getValue());
+                 std::cout << mass << std::endl;
              }
          }
-         gameObject->addComponent(std::make_shared<MoveCmp>(*gameObject, velocity));
 
          if (object.getType() == "Player")
          {
@@ -91,6 +89,12 @@ void ObjectFactory::loadPlayer(tson::Object& object,
          {
              gameObject->addComponent(std::make_shared<MouseMoveCmp>(*gameObject, sf::Vector2f((object.getPosition().x), static_cast<float>(object.getPosition().y)), velocity));
          }
+
+         gameObject->addComponent(std::make_shared<RigidBodyCmp>(*gameObject, mass, sf::Vector2f(velocity, velocity)));
+         const auto& boxCollider = std::make_shared<BoxCollisionCmp>(*gameObject, sf::FloatRect(static_cast<float>(object.getPosition().x), static_cast<float>(object.getPosition().y), static_cast<float>(object.getSize().x), static_cast<float>(object.getSize().y)));
+         gameObject->addComponent(boxCollider);
+         PhysicsManager::instance().addBoxCollisionCmp(boxCollider);
+         std::cout << "made obj" << std::endl;
          gameObject->init();
          gameObjectManager.addGameObject(gameObject);
     };
