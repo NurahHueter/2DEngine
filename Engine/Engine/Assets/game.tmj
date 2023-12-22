@@ -403,6 +403,50 @@
                  "width":19,
                  "x":353,
                  "y":396
+                }, 
+                {
+                 "height":20.3562340966921,
+                 "id":10,
+                 "name":"WallTop",
+                 "rotation":0,
+                 "type":"Collider",
+                 "visible":true,
+                 "width":759.608946029195,
+                 "x":20.3562340966921,
+                 "y":8.57104593544931
+                }, 
+                {
+                 "height":740,
+                 "id":16,
+                 "name":"WallRight",
+                 "rotation":0,
+                 "type":"Collider",
+                 "visible":true,
+                 "width":17.3333333333334,
+                 "x":778.666666666667,
+                 "y":40
+                }, 
+                {
+                 "height":9.33333333333337,
+                 "id":19,
+                 "name":"WallBot",
+                 "rotation":0,
+                 "type":"Collider",
+                 "visible":true,
+                 "width":748,
+                 "x":26.6666666666667,
+                 "y":778.666666666667
+                }, 
+                {
+                 "height":748,
+                 "id":21,
+                 "name":"Wallleft",
+                 "rotation":0,
+                 "type":"Collider",
+                 "visible":true,
+                 "width":8,
+                 "x":9.33333333333333,
+                 "y":36
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -522,7 +566,7 @@
          "y":0
         }],
  "nextlayerid":6,
- "nextobjectid":9,
+ "nextobjectid":22,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.10.2",

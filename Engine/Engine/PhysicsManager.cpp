@@ -85,7 +85,7 @@ namespace mmt_gd
 
                 auto& body2 = *itB;
                 // if both object don't have a mass or body is the same skip
-                if (body1->rigidBody->m_mass == 0.f || body2->rigidBody->m_mass == 0.f)
+                if (body1->rigidBody|| body2->rigidBody)
                     continue;
 
 

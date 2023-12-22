@@ -20,14 +20,20 @@ void ObjectFactory::processTsonObject(tson::Object& object,
     RenderManager& renderManager,
     GameObjectManager& gameObjectManager)
     {
-
-        if (object.getType() == "Player" || "Enemy")
+        if (object.getType() == "Player" || object.getType() == "Enemy")
         {
            loadPlayer(object, layer.getName(), renderManager, gameObjectManager);
         }
         if (object.getType() == "Collider")
         {
-            
+            auto gameObject = std::make_shared<GameObject>(object.getName());
+            gameObject->setPosition(static_cast<float>(object.getPosition().x), static_cast<float>(object.getPosition().y));
+            const auto& boxCollider = std::make_shared<BoxCollisionCmp>(*gameObject, sf::FloatRect(static_cast<float>(object.getPosition().x), static_cast<float>(object.getPosition().y), static_cast<float>(object.getSize().x), static_cast<float>(object.getSize().y)));
+            gameObject->addComponent(boxCollider);
+            PhysicsManager::instance().addBoxCollisionCmp(boxCollider);
+            gameObject->init();
+            gameObjectManager.addGameObject(gameObject);
+
         }
         if (object.getType() == "Trigger")
         {
@@ -65,19 +71,15 @@ void ObjectFactory::loadPlayer(tson::Object& object,
                  if ((id = std::any_cast<std::string>(property->getValue())).length() > 0)
                  {
                      gameObject->setId(id);
-                     std::cout << id << std::endl;
                  }
              }
              else if (name == "velocity")
              {
                  velocity = std::any_cast<float>(property->getValue());
-                 std::cout << velocity << std::endl;
-
              }
              else if (name == "mass")
              {
                  mass = std::any_cast<float>(property->getValue());
-                 std::cout << mass << std::endl;
              }
          }
 
@@ -94,7 +96,6 @@ void ObjectFactory::loadPlayer(tson::Object& object,
          const auto& boxCollider = std::make_shared<BoxCollisionCmp>(*gameObject, sf::FloatRect(static_cast<float>(object.getPosition().x), static_cast<float>(object.getPosition().y), static_cast<float>(object.getSize().x), static_cast<float>(object.getSize().y)));
          gameObject->addComponent(boxCollider);
          PhysicsManager::instance().addBoxCollisionCmp(boxCollider);
-         std::cout << "made obj" << std::endl;
          gameObject->init();
          gameObjectManager.addGameObject(gameObject);
     };
