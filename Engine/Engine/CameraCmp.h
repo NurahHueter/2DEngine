@@ -6,8 +6,8 @@ namespace mmt_gd
 	class CameraCmp : public IRenderComponent
 	{
 	public:
-		CameraCmp(GameObject& gameObject, sf::RenderWindow& renderWindow, sf::Vector2f size, std::shared_ptr<GameObject> target)
-			:IRenderComponent(gameObject, renderWindow), size(size), target(target) {};
+		CameraCmp(GameObject& gameObject, sf::RenderWindow& renderWindow, sf::Vector2f size)
+			:IRenderComponent(gameObject, renderWindow), size(size) {};
 
 		bool init() override;
 		void update(float deltaTime) override;
@@ -18,9 +18,12 @@ namespace mmt_gd
 		void setSize(sf::Vector2f& size);
 		void setViewPort(sf::FloatRect& viewPort);
 
+		void setTarget(std::weak_ptr<GameObject> target);
+		
+	protected:
 		sf::Vector2f size;
 		sf::View view;
 
-		std::shared_ptr<GameObject> target;
+		std::weak_ptr<GameObject> m_target;
 	};
 };

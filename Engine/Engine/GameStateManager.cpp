@@ -12,12 +12,10 @@ namespace mmt_gd
     };
 
     void GameStateManager::update(float delta) {
-        //std::cout << "update State" <<  std::endl;
         currentState->update(delta);
     }
 
     void GameStateManager::draw() {
-        // std::cout << "draw State" << std::endl;
         currentState->draw();
     }
 
@@ -26,6 +24,7 @@ namespace mmt_gd
 
         if (state != currentState) {
             if (currentState != nullptr) {
+                std::cout << "exit State" << std::endl;
                 currentState->exit();
             }
             currentState = std::move(state);

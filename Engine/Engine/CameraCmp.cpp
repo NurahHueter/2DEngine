@@ -6,13 +6,19 @@ namespace mmt_gd
 {
 	bool CameraCmp::init()
 	{
-		view.reset(sf::FloatRect(target->getPosition(), size));
+		view.setSize(size);
 		return true;
 	}
+	void CameraCmp::setTarget(std::weak_ptr<GameObject> target)
+	{
+		m_target = target;
+	};
 	void CameraCmp::update(float deltaTime)
 	{
-	view.setCenter(target->getPosition());
-
+		if (std::shared_ptr<GameObject> tempP = m_target.lock())
+		{
+			view.setCenter(tempP->getPosition());
+		}
 	}
 
 	void CameraCmp::draw()

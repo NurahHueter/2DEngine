@@ -13,11 +13,9 @@ namespace mmt_gd
 	void Game::Initialize()
 	{
 		m_window.setVerticalSyncEnabled(true);
-		m_window.create({ 800, 600 }, "SFML Window");
+		m_window.create({ 1920, 1080 }, "SFML Window");
 		InputManager::instance().setWindow(m_window);
 
-		InputManager::instance().bind("switch", sf::Keyboard::Key::Space, 1);
-		InputManager::instance().bind("music", sf::Keyboard::Key::M, 1);
 		InputManager::instance().bind("up", sf::Keyboard::Key::W, 1);
 		InputManager::instance().bind("down", sf::Keyboard::Key::S, 1);
 		InputManager::instance().bind("left", sf::Keyboard::Key::A, 1);
@@ -26,12 +24,19 @@ namespace mmt_gd
 		InputManager::instance().bind("leftclick", sf::Mouse::Left, 2);
 		InputManager::instance().bind("debugdraw", sf::Keyboard::Key::Num0, 1);
 
+		InputManager::instance().bind("MainState", sf::Keyboard::Key::Num2, 1);
+		InputManager::instance().bind("MenuState", sf::Keyboard::Key::Num1, 1);
+		InputManager::instance().bind("SpaceGameState", sf::Keyboard::Key::Num3, 1);
+
 		auto menu = std::make_shared<MenuState>(m_window);
 		auto main = std::make_shared<MainState>(m_window);
+		auto spaceGame = std::make_shared<SpaceState>(m_window);
 
 		GameStateManager::instance().addState("MainState", main);
 		GameStateManager::instance().addState("MenuState", menu);
-		GameStateManager::instance().setState("MainState");
+		GameStateManager::instance().addState("SpaceGameState", spaceGame);
+
+		GameStateManager::instance().setState("MenuState");
 	};
 
 	void Game::Run()
@@ -50,19 +55,20 @@ namespace mmt_gd
 
 	void Game::Update(float deltaTime)
 	{
-		if (InputManager::instance().isKeyUp("switch", 1))
+
+		if (InputManager::instance().isKeyUp("MenuState", 1))
 		{
-			if (m_isGameInMenu)
-			{
-				GameStateManager::instance().setState("MenuState");
-				m_isGameInMenu = false;
-			}
-			else
-			{
-				GameStateManager::instance().setState("MainState");
-				m_isGameInMenu = true;
-			}
+			GameStateManager::instance().setState("MenuState");
 		}
+		else if(InputManager::instance().isKeyUp("MainState", 1))
+		{
+			GameStateManager::instance().setState("MainState");
+		}
+		else if (InputManager::instance().isKeyUp("SpaceGameState", 1))
+		{
+			GameStateManager::instance().setState("SpaceGameState");
+		}
+
 
 		GameStateManager::instance().update(deltaTime);
 		InputManager::instance().update();

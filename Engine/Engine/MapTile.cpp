@@ -19,7 +19,7 @@ namespace mmt_gd
 	using namespace sf;
 	using namespace std;
 
-	void MapTile::loadMap(const std::unique_ptr<tson::Map>& map)
+	void MapTile::loadMap(const std::unique_ptr<tson::Map>& map, const fs::path resourcePath)
 	{
 
 		if (map->getStatus() == tson::ParseStatus::OK)
@@ -32,10 +32,10 @@ namespace mmt_gd
 			{
 				fs::path tileSetPath = tileSet.getImage().u8string();
 
-				AssetManager::instance().LoadTexture(tileSet.getName(), (m_resourcePath / tileSetPath).string());
+				AssetManager::instance().LoadTexture(tileSet.getName(), (resourcePath / tileSetPath).string());
 				if (!AssetManager::instance().m_Textures[tileSet.getName()])
 				{
-					err() << "Could not load texture " << m_resourcePath / tileSetPath << endl;
+					err() << "Could not load texture " << resourcePath / tileSetPath << endl;
 				}
 			}
 		}

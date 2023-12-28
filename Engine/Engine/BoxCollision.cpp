@@ -13,11 +13,6 @@ namespace mmt_gd
 		if (gameObject.getComponent<RigidBodyCmp>())
 		{
 			rigidBody = gameObject.getComponent<RigidBodyCmp>();
-			if(rigidBody)
-			{
-				std::cout << "gibt rigidBody" << std::endl;
-			}
-			
 		}
 		
 		return true;

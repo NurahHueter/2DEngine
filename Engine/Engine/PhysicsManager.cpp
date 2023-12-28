@@ -8,10 +8,10 @@
 #include "GameObjectManager.h"
 namespace mmt_gd
 {
- 
-     void PhysicsManager::addBoxCollisionCmp(std::shared_ptr<BoxCollisionCmp> component)
+    
+     void PhysicsManager::addBoxCollisionCmp(std::weak_ptr<BoxCollisionCmp> component)
      {
-         m_bodies.push_back(component);
+             m_bodies.push_back(component);
      }
 
     bool PhysicsManager::aabbVsAabb(const sf::FloatRect& a, const sf::FloatRect& b, sf::Vector2f& normal, float& penetration)
@@ -72,13 +72,22 @@ namespace mmt_gd
         resolveCollisions(m_manifolds);
     }
  
-    void PhysicsManager::findCollisions(std::vector<std::shared_ptr<BoxCollisionCmp>>& m_bodies)
+    void PhysicsManager::findCollisions(std::vector<std::weak_ptr<BoxCollisionCmp>>& m_bodies)
     {
-       //geht alle bodies durch und testet jeden mit jedem
-        for (auto itA = m_bodies.begin(); itA != m_bodies.end(); ++itA)
+        //checks if all ptr have a reverence and makes temp shared ptr
+        std::vector<std::shared_ptr<BoxCollisionCmp>> bodies;
+        for (auto body : m_bodies)
+        {
+            if (std::shared_ptr<BoxCollisionCmp> tempP = body.lock())
+            {
+                bodies.push_back(tempP);
+            }
+        }
+
+        for (auto itA = bodies.begin(); itA != bodies.end(); ++itA)
         {
             auto& body1 = *itA;
-            for (auto itB = itA; itB != m_bodies.end(); ++itB)
+            for (auto itB = itA; itB != bodies.end(); ++itB)
             {
                 if (itB == itA)
                     continue;
@@ -137,6 +146,12 @@ namespace mmt_gd
             man.m_body2->rigidBody->m_velocity += 0.5f * impulse;
             // TODO: implement positional correction (see slides)
         }
+    }
+
+    void PhysicsManager::shutdown()
+    {
+        m_manifolds.clear();
+        m_bodies.clear();
     }
 
 }

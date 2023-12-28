@@ -153,7 +153,7 @@ sfml-window-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     <ClCompile Include="GameObjectManager.cpp" />
     <ClCompile Include="GameStateManager.cpp" />
     <ClCompile Include="InputManager.cpp" />
-    <ClCompile Include="Main_State.cpp" />
+    <ClCompile Include="MainState.cpp" />
     <ClCompile Include="MapTile.cpp" />
     <ClCompile Include="MenüState.cpp" />
     <ClCompile Include="MouseMoveCmp.cpp" />
@@ -168,6 +168,7 @@ sfml-window-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     <ClCompile Include="ProjectilePoolCmp.cpp" />
     <ClCompile Include="RenderManager.cpp" />
     <ClCompile Include="RigidBodyCmp.cpp" />
+    <ClCompile Include="SpaceState.cpp" />
     <ClCompile Include="SpriteRenderCmp.cpp" />
     <ClCompile Include="TileLayerCmp.cpp" />
   </ItemGroup>

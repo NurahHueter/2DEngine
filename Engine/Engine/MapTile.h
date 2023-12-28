@@ -21,14 +21,12 @@ namespace mmt_gd
     {
     public:
  
-       void loadMap(const std::unique_ptr<tson::Map>& map);
+       void loadMap(const std::unique_ptr<tson::Map>& map, const fs::path m_resourcePath);
 		/*std::shared_ptr<SpriteRenderCmp> loadSprite(tson::Object& object);*/
 
        void getTiledLayer(GameObject& gameObject, const std::unique_ptr<tson::Map>& map, sf::RenderWindow& window, RenderManager& renderManager);
 
        void getObjectLayer(const std::unique_ptr<tson::Map>& map, RenderManager& renderManager, GameObjectManager& gameObjectManager);
-
-        const fs::path m_resourcePath{ "Assets" };
 
     };
 

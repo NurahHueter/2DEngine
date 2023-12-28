@@ -90,7 +90,7 @@
     <ClCompile Include="DebugDraw.cpp">
       <Filter>Source Files\Debug</Filter>
     </ClCompile>
-    <ClCompile Include="Main_State.cpp">
+    <ClCompile Include="MainState.cpp">
       <Filter>Source Files\States</Filter>
     </ClCompile>
     <ClCompile Include="GameStateManager.cpp">
@@ -115,6 +115,9 @@
       <Filter>Source Files\Components</Filter>
     </ClCompile>
     <ClCompile Include="MenüState.cpp">
+      <Filter>Source Files\States</Filter>
+    </ClCompile>
+    <ClCompile Include="SpaceState.cpp">
       <Filter>Source Files\States</Filter>
     </ClCompile>
   </ItemGroup>
@@ -200,11 +203,11 @@
     <ClInclude Include="BoxCollisionCmp.h">
       <Filter>Header Files\Components</Filter>
     </ClInclude>
-    <ClInclude Include="Game.h">
-      <Filter>Header Files\Manager</Filter>
-    </ClInclude>
     <ClInclude Include="PhysicsManager.h">
       <Filter>Header Files\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="Game.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

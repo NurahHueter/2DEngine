@@ -51,4 +51,17 @@ namespace mmt_gd
         GameObjectManager m_gameObjectManager;
         RenderManager m_RenderManager;
     };
+    class SpaceState : public GameState
+    {
+    public:
+        SpaceState(sf::RenderWindow& m_window) : GameState(m_window), m_RenderManager(m_window) {}
+        MapTile mapTile;
+        virtual void init() override;
+        virtual void exit() override;
+        virtual void update(float deltaTime) override;
+        virtual void draw() override;
+    private:
+        GameObjectManager m_gameObjectManager;
+        RenderManager m_RenderManager;
+    };
 }

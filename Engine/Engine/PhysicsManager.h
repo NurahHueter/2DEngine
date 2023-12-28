@@ -56,16 +56,16 @@ struct Manifold
         PhysicsManager(const PhysicsManager&) = delete;
         PhysicsManager& operator = (const PhysicsManager&) = delete;
 
-       void addBoxCollisionCmp(std::shared_ptr<BoxCollisionCmp> component);
+       void addBoxCollisionCmp(std::weak_ptr<BoxCollisionCmp> component);
 
-        std::vector<std::shared_ptr<BoxCollisionCmp>> m_bodies;
+        std::vector<std::weak_ptr<BoxCollisionCmp>> m_bodies;
         std::vector<Manifold>  m_manifolds;
         void update();
         void shutdown();
     private:
         void resolveCollisions(std::vector<Manifold>& m_manifolds);
         bool aabbVsAabb(const sf::FloatRect& a, const sf::FloatRect& b, sf::Vector2f& normal, float& penetration); // returns true if interseciton
-        void findCollisions(std::vector<std::shared_ptr<BoxCollisionCmp>>& m_bodies);
+        void findCollisions(std::vector<std::weak_ptr<BoxCollisionCmp>>& m_bodies);
         PhysicsManager() {}
         ~PhysicsManager() {}
     };
