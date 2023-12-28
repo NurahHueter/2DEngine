@@ -27,13 +27,7 @@ namespace mmt_gd
 
         //set a camera on the tilemapSize
 
-        const auto cameraGo = std::make_shared<GameObject>("camera");
-       const auto cameraCmp = std::make_shared<CameraCmp>(*cameraGo, m_window, sf::Vector2f(m_window.getSize().x / 2.0f, m_window.getSize().y / 2.0f));
-       cameraCmp->setTarget(m_gameObjectManager.getGameObject("Player"));
-       cameraGo->addComponent(cameraCmp);
-       cameraGo->init();
-       m_gameObjectManager.addGameObject(cameraGo);
-       m_RenderManager.addCompToLayer("Background", cameraCmp);
+
     }
 
     void SpaceState::exit()
@@ -47,7 +41,6 @@ namespace mmt_gd
 
         PhysicsManager::instance().update();
         m_gameObjectManager.update(deltaTime);
-        PhysicsManager::instance().shutdown();
     }
 
     void SpaceState::draw()
