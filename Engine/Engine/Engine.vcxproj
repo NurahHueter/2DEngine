@@ -169,6 +169,7 @@ sfml-window-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     <ClCompile Include="RenderManager.cpp" />
     <ClCompile Include="RigidBodyCmp.cpp" />
     <ClCompile Include="SpaceState.cpp" />
+    <ClCompile Include="SpriteAnimationCmp.cpp" />
     <ClCompile Include="SpriteRenderCmp.cpp" />
     <ClCompile Include="TileLayerCmp.cpp" />
   </ItemGroup>
@@ -196,6 +197,7 @@ sfml-window-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     <ClInclude Include="RigidBodyCmp.h" />
     <ClInclude Include="BoxCollisionCmp.h" />
     <ClInclude Include="RenderManager.h" />
+    <ClInclude Include="SpriteAnimationCmp.h" />
     <ClInclude Include="SpriteRenderCmp.h" />
     <ClInclude Include="TileLayerCmp.h" />
     <ClInclude Include="tileson.hpp" />
