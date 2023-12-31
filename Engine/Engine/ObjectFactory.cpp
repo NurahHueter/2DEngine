@@ -11,6 +11,7 @@
 #include "Tileson.hpp"
 #include "AssetManager.h"
 #include "RigidBodyCmp.h"
+#include "ProjectileCmp.h"
 #include "BoxCollisionCmp.h"
 #include "PhysicsManager.h"
 
@@ -82,7 +83,6 @@ void ObjectFactory::loadPlayer(tson::Object& object,
          gameObject->addComponent(std::make_shared<MoveCmp>(*gameObject, velocity));
 
          const auto& animationCmp = std::make_shared<SpriteAnimationCmp>(*gameObject, renderManager.getWindow(), texture, 8, 8, false, 4);
-         renderManager.addCompToLayer(layer, animationCmp);
          animationCmp->addAnimation( {
             {"MoveUp", 8},
             {"MoveLeftUp", 8},
@@ -140,18 +140,18 @@ void ObjectFactory::loadPlayer(tson::Object& object,
             }
             else if (name == "id")
             {
-                if ((id = std::any_cast<std::string>(property->getValue())).length() > 0)
+                if ((id = property->getValue<std::string>()).length() > 0)
                 {
                     gameObject->setId(id);
                 }
             }
             else if (name == "velocity")
             {
-                velocity = std::any_cast<float>(property->getValue());
+                velocity = property->getValue<float>();
             }
             else if (name == "mass")
             {
-                mass = std::any_cast<float>(property->getValue());
+                mass = property->getValue<float>();
             }
         }
 
@@ -181,6 +181,58 @@ void ObjectFactory::loadPlayer(tson::Object& object,
         gameObject->init();
         gameObjectManager.addGameObject(gameObject);
 
+    }
+
+    void ObjectFactory::loadProjectile(tson::Object& object,
+        const std::string layer,
+        RenderManager& renderManager,
+        GameObjectManager& gameObjectManager,
+        GameObject& gameObject)
+    {
+
+        std::shared_ptr<sf::Texture> texture;
+        std::string texturePath;
+        float velocity;
+        float timeToLive;
+        float intervall;
+
+        for (const auto* property : object.getProperties().get())
+        {
+            auto name = property->getName();
+            if (name == "Projectile")
+            {
+                if ((texturePath = property->getValue<std::string>()).length() > 0)
+                {
+                    AssetManager::instance().LoadTexture(object.getName(), texturePath);
+                    texture = AssetManager::instance().m_Textures[object.getName()];
+                }
+            }
+            else if (name == "timeToLive")
+            {
+                timeToLive = property->getValue<float>();
+            }
+            else if (name == "velocityP")
+            {
+                velocity = property->getValue<float>();
+            }
+            else if (name == "shootIntervall")
+            {
+                intervall = property->getValue<float>();
+            }
+        }
+
+        auto projectile = std::make_shared<GameObject>(object.getName());
+
+        const auto& renderCmp = std::make_shared<RenderCmp>(*projectile, renderManager.getWindow(), texture);
+        renderManager.addCompToLayer(layer, renderCmp);
+
+        const auto& boxCollider = std::make_shared<BoxCollisionCmp>(*projectile, sf::FloatRect(renderCmp->getTextureRect()));
+        projectile->addComponent(boxCollider);
+
+        PhysicsManager::instance().addBoxCollisionCmp(boxCollider);
+        projectile->init();
+
+        gameObjectManager.addGameObject(projectile);
     }
 }
 

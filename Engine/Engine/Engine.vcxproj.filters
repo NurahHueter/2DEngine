@@ -114,7 +114,7 @@
     <ClCompile Include="MoveCmp.cpp">
       <Filter>Source Files\Components\CustomComponentsSpaceGame</Filter>
     </ClCompile>
-    <ClCompile Include="ProjectilePoolCmp.cpp">
+    <ClCompile Include="ProjectileCmp.cpp">
       <Filter>Source Files\Components\CustomComponentsSpaceGame</Filter>
     </ClCompile>
     <ClCompile Include="RigidBodyCmp.cpp">
@@ -218,7 +218,7 @@
     <ClInclude Include="MouseMoveCmp.h">
       <Filter>Header Files\Components\CustomComponentsSpaceGame</Filter>
     </ClInclude>
-    <ClInclude Include="ProjectilePoolCmp.h">
+    <ClInclude Include="ProjectileCmp.h">
       <Filter>Header Files\Components\CustomComponentsSpaceGame</Filter>
     </ClInclude>
     <ClInclude Include="Game.h">

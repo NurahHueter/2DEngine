@@ -203,6 +203,11 @@
                  "name":"Player",
                  "properties":[
                         {
+                         "name":"Projectile",
+                         "type":"string",
+                         "value":"..\/Engine\/Assets\/SpaceShip\/Spaceships\/Projectile.png"
+                        }, 
+                        {
                          "name":"Texture",
                          "type":"string",
                          "value":"..\/Engine\/Assets\/SpaceShip\/Spaceships\/Spaceship#02(24x24)SpriteSheet.png"
@@ -218,9 +223,24 @@
                          "value":1
                         }, 
                         {
+                         "name":"shootIntervall",
+                         "type":"float",
+                         "value":0.5
+                        }, 
+                        {
+                         "name":"timeToLife",
+                         "type":"float",
+                         "value":10
+                        }, 
+                        {
                          "name":"velocity",
                          "type":"float",
                          "value":200
+                        }, 
+                        {
+                         "name":"velocityP",
+                         "type":"float",
+                         "value":600
                         }],
                  "rotation":0,
                  "type":"Player",
