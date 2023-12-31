@@ -22,7 +22,8 @@ namespace mmt_gd
 		{
 			if(std::shared_ptr<sf::Texture> tempP = p_texture.lock()) 
 			{
-				sprite->setTextureRect(sf::IntRect(0, 0, tempP->getSize().x / TILING_X, tempP->getSize().y / TILING_Y));
+				sprite->setTexture(*tempP);
+				sprite->setTextureRect(sf::IntRect(0, 0, tempP->getSize().x / TILING_X, tempP->getSize().y / TILING_Y));				
 			}
 			else
 			{
@@ -37,27 +38,48 @@ namespace mmt_gd
 	{
 		m_animationTime += deltaTime * m_animationSpeed;
 		m_animationFrame = (int)m_animationTime % m_animations[m_currentAnimation];
+
 		int spriteOffsetX;
 		int spriteOffsetY;
 		if (vertical)
 		{
-			spriteOffsetX = m_animations[m_currentAnimation] * sprite->getTextureRect().width;
+			spriteOffsetX = getCurrentAnimationIndex() * sprite->getTextureRect().width;
 			spriteOffsetY = m_animationFrame * sprite->getTextureRect().height;
 		}
 		else
 		{
 			spriteOffsetX = m_animationFrame * sprite->getTextureRect().width;
-			spriteOffsetY = m_animations[m_currentAnimation] * sprite->getTextureRect().height;
+			spriteOffsetY = getCurrentAnimationIndex() * sprite->getTextureRect().height;
 		}
 		sprite->setTextureRect(sf::IntRect(
 			spriteOffsetX,
 			spriteOffsetY,
 			sprite->getTextureRect().width,
 			sprite->getTextureRect().height));
+		sprite->setPosition(gameObject.getPosition());
 	}
 
 	void SpriteAnimationCmp::addAnimation(std::string animation, int frames)
 	{
 			m_animations[animation] = frames;
+			m_animationOrder.push_back(animation);
 	}
-}
+	void SpriteAnimationCmp::addAnimation(std::vector<std::pair<std::string, int>> animations)
+	{
+		for (auto& e : animations)
+		{
+			m_animations[e.first] = e.second;
+			m_animationOrder.push_back(e.first);
+		}
+	};
+
+	int SpriteAnimationCmp::getCurrentAnimationIndex() {
+		auto it = std::find(m_animationOrder.begin(), m_animationOrder.end(), m_currentAnimation);
+		if (it != m_animationOrder.end()) {
+			return std::distance(m_animationOrder.begin(), it);
+		}
+		else {
+			return -1; 
+		}
+	}
+};

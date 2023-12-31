@@ -18,7 +18,11 @@ namespace mmt_gd
 		void update(float deltaTime) override;
 		void draw() override;
 
-		std::string id;
+		sf::IntRect getTextureRect()
+		{
+			return sprite->getTextureRect();
+		}
+	protected:
 		std::weak_ptr<sf::Texture> p_texture;
 		std::shared_ptr<sf::Sprite> sprite = std::make_shared<sf::Sprite>();
 	};

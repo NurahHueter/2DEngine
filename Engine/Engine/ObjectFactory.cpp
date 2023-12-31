@@ -61,7 +61,7 @@ void ObjectFactory::loadPlayer(tson::Object& object,
                      AssetManager::instance().LoadTexture(object.getName(), texturePath);
                      texture = AssetManager::instance().m_Textures[object.getName()];
                  }
-             }
+             } 
              else if (name == "id")
              {
                  if ((id = property->getValue<std::string>()).length() > 0)
@@ -83,22 +83,24 @@ void ObjectFactory::loadPlayer(tson::Object& object,
 
          const auto& animationCmp = std::make_shared<SpriteAnimationCmp>(*gameObject, renderManager.getWindow(), texture, 8, 8, false, 4);
          renderManager.addCompToLayer(layer, animationCmp);
-         animationCmp->m_animations = {
+         animationCmp->addAnimation( {
             {"MoveUp", 8},
-            {"MoveRightUp", 8},
+            {"MoveLeftUp", 8},
             {"MoveRight", 8},
             {"MoveRightDown", 8},
             {"MoveDown", 8},
             {"MoveLeftDown", 8},
             {"MoveLeft", 8},
-            {"MoveLeftUp", 8}
-         };
+            {"MoveRightUp", 8}, 
+         });
          animationCmp->setCurrentAnimation("MoveRight");
+         animationCmp->init();
+         renderManager.addCompToLayer(layer, animationCmp);
          gameObject->addComponent(animationCmp);
 
          gameObject->addComponent(std::make_shared<RigidBodyCmp>(*gameObject, mass, sf::Vector2f(velocity, velocity)));
 
-         const auto& boxCollider = std::make_shared<BoxCollisionCmp>(*gameObject, sf::FloatRect(static_cast<float>(texture->getSize().x), static_cast<float>(texture->getSize().y), static_cast<float>(texture->getSize().x), static_cast<float>(texture->getSize().y)));
+         const auto& boxCollider = std::make_shared<BoxCollisionCmp>(*gameObject, sf::FloatRect(animationCmp->getTextureRect()));
          gameObject->addComponent(boxCollider);
 
          PhysicsManager::instance().addBoxCollisionCmp(boxCollider);
@@ -134,9 +136,6 @@ void ObjectFactory::loadPlayer(tson::Object& object,
                 {
                     AssetManager::instance().LoadTexture(object.getName(), texturpath);
                     texture = AssetManager::instance().m_Textures[object.getName()];
-                    const auto& renderCmp = std::make_shared<SpriteRenderCmp>(*gameObject, renderManager.getWindow(), texture);
-                    renderManager.addCompToLayer(layer, renderCmp);
-                    gameObject->addComponent(renderCmp);
                 }
             }
             else if (name == "id")
@@ -156,11 +155,27 @@ void ObjectFactory::loadPlayer(tson::Object& object,
             }
         }
 
- 
+        const auto& animationCmp = std::make_shared<SpriteAnimationCmp>(*gameObject, renderManager.getWindow(), texture, 6, 8, false, 4);
+        renderManager.addCompToLayer(layer, animationCmp);
+        animationCmp->addAnimation({
+           {"MoveUp", 6},
+           {"MoveLeftUp", 6},
+           {"MoveRight", 6},
+           {"MoveRightDown", 6},
+           {"MoveDown", 6},
+           {"MoveLeftDown", 6},
+           {"MoveLeft", 6},
+           {"MoveRightUp", 6},
+            });
+        animationCmp->setCurrentAnimation("MoveRight");
+        animationCmp->init();
+        renderManager.addCompToLayer(layer, animationCmp);
+        gameObject->addComponent(animationCmp);
+
          gameObject->addComponent(std::make_shared<MouseMoveCmp>(*gameObject, sf::Vector2f((object.getPosition().x), static_cast<float>(object.getPosition().y)), velocity));
   
         gameObject->addComponent(std::make_shared<RigidBodyCmp>(*gameObject, mass, sf::Vector2f(velocity, velocity)));
-        const auto& boxCollider = std::make_shared<BoxCollisionCmp>(*gameObject, sf::FloatRect(static_cast<float>(texture->getSize().x), static_cast<float>(texture->getSize().y), static_cast<float>(texture->getSize().x), static_cast<float>(texture->getSize().y)));
+        const auto& boxCollider = std::make_shared<BoxCollisionCmp>(*gameObject, sf::FloatRect(sf::FloatRect(animationCmp->getTextureRect())));
         gameObject->addComponent(boxCollider);
         PhysicsManager::instance().addBoxCollisionCmp(boxCollider);
         gameObject->init();

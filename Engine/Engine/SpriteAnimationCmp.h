@@ -23,13 +23,18 @@ namespace mmt_gd
 
 		~SpriteAnimationCmp() {};
 		bool init() override;
-		void update(float deltaTime);
+		void update(float deltaTime) override;
 
 		/**
 		 * \brief 
 		 *Add a animation row to the sprite
 		 */
 		void addAnimation(std::string animation, int frames);
+		/**
+		 * \brief
+		 *Add animations to the sprite
+		 */
+		void addAnimation(std::vector<std::pair<std::string, int>> animations);
 
 		void setCurrentAnimation(std::string animtion)
 		{
@@ -43,14 +48,16 @@ namespace mmt_gd
 			return m_currentAnimation;
 		};
 
-		std::map<std::string, int> m_animations;
+		int getCurrentAnimationIndex();
 	protected:
 		bool vertical;
 		const int TILING_X;
 		const int TILING_Y;
-		float m_animationTime;
+		float m_animationTime = 0;
 		float m_animationSpeed;
-		int m_animationFrame;
+		int m_animationFrame = 0;
 		std::string m_currentAnimation;
+		std::map<std::string, int> m_animations;
+		std::vector<std::string> m_animationOrder;
 	};
 }
