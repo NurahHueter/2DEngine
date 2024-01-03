@@ -3,6 +3,7 @@
 #include "ObjectFactory.h"
 #include "GameObject.h"
 #include "RenderManager.h"
+#include "ProjectileCmp.h"
 #include "MouseMoveCmp.h"
 #include "SpriteAnimationCmp.h"
 #include "MoveCmp.h"
@@ -110,6 +111,12 @@ void ObjectFactory::loadPlayer(tson::Object& object,
          gameObject->addComponent(cameraCmp);
          renderManager.addCompToLayer(layer, cameraCmp);
 
+         loadProjectile(object,
+             layer,
+             renderManager,
+             gameObjectManager,
+             gameObject);
+
          gameObject->init();
          gameObjectManager.addGameObject(gameObject);
     };
@@ -187,14 +194,15 @@ void ObjectFactory::loadPlayer(tson::Object& object,
         const std::string layer,
         RenderManager& renderManager,
         GameObjectManager& gameObjectManager,
-        GameObject& gameObject)
+        std::shared_ptr<GameObject> gameObject)
     {
 
         std::shared_ptr<sf::Texture> texture;
-        std::string texturePath;
-        float velocity;
-        float timeToLive;
-        float intervall;
+        std::string texturePath = "";
+        float velocity = 0;
+        float timeToLive = 0;
+        float intervall = 0;
+        int sizeObjectPool = 20;
 
         for (const auto* property : object.getProperties().get())
         {
@@ -203,8 +211,8 @@ void ObjectFactory::loadPlayer(tson::Object& object,
             {
                 if ((texturePath = property->getValue<std::string>()).length() > 0)
                 {
-                    AssetManager::instance().LoadTexture(object.getName(), texturePath);
-                    texture = AssetManager::instance().m_Textures[object.getName()];
+                    AssetManager::instance().LoadTexture("projectile", texturePath);
+                    texture = AssetManager::instance().m_Textures["projectile"];
                 }
             }
             else if (name == "timeToLive")
@@ -221,18 +229,26 @@ void ObjectFactory::loadPlayer(tson::Object& object,
             }
         }
 
-        auto projectile = std::make_shared<GameObject>(object.getName());
+        std::vector<GameObject::Ptr> projectiles;
+        for (int i = 0; i < sizeObjectPool; i++)
+        {
+            auto projectile = std::make_shared<GameObject>(object.getName() + "projectile" + std::to_string(i));
 
-        const auto& renderCmp = std::make_shared<RenderCmp>(*projectile, renderManager.getWindow(), texture);
-        renderManager.addCompToLayer(layer, renderCmp);
+            const auto& renderCmp = std::make_shared<SpriteRenderCmp>(*projectile, renderManager.getWindow(), texture);
+            renderManager.addCompToLayer(layer, renderCmp);
 
-        const auto& boxCollider = std::make_shared<BoxCollisionCmp>(*projectile, sf::FloatRect(renderCmp->getTextureRect()));
-        projectile->addComponent(boxCollider);
+            projectile->addComponent(renderCmp);
+            const auto& boxCollider = std::make_shared<BoxCollisionCmp>(*projectile, sf::FloatRect(renderCmp->getTextureRect()));
+            projectile->addComponent(boxCollider);
+            projectile->addComponent(boxCollider);
+            PhysicsManager::instance().addBoxCollisionCmp(boxCollider);
+            projectile->init();
 
-        PhysicsManager::instance().addBoxCollisionCmp(boxCollider);
-        projectile->init();
-
-        gameObjectManager.addGameObject(projectile);
+            projectiles.push_back(projectile);
+            gameObjectManager.addGameObject(projectile);
+        }
+        
+        gameObject->addComponent(std::make_shared<ProjectileCmp>(*gameObject, projectiles, timeToLive, velocity, intervall));
     }
 }
 

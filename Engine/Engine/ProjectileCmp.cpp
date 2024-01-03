@@ -3,16 +3,17 @@
 #include "ProjectileCmp.h"
 #include "GameObject.h"
 #include "InputManager.h"
+#include "VectorAlgebra2D.h"
 
 namespace mmt_gd
 {
-	ProjectileCmp::ProjectileCmp(GameObject& gameObject, std::vector<GameObject&> projectiles, float timeToLife, float velocity, float shootIntervall)
+	ProjectileCmp::ProjectileCmp(GameObject& gameObject, std::vector<std::shared_ptr<GameObject>> projectiles, float timeToLife, float velocity, float shootIntervall)
 		:IComponent(gameObject), m_velocity(velocity), m_timeToLife(timeToLife), m_shootIntervall(shootIntervall)
 	{
-		for (auto& p : projectiles)
+		for (auto p : projectiles)
 		{
-			p.setActive(false);
-			m_projectiles.emplace_back(p, timeToLife, (0.f, 0.f));
+			p->setActive(false);
+			m_projectiles.emplace_back(p, timeToLife, sf::Vector2f(0.f, 0.f));
 		}
 	};
 
@@ -29,10 +30,10 @@ namespace mmt_gd
 
 		for (auto& p : m_projectiles)
 		{
-			if (std::get<0>(p).isActive())
+			if (std::get<0>(p)->isActive())
 			{
-				std::get<0>(p).setPosition(
-					std::get<0>(p).getPosition()
+				std::get<0>(p)->setPosition(
+					std::get<0>(p)->getPosition()
 					+ std::get<2>(p)
 					* m_velocity
 					* deltaTime);
@@ -42,23 +43,21 @@ namespace mmt_gd
 				//ToDo -> CollisionCheck
 				if (std::get<1>(p) <= 0)
 				{
-					std::get<0>(p).setActive(false);
+					std::get<0>(p)->setActive(false);
 					std::get<1>(p) = m_timeToLife;
-
 				}
 			}
 			else
 			{
-				if (InputManager::instance().isMouseDown("shoot", 2) && lastSpawnTimer != 0)
+				if (InputManager::instance().isMouseDown("shoot", 2) && lastSpawnTimer == 0)
 				{
 					lastSpawnTimer += deltaTime;
 					sf::Vector2f direction = InputManager::instance().getMousPosition();
-					std::get<0>(p).setActive(true);
-					std::get<0>(p).setPosition(gameObject.getPosition());
-					std::get<2>(p) = direction;
+					std::get<0>(p)->setActive(true);
+					std::get<0>(p)->setPosition(gameObject.getPosition());
+					std::get<2>(p) = MathUtil::unitVector(direction);
 				}
 			}
-
 		}
 	};
 }

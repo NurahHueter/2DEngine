@@ -32,7 +32,7 @@ namespace mmt_gd
             const std::string layer,
             RenderManager& renderManager,
             GameObjectManager& gameObjectManager,
-            GameObject& gameObject);
+            std::shared_ptr<GameObject> gameObject);
 
     };
 } 

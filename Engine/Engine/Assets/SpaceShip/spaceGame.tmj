@@ -205,7 +205,7 @@
                         {
                          "name":"Projectile",
                          "type":"string",
-                         "value":"..\/Engine\/Assets\/SpaceShip\/Spaceships\/Projectile.png"
+                         "value":"..\/Engine\/Assets\/SpaceShip\/Projectile.png"
                         }, 
                         {
                          "name":"Texture",
@@ -228,7 +228,7 @@
                          "value":0.5
                         }, 
                         {
-                         "name":"timeToLife",
+                         "name":"timeToLive",
                          "type":"float",
                          "value":10
                         }, 
@@ -240,7 +240,7 @@
                         {
                          "name":"velocityP",
                          "type":"float",
-                         "value":600
+                         "value":300
                         }],
                  "rotation":0,
                  "type":"Player",
