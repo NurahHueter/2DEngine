@@ -38,17 +38,14 @@ namespace mmt_gd
 
     void SpaceState::update(float deltaTime)
     {
-
         PhysicsManager::instance().update();
         m_gameObjectManager.update(deltaTime);
     }
 
     void SpaceState::draw()
     {
-        m_window.clear({ 0, 0, 255 });
-
+        m_window.clear({0, 0, 0});
         m_RenderManager.draw();
-
 
         for (auto body : PhysicsManager::instance().m_bodies)
         {

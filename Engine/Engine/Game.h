@@ -7,7 +7,6 @@ namespace mmt_gd
 	{
 	public:
 		void Run();
-		sf::Color m_bg_color = { 0, 0, 255 };
 
 	private:
 		void Initialize();
