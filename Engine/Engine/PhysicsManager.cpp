@@ -66,6 +66,7 @@ namespace mmt_gd
 
     void PhysicsManager::update()
     {
+        
         m_manifolds.clear();
         findCollisions(m_bodies);
         resolveCollisions(m_manifolds);
@@ -99,7 +100,7 @@ namespace mmt_gd
                 if (!body1->rigidBody && !body2->rigidBody)
                     continue;
 
-              
+               
                 sf::Transform body1Transform;
                 body1Transform.translate(body1->m_position);
                 sf::Transform body2Transform;
@@ -112,7 +113,7 @@ namespace mmt_gd
                     normal,
                     penetration))
                 {
-                    /*std::cout << "ALARM!!";*/
+                    std::cout << "ALARM!!";
                     Manifold manifold;
                     manifold.m_body1 = body1;
                     manifold.m_body2 = body2;

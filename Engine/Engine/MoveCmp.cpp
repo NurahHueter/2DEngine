@@ -9,27 +9,36 @@ namespace mmt_gd
     void MoveCmp::update(float deltaTime)
     {
         //if(gameObject.getComponent<RigidBodyCmp>())
+        constexpr float acc = 1000.0f; ///< "const" is evaluated at compile time; "const" could be changed at runtime
 
+        sf::Vector2f accVec;
         if (InputManager::instance().isKeyPressed("up", 1))
         {
-            direction = sf::Vector2f(0, -1);
+            accVec = { 0.0f, -acc };
         }
         if (InputManager::instance().isKeyPressed("down", 1))
         {
-            direction = sf::Vector2f(0, 1);
+            accVec = { 0.0f, acc };
         }
         if (InputManager::instance().isKeyPressed("left", 1))
         {
-            direction = sf::Vector2f(-1, 0);
+            accVec = { -acc, 0.0f };
         }
         if (InputManager::instance().isKeyPressed("right", 1))
         {
-            direction = sf::Vector2f(1, 0);
+            accVec = { acc, 0.0f };
         }
 
-        sf::Vector2f newPos = gameObject.getPosition() + direction * velocity * deltaTime;
+         velocity += accVec * deltaTime;
+        // friction
+        velocity *= 0.99f;
+
+
+        sf::Vector2f newPos = gameObject.getPosition() + velocity * deltaTime;
         gameObject.setPosition(newPos);
-        direction = sf::Vector2f(0, 0);
+
+        // Reset acceleration 
+        accVec = sf::Vector2f(0, 0);
 
     };
 }

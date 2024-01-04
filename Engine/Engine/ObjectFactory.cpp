@@ -89,7 +89,7 @@ void ObjectFactory::loadPlayer(tson::Object& object,
              }
          }
 
-         gameObject->addComponent(std::make_shared<MoveCmp>(*gameObject, velocity));
+         gameObject->addComponent(std::make_shared<MoveCmp>(*gameObject, sf::Vector2f(velocity, velocity)));
 
          gameObject->addComponent(std::make_shared<RigidBodyCmp>(*gameObject, mass, sf::Vector2f(velocity, velocity)));
          const auto& boxCollider = std::make_shared<BoxCollisionCmp>(*gameObject, sf::FloatRect(static_cast<float>(texture->getSize().x), static_cast<float>(texture->getSize().y), static_cast<float>(texture->getSize().x), static_cast<float>(texture->getSize().y)));
