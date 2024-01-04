@@ -10,9 +10,9 @@ namespace mmt_gd
 			:IComponent(gameObject), velocity(velocity) {};
 		bool init() override { return true; };
 		void update(float deltaTime) override;
-
+		sf::Vector2f velocity;
 	private:
 		sf::Vector2f direction = {0.f, 0.f};
-		sf::Vector2f velocity;
+		
 	};
 }

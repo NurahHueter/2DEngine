@@ -24,13 +24,17 @@ namespace mmt_gd
         float getMass() const { return m_mass; }
         void setMass(float newMass) { m_mass = newMass; }
 
-        const sf::Vector2f& getVelocity() const { return m_velocity; }
+        const sf::Vector2f& getVelocity()  { return m_velocity; }
         void setVelocity(const sf::Vector2f& newVelocity) { m_velocity = newVelocity; }
+        void setImpulse(const sf::Vector2f& newImpulse) { m_impulse = newImpulse; }
+        void setPosition(sf::Vector2f velocity,float deltaTime) { m_position += velocity*deltaTime; }
+        sf::Vector2f getPosition() const { return m_position; }
 
         float m_mass;
         //float m_invMass;        
         sf::Vector2f m_velocity;
-
+        sf::Vector2f m_impulse;
+        sf::Vector2f m_position;
         std::list<sf::Vector2f> m_forces;   ///< forces constantly applied to object, e.g., gravity
         std::list<sf::Vector2f> m_impulses; ///< impulses fire only once, e.g., during collision
 

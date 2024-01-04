@@ -113,7 +113,7 @@ namespace mmt_gd
                     normal,
                     penetration))
                 {
-                    std::cout << "ALARM!!";
+                   // std::cout << "ALARM!!";
                     Manifold manifold;
                     manifold.m_body1 = body1;
                     manifold.m_body2 = body2;
@@ -136,8 +136,9 @@ namespace mmt_gd
             sf::Vector2f rv = man.m_body1->rigidBody->m_velocity - man.m_body2->rigidBody->m_velocity;
             // std::cout << rv.y;  -> 0/0
             // Calculate relative velocity in terms of the normal direction
+           // std::cout << man.m_body2->rigidBody->m_velocity.x << std::endl;
             float velAlongNormal = rv.x * man.m_normal.x + rv.y * man.m_normal.y;
-            //std::cout << velAlongNormal;   ->0
+            //std::cout << velAlongNormal;  
             //std::cout << man.m_body2->rigidBody->m_velocity.y;  ->200/200
             // Do not resolve if velocities are separating
             if (velAlongNormal > 0)
@@ -146,11 +147,12 @@ namespace mmt_gd
             }
 
             // Apply impulse
-
+            //std::cout << "ALARM!!";
             sf::Vector2f impulse = velAlongNormal * man.m_normal;
             //std::cout << man.m_normal.x; von rechts nach links 1, von links nach rechts -1 von oben nach unten und unten nachboen 0
-            man.m_body1->rigidBody->m_velocity -= 0.5f * impulse;
-            man.m_body2->rigidBody->m_velocity += 0.5f * impulse;
+            man.m_body1->rigidBody->m_velocity -= 3.f * impulse;
+            std::cout <<"MAN"<< impulse.x << std::endl;
+            man.m_body2->rigidBody->m_velocity += 3.f * impulse;
             // TODO: implement positional correction (see slides)
         }
     }

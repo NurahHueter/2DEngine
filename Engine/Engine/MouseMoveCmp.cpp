@@ -3,6 +3,7 @@
 #include "GameObject.h"
 #include "InputManager.h"
 #include "MouseMoveCmp.h"
+#include "RigidBodyCmp.h"
 namespace mmt_gd
 {
     void MouseMoveCmp::update(float deltaTime)
@@ -23,7 +24,12 @@ namespace mmt_gd
             velocity = 0.f;
         }
 
+        if (auto rigidBodyCmp = gameObject.getComponent<RigidBodyCmp>())
+        {
+            rigidBodyCmp->setVelocity(sf::Vector2f(velocity,velocity));
+        }
        sf::Vector2f newPos = gameObject.getPosition() + direction * velocity * deltaTime;
+       //std::cout << velocity << std::endl;
        gameObject.setPosition(newPos);
     };
 }
