@@ -18,11 +18,6 @@ namespace mmt_gd
         auto getCenter = [](const sf::FloatRect& rect) -> sf::Vector2f
             { return sf::Vector2f(rect.left, rect.top) + 0.5f * sf::Vector2f(rect.width, rect.height); };
 
-        //std::cout << " b pos x" << b.getPosition().x << std::endl;
-        //std::cout << " b pos y" << b.getPosition().y << std::endl;
-
-        //std::cout << " a pos x" << a.getPosition().x << std::endl;
-        //std::cout << " a pos y" << a.getPosition().y << std::endl;
 
         sf::Vector2f n = getCenter(b) - getCenter(a); // Vector from A to B
         float    a_extent = a.width * 0.5f;              // Calculate half extents along x axis
@@ -70,11 +65,11 @@ namespace mmt_gd
         m_manifolds.clear();
         findCollisions(m_bodies);
         resolveCollisions(m_manifolds);
+
     }
  
     void PhysicsManager::findCollisions(std::vector<std::weak_ptr<BoxCollisionCmp>>& m_bodies)
     {
-       
         //checks if all ptr have a reverence and makes temp shared ptr
         std::vector<std::shared_ptr<BoxCollisionCmp>> bodies;
         for (auto body : m_bodies)
@@ -130,16 +125,10 @@ namespace mmt_gd
     {
         for (auto man : m_manifolds)
         {
-            // TODO: implement simple collision resolution without restitution. see slides for formulas
-            // TODO: add restitution to collision resolution (j)
-            // HINT: pay attention to the direction of the normal and relative velocity.
             sf::Vector2f rv = man.m_body1->rigidBody->m_velocity - man.m_body2->rigidBody->m_velocity;
-            // std::cout << rv.y;  -> 0/0
             // Calculate relative velocity in terms of the normal direction
-           // std::cout << man.m_body2->rigidBody->m_velocity.x << std::endl;
+          
             float velAlongNormal = rv.x * man.m_normal.x + rv.y * man.m_normal.y;
-            //std::cout << velAlongNormal;  
-            //std::cout << man.m_body2->rigidBody->m_velocity.y;  ->200/200
             // Do not resolve if velocities are separating
             if (velAlongNormal > 0)
             {
@@ -149,12 +138,11 @@ namespace mmt_gd
             // Apply impulse
             //std::cout << "ALARM!!";
             sf::Vector2f impulse = velAlongNormal * man.m_normal;
-            //std::cout << man.m_normal.x; von rechts nach links 1, von links nach rechts -1 von oben nach unten und unten nachboen 0
-            man.m_body1->rigidBody->m_velocity -= 3.f * impulse;
-            std::cout <<"MAN"<< impulse.x << std::endl;
-            man.m_body2->rigidBody->m_velocity += 3.f * impulse;
-            // TODO: implement positional correction (see slides)
+            
+            man.m_body1->rigidBody->m_velocity -= 2.f * impulse;
+            man.m_body2->rigidBody->m_velocity += 2.f * impulse;
         }
+       // std::cout << "ALARM!!";
     }
 
     void PhysicsManager::shutdown()

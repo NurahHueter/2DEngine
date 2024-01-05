@@ -31,13 +31,13 @@ namespace mmt_gd
         sf::Vector2f getPosition() const { return m_position; }
 
         float m_mass;
-        //float m_invMass;        
+        float m_invMass;        
         sf::Vector2f m_velocity;
         sf::Vector2f m_impulse;
         sf::Vector2f m_position;
         std::list<sf::Vector2f> m_forces;   ///< forces constantly applied to object, e.g., gravity
         std::list<sf::Vector2f> m_impulses; ///< impulses fire only once, e.g., during collision
 
-        //sf::Vector2f m_acceleration;
+        sf::Vector2f m_acceleration;
     };
 }

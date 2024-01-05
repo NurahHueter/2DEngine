@@ -8,7 +8,6 @@ namespace mmt_gd
 {
     void MoveCmp::update(float deltaTime)
     {
-        //if(gameObject.getComponent<RigidBodyCmp>())
         constexpr float acc = 1000.0f; ///< "const" is evaluated at compile time; "const" could be changed at runtime
 
         sf::Vector2f accVec;
@@ -31,15 +30,14 @@ namespace mmt_gd
         
         if (auto rigidBodyCmp = gameObject.getComponent<RigidBodyCmp>())
         {
-            rigidBodyCmp->m_velocity+= accVec * deltaTime;
-            rigidBodyCmp->m_velocity *= 0.99f;;
+            rigidBodyCmp->m_velocity += accVec * deltaTime;
+            rigidBodyCmp->m_velocity *= 0.99f;
             rigidBodyCmp->setImpulse(accVec);
             rigidBodyCmp->setPosition(rigidBodyCmp->m_velocity,deltaTime);
             gameObject.setPosition(rigidBodyCmp->getPosition());
 
         }
         
-
         // Reset acceleration 
         accVec = sf::Vector2f(0, 0);
 
