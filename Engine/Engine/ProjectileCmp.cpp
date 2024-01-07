@@ -52,13 +52,13 @@ namespace mmt_gd
 			}
 			else
 			{
-				if (InputManager::instance().isMouseDown("shoot", 2) && lastSpawnTimer == 0)
+				if (InputManager::instance().isKeyDown("shoot", 2) && lastSpawnTimer == 0)
 				{
 					lastSpawnTimer += deltaTime;
 					const auto& animation = gameObject.getComponent<SpriteAnimationCmp>();
 
 					std::get<0>(p)->setActive(true);
-					std::get<0>(p)->setPosition(gameObject.getPosition().x + animation->getTextureRect().width / 2, gameObject.getPosition().y + animation->getTextureRect().height / 2);
+					std::get<0>(p)->setPosition(gameObject.getPosition().x + 100, gameObject.getPosition().y - 100);
 
 					sf::Vector2f direction = InputManager::instance().getMousPosition() - std::get<0>(p)->getPosition();
 					std::get<2>(p) = MathUtil::unitVector(direction);

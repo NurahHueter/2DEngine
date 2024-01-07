@@ -245,14 +245,14 @@ void ObjectFactory::loadPlayer(tson::Object& object,
 
             const auto& renderCmp = std::make_shared<SpriteRenderCmp>(*projectile, renderManager.getWindow(), texture);
             renderManager.addCompToLayer(layer, renderCmp);
-
             projectile->addComponent(renderCmp);
+
             const auto& boxCollider = std::make_shared<BoxCollisionCmp>(*projectile, sf::FloatRect(renderCmp->getTextureRect()));
-            projectile->addComponent(boxCollider);
+
             projectile->addComponent(boxCollider);
             PhysicsManager::instance().addBoxCollisionCmp(boxCollider);
+            
             projectile->init();
-
             projectiles.push_back(projectile);
             gameObjectManager.addGameObject(projectile);
         }
