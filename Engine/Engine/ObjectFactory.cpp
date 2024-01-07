@@ -9,6 +9,7 @@
 #include "MoveCmp.h"
 #include "CameraCmp.h"
 #include "SpriteRenderCmp.h"
+#include "HealthCmp.h"
 #include "Tileson.hpp"
 #include "AssetManager.h"
 #include "RigidBodyCmp.h"
@@ -111,6 +112,10 @@ void ObjectFactory::loadPlayer(tson::Object& object,
          gameObject->addComponent(cameraCmp);
          renderManager.addCompToLayer(layer, cameraCmp);
 
+         const auto healtCmp = std::make_shared<HealthCmp>(*gameObject, renderManager.getWindow(), 5);
+         renderManager.addCompToLayer(layer, healtCmp);
+         gameObject->addComponent(healtCmp);
+
          loadProjectile(object,
              layer,
              renderManager,
@@ -180,7 +185,11 @@ void ObjectFactory::loadPlayer(tson::Object& object,
         gameObject->addComponent(animationCmp);
 
          gameObject->addComponent(std::make_shared<MouseMoveCmp>(*gameObject, sf::Vector2f((object.getPosition().x), static_cast<float>(object.getPosition().y)), velocity));
-  
+        
+         const auto healtCmp = std::make_shared<HealthCmp>(*gameObject, renderManager.getWindow(), 3);
+         renderManager.addCompToLayer(layer, healtCmp);
+         gameObject->addComponent(healtCmp);
+
         gameObject->addComponent(std::make_shared<RigidBodyCmp>(*gameObject, mass, sf::Vector2f(velocity, velocity)));
         const auto& boxCollider = std::make_shared<BoxCollisionCmp>(*gameObject, sf::FloatRect(sf::FloatRect(animationCmp->getTextureRect())));
         gameObject->addComponent(boxCollider);

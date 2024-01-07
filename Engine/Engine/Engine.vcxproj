@@ -152,6 +152,7 @@ sfml-window-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameObjectManager.cpp" />
     <ClCompile Include="GameStateManager.cpp" />
+    <ClCompile Include="HealthCmp.cpp" />
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="MainState.cpp" />
     <ClCompile Include="MapTile.cpp" />
@@ -180,6 +181,7 @@ sfml-window-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     <ClInclude Include="DebugDraw.h" />
     <ClInclude Include="FPS.h" />
     <ClInclude Include="GameObjectManager.h" />
+    <ClInclude Include="HealthCmp.h" />
     <ClInclude Include="IRenderComponent.h" />
     <ClInclude Include="MapTile.h" />
     <ClInclude Include="MouseMoveCmp.h" />

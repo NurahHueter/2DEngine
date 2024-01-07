@@ -22,6 +22,8 @@ namespace mmt_gd
 		InputManager::instance().bind("right", sf::Keyboard::Key::D, 1);
 		InputManager::instance().bind("shoot", sf::Mouse::Left, 2);
 		InputManager::instance().bind("debugdraw", sf::Keyboard::Key::Num0, 1);
+		InputManager::instance().bind("space", sf::Keyboard::Key::Space, 1);
+		InputManager::instance().bind("health", sf::Keyboard::Key::H, 1);
 
 		InputManager::instance().bind("MainState", sf::Keyboard::Key::Num2, 1);
 		InputManager::instance().bind("MenuState", sf::Keyboard::Key::Num1, 1);

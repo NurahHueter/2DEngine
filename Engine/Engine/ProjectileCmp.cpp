@@ -4,6 +4,7 @@
 #include "GameObject.h"
 #include "InputManager.h"
 #include "VectorAlgebra2D.h"
+#include "SpriteAnimationCmp.h"
 
 namespace mmt_gd
 {
@@ -38,6 +39,8 @@ namespace mmt_gd
 					* m_velocity
 					* deltaTime);
 
+				
+
 				std::get<1>(p) -= deltaTime;
 
 				//ToDo -> CollisionCheck
@@ -52,10 +55,14 @@ namespace mmt_gd
 				if (InputManager::instance().isMouseDown("shoot", 2) && lastSpawnTimer == 0)
 				{
 					lastSpawnTimer += deltaTime;
-					sf::Vector2f direction = InputManager::instance().getMousPosition();
+					const auto& animation = gameObject.getComponent<SpriteAnimationCmp>();
+
 					std::get<0>(p)->setActive(true);
-					std::get<0>(p)->setPosition(gameObject.getPosition());
+					std::get<0>(p)->setPosition(gameObject.getPosition().x + animation->getTextureRect().width / 2, gameObject.getPosition().y + animation->getTextureRect().height / 2);
+
+					sf::Vector2f direction = InputManager::instance().getMousPosition() - std::get<0>(p)->getPosition();
 					std::get<2>(p) = MathUtil::unitVector(direction);
+
 				}
 			}
 		}
