@@ -79,7 +79,7 @@ void ObjectFactory::loadPlayer(tson::Object& object,
              }
          }
 
-         gameObject->addComponent(std::make_shared<MoveCmp>(*gameObject, velocity));
+         gameObject->addComponent(std::make_shared<MoveCmp>(*gameObject, sf::Vector2f(velocity, velocity)));
 
          const auto& animationCmp = std::make_shared<SpriteAnimationCmp>(*gameObject, renderManager.getWindow(), texture, 8, 8, false, 4);
          renderManager.addCompToLayer(layer, animationCmp);
@@ -174,6 +174,7 @@ void ObjectFactory::loadPlayer(tson::Object& object,
 
          gameObject->addComponent(std::make_shared<MouseMoveCmp>(*gameObject, sf::Vector2f((object.getPosition().x), static_cast<float>(object.getPosition().y)), velocity));
   
+ 
         gameObject->addComponent(std::make_shared<RigidBodyCmp>(*gameObject, mass, sf::Vector2f(velocity, velocity)));
         const auto& boxCollider = std::make_shared<BoxCollisionCmp>(*gameObject, sf::FloatRect(sf::FloatRect(animationCmp->getTextureRect())));
         gameObject->addComponent(boxCollider);

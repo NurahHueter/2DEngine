@@ -9,32 +9,44 @@ namespace mmt_gd
 {
     void MoveCmp::update(float deltaTime)
     {
+        constexpr float acc = 1000.0f; ///< "const" is evaluated at compile time; "const" could be changed at runtime
+
+        sf::Vector2f accVec;
         //if(gameObject.getComponent<RigidBodyCmp>())
         const auto& animation = gameObject.getComponent<SpriteAnimationCmp>();
         if (InputManager::instance().isKeyPressed("up", 1))
         {
-            direction = sf::Vector2f(0, -1);
+            accVec = { 0.0f, -acc };
             animation->setCurrentAnimation("MoveUp");
         }
         if (InputManager::instance().isKeyPressed("down", 1))
         {
-            direction = sf::Vector2f(0, 1);
+            accVec = { 0.0f, acc };
             animation->setCurrentAnimation("MoveDown");
         }
         if (InputManager::instance().isKeyPressed("left", 1))
         {
-            direction = sf::Vector2f(-1, 0);
+            accVec = { -acc, 0.0f };
             animation->setCurrentAnimation("MoveLeft");
         }
         if (InputManager::instance().isKeyPressed("right", 1))
         {
-            direction = sf::Vector2f(1, 0);
+            accVec = { acc, 0.0f };
             animation->setCurrentAnimation("MoveRight");
         }
+        
+        if (auto rigidBodyCmp = gameObject.getComponent<RigidBodyCmp>())
+        {
+            rigidBodyCmp->m_velocity += accVec * deltaTime;
+            rigidBodyCmp->m_velocity *= 0.99f;
+            rigidBodyCmp->setImpulse(accVec);
+            rigidBodyCmp->setPosition(rigidBodyCmp->m_velocity,deltaTime);
+            gameObject.setPosition(rigidBodyCmp->getPosition());
 
-        sf::Vector2f newPos = gameObject.getPosition() + direction * velocity * deltaTime;
-        gameObject.setPosition(newPos);
-        direction = sf::Vector2f(0, 0);
+        }
+        
+        // Reset acceleration 
+        accVec = sf::Vector2f(0, 0);
 
     };
 }

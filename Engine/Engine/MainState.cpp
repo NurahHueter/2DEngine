@@ -59,7 +59,7 @@ void MainState::update(float deltaTime)
 
 void MainState::draw()
 {
-    m_window.clear({ 0, 0, 255 });
+  m_window.clear({ 0, 0, 0 });
 
     m_RenderManager.draw();
 
