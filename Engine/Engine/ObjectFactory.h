@@ -28,5 +28,11 @@ namespace mmt_gd
             const std::string layer,
             RenderManager& renderManager,
             GameObjectManager& gameObjectManager);
+        static void loadProjectile(tson::Object& object,
+            const std::string layer,
+            RenderManager& renderManager,
+            GameObjectManager& gameObjectManager,
+            std::shared_ptr<GameObject> gameObject);
+
     };
 } 

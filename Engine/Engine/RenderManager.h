@@ -12,7 +12,7 @@ namespace mmt_gd
 
         void setLayerOrder(std::string layer, int order);
         void addLayer(std::string layer, int order);
-        void addCompToLayer(const std::string layer, std::shared_ptr<IRenderComponent> comp);
+        void addCompToLayer(const std::string layer, std::weak_ptr<IRenderComponent> comp);
 
         sf::RenderWindow& getWindow() const
         {
@@ -24,7 +24,7 @@ namespace mmt_gd
 
     private:
         sf::RenderWindow& m_window;
-        std::map<std::string, std::vector<std::shared_ptr<IRenderComponent>>> m_CmpInLayer;
+        std::map<std::string, std::vector<std::weak_ptr<IRenderComponent>>> m_CmpInLayer;
         std::vector<std::pair<std::string, int>> m_layers;
     };
 }

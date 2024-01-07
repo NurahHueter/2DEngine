@@ -33,10 +33,10 @@ namespace mmt_gd
         }
 
         m_layers.emplace_back(layer, order);
-        m_CmpInLayer.insert({ layer, std::vector<std::shared_ptr<IRenderComponent>>{} });
+        m_CmpInLayer.insert({ layer, std::vector<std::weak_ptr<IRenderComponent>>{} });
     };
 
-    void RenderManager::addCompToLayer(const std::string layer, std::shared_ptr<IRenderComponent> comp)
+    void RenderManager::addCompToLayer(const std::string layer, std::weak_ptr<IRenderComponent> comp)
     {
         auto it = std::find_if(m_layers.begin(), m_layers.end(),
             [layer](const auto& element) { return element.first == layer; });
@@ -66,10 +66,13 @@ namespace mmt_gd
         {
             for (auto& comp : m_CmpInLayer[layer.first])
             {
-                if (comp->getGameObject().isActive())
+                if (std::shared_ptr<IRenderComponent> tempP = comp.lock())
                 {
-                    comp->draw();
-                }
+                    if (tempP->getGameObject().isActive())
+                    {
+                        tempP->draw();
+                    }
+                } 
             }
         }
     }

@@ -203,6 +203,11 @@
                  "name":"Player",
                  "properties":[
                         {
+                         "name":"Projectile",
+                         "type":"string",
+                         "value":"..\/Engine\/Assets\/SpaceShip\/Projectile.png"
+                        }, 
+                        {
                          "name":"Texture",
                          "type":"string",
                          "value":"..\/Engine\/Assets\/SpaceShip\/Spaceships\/Spaceship#02(24x24)SpriteSheet.png"
@@ -218,9 +223,24 @@
                          "value":1
                         }, 
                         {
+                         "name":"shootIntervall",
+                         "type":"float",
+                         "value":0.5
+                        }, 
+                        {
+                         "name":"timeToLive",
+                         "type":"float",
+                         "value":10
+                        }, 
+                        {
                          "name":"velocity",
                          "type":"float",
                          "value":200
+                        }, 
+                        {
+                         "name":"velocityP",
+                         "type":"float",
+                         "value":300
                         }],
                  "rotation":0,
                  "type":"Player",
@@ -231,9 +251,14 @@
                 }, 
                 {
                  "height":53.3333,
-                 "id":2,
-                 "name":"Enemy",
+                 "id":12,
+                 "name":"Enemy2",
                  "properties":[
+                        {
+                         "name":"Projectile",
+                         "type":"string",
+                         "value":"..\/Engine\/Assets\/SpaceShip\/Projectile.png"
+                        }, 
                         {
                          "name":"Texture",
                          "type":"string",
@@ -242,7 +267,7 @@
                         {
                          "name":"id",
                          "type":"string",
-                         "value":"Enemy"
+                         "value":"Enemy2"
                         }, 
                         {
                          "name":"mass",
@@ -250,28 +275,83 @@
                          "value":1
                         }, 
                         {
+                         "name":"shootIntervall",
+                         "type":"float",
+                         "value":0.5
+                        }, 
+                        {
+                         "name":"timeToLive",
+                         "type":"float",
+                         "value":10
+                        }, 
+                        {
                          "name":"velocity",
                          "type":"float",
                          "value":200
+                        }, 
+                        {
+                         "name":"velocityP",
+                         "type":"float",
+                         "value":300
                         }],
                  "rotation":0,
                  "type":"Enemy",
                  "visible":true,
                  "width":54.6667,
-                 "x":557.999983333333,
-                 "y":413.33335
+                 "x":679.66665,
+                 "y":285.33335
                 }, 
                 {
-                 "height":0,
-                 "id":11,
-                 "name":"",
-                 "point":true,
+                 "height":53.3333,
+                 "id":13,
+                 "name":"Enemy3",
+                 "properties":[
+                        {
+                         "name":"Projectile",
+                         "type":"string",
+                         "value":"..\/Engine\/Assets\/SpaceShip\/Projectile.png"
+                        }, 
+                        {
+                         "name":"Texture",
+                         "type":"string",
+                         "value":"..\/Engine\/Assets\/SpaceShip\/Spaceships\/Spaceship#01 SpriteSheet.png"
+                        }, 
+                        {
+                         "name":"id",
+                         "type":"string",
+                         "value":"Enemy3"
+                        }, 
+                        {
+                         "name":"mass",
+                         "type":"float",
+                         "value":1
+                        }, 
+                        {
+                         "name":"shootIntervall",
+                         "type":"float",
+                         "value":0.5
+                        }, 
+                        {
+                         "name":"timeToLive",
+                         "type":"float",
+                         "value":10
+                        }, 
+                        {
+                         "name":"velocity",
+                         "type":"float",
+                         "value":200
+                        }, 
+                        {
+                         "name":"velocityP",
+                         "type":"float",
+                         "value":300
+                        }],
                  "rotation":0,
-                 "type":"",
+                 "type":"Enemy",
                  "visible":true,
-                 "width":0,
-                 "x":-121,
-                 "y":224
+                 "width":54.6667,
+                 "x":679.66665,
+                 "y":285.33335
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -280,7 +360,7 @@
          "y":0
         }],
  "nextlayerid":5,
- "nextobjectid":12,
+ "nextobjectid":14,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.10.2",

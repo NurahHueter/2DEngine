@@ -78,9 +78,6 @@
     <ClCompile Include="GameObject.cpp">
       <Filter>Source Files\GameObjects</Filter>
     </ClCompile>
-    <ClCompile Include="CameraCmp.cpp">
-      <Filter>Source Files\Components</Filter>
-    </ClCompile>
     <ClCompile Include="MapTile.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -114,7 +111,7 @@
     <ClCompile Include="MoveCmp.cpp">
       <Filter>Source Files\Components\CustomComponentsSpaceGame</Filter>
     </ClCompile>
-    <ClCompile Include="ProjectilePoolCmp.cpp">
+    <ClCompile Include="ProjectileCmp.cpp">
       <Filter>Source Files\Components\CustomComponentsSpaceGame</Filter>
     </ClCompile>
     <ClCompile Include="RigidBodyCmp.cpp">
@@ -134,6 +131,12 @@
     </ClCompile>
     <ClCompile Include="SpriteAnimationCmp.cpp">
       <Filter>Source Files\Components\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="HealthCmp.cpp">
+      <Filter>Source Files\Components\CustomComponentsSpaceGame</Filter>
+    </ClCompile>
+    <ClCompile Include="CameraCmp.cpp">
+      <Filter>Source Files\Components\CustomComponentsSpaceGame</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -218,7 +221,7 @@
     <ClInclude Include="MouseMoveCmp.h">
       <Filter>Header Files\Components\CustomComponentsSpaceGame</Filter>
     </ClInclude>
-    <ClInclude Include="ProjectilePoolCmp.h">
+    <ClInclude Include="ProjectileCmp.h">
       <Filter>Header Files\Components\CustomComponentsSpaceGame</Filter>
     </ClInclude>
     <ClInclude Include="Game.h">
@@ -226,6 +229,9 @@
     </ClInclude>
     <ClInclude Include="SpriteAnimationCmp.h">
       <Filter>Header Files\Components\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="HealthCmp.h">
+      <Filter>Header Files\Components\CustomComponentsSpaceGame</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
