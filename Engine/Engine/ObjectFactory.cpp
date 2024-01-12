@@ -210,6 +210,7 @@ void ObjectFactory::loadPlayer(tson::Object& object,
             sf::FloatRect(sf::FloatRect(animationCmp->getTextureRect())));
         gameObject->addComponent(boxCollider);
         PhysicsManager::instance().addBoxCollisionCmp(boxCollider);
+        loadProjectile(object, layer, gameObject);
         gameObject->init();
         GameObjectManager::instance().addGameObject(gameObject);
 

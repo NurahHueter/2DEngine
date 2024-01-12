@@ -35,7 +35,7 @@ namespace mmt_gd
         sf::Vector2f getPosition() const { return m_position; }
         void notifiyCollision(GameObject& go) { m_go = std::make_shared<GameObject>(go); };
         std::weak_ptr<GameObject> getCollision() { return m_go; };
-    
+    private:
         float m_mass;
         float m_invMass = 0;        
         sf::Vector2f m_velocity;
@@ -46,7 +46,7 @@ namespace mmt_gd
         std::list<sf::Vector2f> m_impulses; ///< impulses fire only once, e.g., during collision
 
         std::shared_ptr<GameObject> m_go;
-        sf::Vector2f m_acceleration;
+
 
     };
 }

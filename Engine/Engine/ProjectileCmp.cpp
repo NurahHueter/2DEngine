@@ -52,7 +52,7 @@ namespace mmt_gd
 			}
 			else
 			{
-				if (InputManager::instance().isKeyDown("shoot", 2) && lastSpawnTimer == 0)
+				if (InputManager::instance().isKeyPressed("shoot", gameObject.getPlayerIdx()) && lastSpawnTimer == 0)
 				{
 					lastSpawnTimer += deltaTime;
 					const auto& animation = gameObject.getComponent<SpriteAnimationCmp>();
