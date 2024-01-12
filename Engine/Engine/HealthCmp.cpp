@@ -2,6 +2,7 @@
 #include "pch.h"
 #include "HealthCmp.h"
 #include "GameObject.h"
+#include "RigidBodyCmp.h"
 #include "InputManager.h"
 
 namespace mmt_gd
@@ -17,12 +18,16 @@ namespace mmt_gd
 	void HealthCmp::update(float deltaTime)
 	{
 		//ToDo CollisonCheck --> Projectile
-		if (InputManager::instance().isKeyDown("health", 1))
+		auto const& rb = gameObject.getComponent<RigidBodyCmp>();
+		if (std::shared_ptr<GameObject> tempP = rb->getCollision().lock())
 		{
-			m_currentHealth--;
-			if (m_currentHealth <= 0)
+			if (tempP->getType() != ObjectType::Default)
 			{
-				gameObject.markForDelete();
+				m_currentHealth--;
+				if (m_currentHealth <= 0)
+				{
+					gameObject.markForDelete();
+				}
 			}
 		};
 		//ToDo CollisonCheck --> Item

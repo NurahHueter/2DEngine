@@ -24,7 +24,7 @@ namespace mmt_gd
 
         // Setters
         void setLogicTrigger(bool value) { logicTrigger = value; }
-
+        
         std::shared_ptr<RigidBodyCmp> rigidBody = nullptr;
         
         sf::FloatRect m_shape;

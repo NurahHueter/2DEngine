@@ -127,26 +127,35 @@ namespace mmt_gd
         {
             if (man.m_body1->isLogicTrigger() || man.m_body2->isLogicTrigger())
             {
-                std::cout << "Collision:" << man.m_body1->getGameObject().getType() << "with" << man.m_body2->getGameObject().getType() << std::endl;
+                if (man.m_body1->isLogicTrigger())
+                {
+                    man.m_body1->rigidBody->notifiyCollision(man.m_body2->getGameObject());
+                }
+                if (man.m_body2->isLogicTrigger())
+                {
+                    man.m_body1->rigidBody->notifiyCollision(man.m_body1->getGameObject());
+                }
             }
-            sf::Vector2f rv = man.m_body1->rigidBody->getVelocity() - man.m_body2->rigidBody->getVelocity();
-            // Calculate relative velocity in terms of the normal direction
-          
-            float velAlongNormal = rv.x * man.m_normal.x + rv.y * man.m_normal.y;
-            // Do not resolve if velocities are separating
-            if (velAlongNormal > 0)
+            else
             {
-                return;
-            }
+                sf::Vector2f rv = man.m_body1->rigidBody->m_velocity - man.m_body2->rigidBody->m_velocity;
+                // Calculate relative velocity in terms of the normal direction
 
-            // Apply impulse
-            std::cout << "ALARM!!";
-            sf::Vector2f impulse = velAlongNormal * man.m_normal;
-            
-            man.m_body1->rigidBody->setVelocityN(2.f * impulse);
-            man.m_body2->rigidBody->setVelocityP(2.f * impulse);
+                float velAlongNormal = rv.x * man.m_normal.x + rv.y * man.m_normal.y;
+                // Do not resolve if velocities are separating
+                if (velAlongNormal > 0)
+                {
+                    return;
+                }
+
+                // Apply impulse
+                std::cout << "ALARM!!";
+                sf::Vector2f impulse = velAlongNormal * man.m_normal;
+
+                man.m_body1->rigidBody->m_velocity -= 2.f * impulse;
+                man.m_body2->rigidBody->m_velocity += 2.f * impulse;
+            }
         }
-       // std::cout << "ALARM!!";
     }
 
     void PhysicsManager::shutdown()
