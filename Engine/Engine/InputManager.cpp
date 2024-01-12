@@ -42,7 +42,8 @@ namespace mmt_gd
 
 	bool InputManager::isKeyDown(const std::string& action, int playerIdx)
 	{
-		if (m_bindings.find(action) != m_bindings.end()) // Überprüfen, ob "action" im Dictionary vorhanden ist
+		std::string key = action + std::to_string(playerIdx);
+		if (m_bindings.find(key) != m_bindings.end()) // Überprüfen, ob "action" im Dictionary vorhanden ist
 		{
 			auto binding = m_bindings[action]; // `binding` enthält die BindingForPlayer-Klasse
 			return isKeyDown(binding.keyCode) && binding.playerIdx == playerIdx; // Wenn ja, dann rufe isKeyDown mit dem KeyCode auf und überprüfe, ob der playerIdx übereinstimmt
@@ -53,9 +54,10 @@ namespace mmt_gd
 
 	bool InputManager::isKeyUp(const std::string& action, int playerIdx)
 	{
-		if (m_bindings.find(action) != m_bindings.end())
+		std::string key = action + std::to_string(playerIdx);
+		if (m_bindings.find(key) != m_bindings.end())
 		{
-			auto binding = m_bindings[action];
+			auto binding = m_bindings[key];
 			return isKeyUp(binding.keyCode) && binding.playerIdx == playerIdx;
 		}
 
@@ -63,9 +65,10 @@ namespace mmt_gd
 	};
 	bool InputManager::isKeyPressed(const std::string& action, int playerIdx)
 	{
-		if (m_bindings.find(action) != m_bindings.end())
+		std::string key = action + std::to_string(playerIdx);
+		if (m_bindings.find(key) != m_bindings.end())
 		{
-			auto binding = m_bindings[action];
+			auto binding = m_bindings[key];
 			return isKeyPressed(binding.keyCode) && binding.playerIdx == playerIdx;
 		}
 
@@ -90,9 +93,10 @@ namespace mmt_gd
 
 	bool InputManager::isMouseDown(const std::string& action, int playerIdx)
 	{
-		if (m_bindings.find(action) != m_bindings.end()) // Überprüfen, ob "action" im Dictionary vorhanden ist
+		std::string key = action + std::to_string(playerIdx);
+		if (m_bindings.find(key) != m_bindings.end()) // Überprüfen, ob "action" im Dictionary vorhanden ist
 		{
-			auto binding = m_bindings[action]; // `binding` enthält die BindingForPlayer-Klasse
+			auto binding = m_bindings[key]; // `binding` enthält die BindingForPlayer-Klasse
 			return isMouseDown(binding.keyCode) && binding.playerIdx == playerIdx; // Wenn ja, dann rufe isKeyDown mit dem KeyCode auf und überprüfe, ob der playerIdx übereinstimmt
 		}
 
@@ -101,9 +105,10 @@ namespace mmt_gd
 
 	bool InputManager::isMouseUp(const std::string& action, int playerIdx)
 	{
-		if (m_bindings.find(action) != m_bindings.end())
+		std::string key = action + std::to_string(playerIdx);
+		if (m_bindings.find(key) != m_bindings.end())
 		{
-			auto binding = m_bindings[action];
+			auto binding = m_bindings[key];
 			return isMouseUp(binding.keyCode) && binding.playerIdx == playerIdx;
 		}
 
@@ -111,9 +116,10 @@ namespace mmt_gd
 	};
 	bool InputManager::isMousePressed(const std::string& action, int playerIdx)
 	{
-		if (m_bindings.find(action) != m_bindings.end())
+		std::string key = action + std::to_string(playerIdx);
+		if (m_bindings.find(key) != m_bindings.end())
 		{
-			auto binding = m_bindings[action];
+			auto binding = m_bindings[key];
 			return isMousePressed(binding.keyCode) && binding.playerIdx == playerIdx;
 		}
 
@@ -123,12 +129,15 @@ namespace mmt_gd
 
 	void InputManager::bind(const std::string& name, int keyCode, int playerIdx)
 	{
-		m_bindings[name] = { keyCode, playerIdx }; // In die Map werden die beiden Werte gespeichert. (BindingForPlayer)
+		std::string key = name + std::to_string(playerIdx); //Als Key wird der name und der playerIdx verwednet, so dass der key immer einzigartig ist
+
+		m_bindings[key] = { keyCode, playerIdx }; // In die Map werden die beiden Werte gespeichert. (BindingForPlayer)
 	};
 
 	void InputManager::unbind(const std::string& name, int playerIdx)
 	{
-		auto binding_iterator = m_bindings.find(name); // Wenn der Eintrag vorhanden ist, ist der Binding-Iterator ein Iterator, der auf den Wert zeigt. Andernfalls zeigt er ans Ende der Map.
+		std::string key = name + std::to_string(playerIdx);
+		auto binding_iterator = m_bindings.find(key); // Wenn der Eintrag vorhanden ist, ist der Binding-Iterator ein Iterator, der auf den Wert zeigt. Andernfalls zeigt er ans Ende der Map.
 		if (binding_iterator != m_bindings.end() && binding_iterator->second.playerIdx == playerIdx) // `second` ist der zweite Wert in der Map (BindingForPlayer)(keyCode, playerIdx)
 		{
 			m_bindings.erase(binding_iterator);

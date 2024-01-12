@@ -44,7 +44,7 @@ void ObjectFactory::loadPlayer(tson::Object& object,
          auto gameObject =  std::make_shared<GameObject>(object.getName());
          gameObject->setPosition(static_cast<float>(object.getPosition().x), static_cast<float>(object.getPosition().y));
          gameObject->setType(ObjectType::Player);
-
+         gameObject->setPlayerIdx(1);        //Player 1
          std::string id;
          std::shared_ptr<sf::Texture> texture;
          std::string texturePath;
@@ -137,7 +137,7 @@ void ObjectFactory::loadPlayer(tson::Object& object,
         auto gameObject = std::make_shared<GameObject>(object.getName());
         gameObject->setPosition(static_cast<float>(object.getPosition().x), static_cast<float>(object.getPosition().y));
         gameObject->setType(ObjectType::Enemy);
-
+        gameObject->setPlayerIdx(2);        //Player 2
         std::string id;
         std::string texturpath;
         std::shared_ptr<sf::Texture> texture;
@@ -193,8 +193,8 @@ void ObjectFactory::loadPlayer(tson::Object& object,
         RenderManager::instance().addCompToLayer(layer, animationCmp);
         gameObject->addComponent(animationCmp);
 
-         gameObject->addComponent(std::make_shared<MouseMoveCmp>(*gameObject, sf::Vector2f((object.getPosition().x), static_cast<float>(object.getPosition().y)), velocity));
-        
+         //gameObject->addComponent(std::make_shared<MouseMoveCmp>(*gameObject, sf::Vector2f((object.getPosition().x), static_cast<float>(object.getPosition().y)), velocity));
+        gameObject->addComponent(std::make_shared<MoveCmp>(*gameObject, sf::Vector2f(velocity, velocity)));
          const auto healtCmp = std::make_shared<HealthCmp>(*gameObject,
              RenderManager::instance().getWindow(),
              3);
@@ -267,7 +267,7 @@ void ObjectFactory::loadPlayer(tson::Object& object,
             renderCmp->init();
             const auto& boxCollider = std::make_shared<BoxCollisionCmp>(*projectile,
                 sf::FloatRect(sf::FloatRect(renderCmp->getTextureRect())));
-            
+            std::cout << renderCmp->getTextureRect().left << renderCmp->getTextureRect().top << std::endl;
             projectile->addComponent(boxCollider);
             PhysicsManager::instance().addBoxCollisionCmp(boxCollider);
             

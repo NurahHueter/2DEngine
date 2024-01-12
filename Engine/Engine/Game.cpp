@@ -95,18 +95,23 @@ namespace mmt_gd
 
 	void Game::bindInput()
 	{
-		InputManager::instance().bind("up", sf::Keyboard::Key::W, 1);
-		InputManager::instance().bind("down", sf::Keyboard::Key::S, 1);
-		InputManager::instance().bind("left", sf::Keyboard::Key::A, 1);
-		InputManager::instance().bind("right", sf::Keyboard::Key::D, 1);
-		InputManager::instance().bind("shoot", sf::Keyboard::Key::R, 2);
-		InputManager::instance().bind("leftclick", sf::Mouse::Left, 2);
-		InputManager::instance().bind("debugdraw", sf::Keyboard::Key::Num0, 1);
-		InputManager::instance().bind("space", sf::Keyboard::Key::Space, 1);
-		InputManager::instance().bind("health", sf::Keyboard::Key::H, 1);
-		InputManager::instance().bind("MainState", sf::Keyboard::Key::Num2, 1);
-		InputManager::instance().bind("MenuState", sf::Keyboard::Key::Num1, 1);
-		InputManager::instance().bind("SpaceGameState", sf::Keyboard::Key::Num3, 1);
+			InputManager::instance().bind("up", sf::Keyboard::Key::W, 1);
+			InputManager::instance().bind("down", sf::Keyboard::Key::S, 1);
+			InputManager::instance().bind("left", sf::Keyboard::Key::A, 1);
+			InputManager::instance().bind("right", sf::Keyboard::Key::D, 1);
+			InputManager::instance().bind("shoot", sf::Keyboard::Key::R, 1);
+			InputManager::instance().bind("up", sf::Keyboard::Key::Up, 2);
+			InputManager::instance().bind("down", sf::Keyboard::Key::Down, 2);
+			InputManager::instance().bind("left", sf::Keyboard::Key::Left, 2);
+			InputManager::instance().bind("right", sf::Keyboard::Key::Right, 2);
+			InputManager::instance().bind("shoot", sf::Keyboard::Key::Enter, 2);
+			InputManager::instance().bind("leftclick", sf::Mouse::Left, 2);
+			InputManager::instance().bind("debugdraw", sf::Keyboard::Key::Num0, 1);
+			InputManager::instance().bind("space", sf::Keyboard::Key::Space, 1);
+			InputManager::instance().bind("health", sf::Keyboard::Key::H, 1);
+			InputManager::instance().bind("MainState", sf::Keyboard::Key::Num2, 1);
+			InputManager::instance().bind("MenuState", sf::Keyboard::Key::Num1, 1);
+			InputManager::instance().bind("SpaceGameState", sf::Keyboard::Key::Num3, 1);
 	}
 }
 

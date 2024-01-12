@@ -100,6 +100,15 @@ namespace mmt_gd
             m_id = id;
         }
 
+        int getPlayerIdx() const
+        {
+            return m_idx;
+        }
+
+        void setPlayerIdx(const int& idx)
+        {
+            m_idx = idx;
+        }
 
         ObjectType getType() const
         {
@@ -113,6 +122,7 @@ namespace mmt_gd
 
     protected:
         std::string m_id = "unnamed"; ///< unique name of object, e.g. player
+        int m_idx ; ///< unique name of object, e.g. player
         bool        m_wantToDie = false;
         bool        m_isActive = true;
         ObjectType m_type = Default;

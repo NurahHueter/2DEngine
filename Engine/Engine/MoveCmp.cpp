@@ -12,24 +12,26 @@ namespace mmt_gd
         constexpr float acc = 1000.0f; ///< "const" is evaluated at compile time; "const" could be changed at runtime
 
         sf::Vector2f accVec;
-        //if(gameObject.getComponent<RigidBodyCmp>())
+        std::cout << gameObject.getId() << std::endl;
         const auto& animation = gameObject.getComponent<SpriteAnimationCmp>();
-        if (InputManager::instance().isKeyPressed("up", 1))
+        if (InputManager::instance().isKeyPressed("up", gameObject.getPlayerIdx()))
         {
+          
+            //std::cout << gameObject.getPlayerIdx() << std::endl;
             accVec = { 0.0f, -acc };
             animation->setCurrentAnimation("MoveUp");
         }
-        if (InputManager::instance().isKeyPressed("down", 1))
+        if (InputManager::instance().isKeyPressed("down", gameObject.getPlayerIdx()))
         {
             accVec = { 0.0f, acc };
             animation->setCurrentAnimation("MoveDown");
         }
-        if (InputManager::instance().isKeyPressed("left", 1))
+        if (InputManager::instance().isKeyPressed("left", gameObject.getPlayerIdx()))
         {
             accVec = { -acc, 0.0f };
             animation->setCurrentAnimation("MoveLeft");
         }
-        if (InputManager::instance().isKeyPressed("right", 1))
+        if (InputManager::instance().isKeyPressed("right", gameObject.getPlayerIdx()))
         {
             accVec = { acc, 0.0f };
             animation->setCurrentAnimation("MoveRight");
@@ -37,16 +39,15 @@ namespace mmt_gd
         
         if (auto rigidBodyCmp = gameObject.getComponent<RigidBodyCmp>())
         {
-            rigidBodyCmp->m_velocity += accVec * deltaTime;
-            rigidBodyCmp->m_velocity *= 0.99f;
+            rigidBodyCmp->setVelocityP(accVec * deltaTime);
+            rigidBodyCmp->setVelocityN(rigidBodyCmp->getVelocity()-(rigidBodyCmp->getVelocity()* 0.99f));
             rigidBodyCmp->setImpulse(accVec);
-            rigidBodyCmp->setPosition(rigidBodyCmp->m_velocity,deltaTime);
+            rigidBodyCmp->setPosition(rigidBodyCmp->getVelocity(),deltaTime);
             gameObject.setPosition(rigidBodyCmp->getPosition());
 
         }
         
         // Reset acceleration 
         accVec = sf::Vector2f(0, 0);
-
     };
 }
