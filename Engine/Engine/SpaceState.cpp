@@ -20,34 +20,32 @@ namespace mmt_gd
         mapTile.loadMap(map, tileMapresourcePath);
 
         const auto& mapGo = std::make_shared<GameObject>("map");
-        mapTile.getTiledLayer(*mapGo, map, m_window, m_RenderManager);
-        mapTile.getObjectLayer(map, m_RenderManager, m_gameObjectManager);
+        mapTile.getTiledLayer(*mapGo, map);
+        mapTile.getObjectLayer(map);
         mapGo->init();
-        m_gameObjectManager.addGameObject(mapGo);
 
-        //set a camera on the tilemapSize
-
+        GameObjectManager::instance().addGameObject(mapGo);
 
     }
 
     void SpaceState::exit()
     {
-        m_gameObjectManager.shutdown();
-        m_RenderManager.shutdown();
+        GameObjectManager::instance().shutdown();
+        RenderManager::instance().shutdown();
     }
 
     void SpaceState::update(float deltaTime)
     {
         PhysicsManager::instance().update();
-        m_gameObjectManager.update(deltaTime);
+        GameObjectManager::instance().update(deltaTime);
     }
 
-    void SpaceState::draw()
+    void SpaceState::draw() 
     {
-        m_window.clear({0, 0, 0});
-        m_RenderManager.draw();
+        RenderManager::instance().getWindow().clear({0, 0, 0});
+        RenderManager::instance().draw();
 
-        for (auto body : PhysicsManager::instance().m_bodies)
+ /*       for (auto body : PhysicsManager::instance().m_bodies)
         {
             if (std::shared_ptr<BoxCollisionCmp> tempP = body.lock())
             {
@@ -58,9 +56,9 @@ namespace mmt_gd
                 m_debugGeometry.setOutlineColor(sf::Color::Red);
                 m_debugGeometry.setOutlineThickness(2);
 
-                m_window.draw(m_debugGeometry);
+                RenderManager::instance().getWindow().draw(m_debugGeometry);
             }
-        }
-        m_window.display();
+        }*/
+        RenderManager::instance().getWindow().display();
     }
 }

@@ -27,7 +27,6 @@ namespace mmt_gd
             {
                 
                 rigidBodyCmp->m_velocity = sf::Vector2f((direction.x / distance), (direction.y / distance)) * velocity;
-                std::cout << rigidBodyCmp->m_velocity.x << std::endl;
             }
             else
             {

@@ -1,12 +1,7 @@
 #pragma once
 #include "pch.h"
 #include "tileson.hpp"
-#include <SFML/Graphics.hpp>
-#include "Game.h"
-#include "InputManager.h"
 #include "AssetManager.h"
-#include "GameStateManager.h"
-#include "GameState.h"
 #include "TileLayerCmp.h"
 #include "MapTile.h"
 #include "GameObject.h"
@@ -45,20 +40,20 @@ namespace mmt_gd
 		}
 	}
 
-	void MapTile::getObjectLayer(const std::unique_ptr<tson::Map>& map, RenderManager& renderManager, GameObjectManager& gameObjectManager)
+	void MapTile::getObjectLayer(const std::unique_ptr<tson::Map>& map)
 	{
 		for (auto group : map->getLayers())
 		 {
  			// go over all objects per layer
  			for (auto object : group.getObjects())
  			{
-				ObjectFactory::processTsonObject(object, group, renderManager, gameObjectManager);
+				ObjectFactory::processTsonObject(object, group);
  			}
 		 }
 	}
 
 
-	void MapTile::getTiledLayer(GameObject& gameObject, const std::unique_ptr<tson::Map>& map, sf::RenderWindow& window, RenderManager& renderManager)
+	void MapTile::getTiledLayer(GameObject& gameObject, const std::unique_ptr<tson::Map>& map)
 	{
 		std::vector<TileLayer> layers;
 		layers.resize(map->getLayers().size());
@@ -117,9 +112,12 @@ namespace mmt_gd
 		int count = 0;
 		for (auto& layer : layers)
 		{
-			renderManager.addLayer(layer.m_name, count);
-			const auto& tileLayer = std::make_shared<TileLayerCmp>(gameObject, window, layer);
-			renderManager.addCompToLayer(layer.m_name, tileLayer);
+			RenderManager::instance().addLayer(layer.m_name, count);
+			const auto& tileLayer = std::make_shared<TileLayerCmp>(
+				gameObject,
+				RenderManager::instance().getWindow(),
+				layer);
+			RenderManager::instance().addCompToLayer(layer.m_name, tileLayer);
 			gameObject.addComponent(tileLayer);
 			count++;
 		}

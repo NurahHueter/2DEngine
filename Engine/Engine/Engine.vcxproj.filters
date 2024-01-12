@@ -58,6 +58,9 @@
     <Filter Include="Source Files\Components\CustomComponentsSpaceGame">
       <UniqueIdentifier>{f738bc46-c050-40d5-8c82-6724873659fe}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Enums">
+      <UniqueIdentifier>{897cde11-dd21-4e26-bde4-d68e83b003b1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine.cpp">
@@ -232,6 +235,9 @@
     </ClInclude>
     <ClInclude Include="HealthCmp.h">
       <Filter>Header Files\Components\CustomComponentsSpaceGame</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjectTypes.h">
+      <Filter>Header Files\Enums</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

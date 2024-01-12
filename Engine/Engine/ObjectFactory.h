@@ -16,22 +16,11 @@ namespace mmt_gd
     class ObjectFactory
     {
     public:
-        static void processTsonObject(tson::Object& object,
-            const tson::Layer& layer,
-            RenderManager& renderManager,
-           GameObjectManager& gameObjectManager);
-        static void loadPlayer(tson::Object& object,
-            const std::string layer,
-            RenderManager& renderManager,
-            GameObjectManager& gameObjectManager);
-        static void loadEnemy(tson::Object& object,
-            const std::string layer,
-            RenderManager& renderManager,
-            GameObjectManager& gameObjectManager);
+        static void processTsonObject(tson::Object& object, const tson::Layer& layer);
+        static void loadPlayer(tson::Object& object, const std::string layer);
+        static void loadEnemy(tson::Object& object, const std::string layer);
         static void loadProjectile(tson::Object& object,
-            const std::string layer,
-            RenderManager& renderManager,
-            GameObjectManager& gameObjectManager,
+             const std::string layer,
             std::shared_ptr<GameObject> gameObject);
 
     };

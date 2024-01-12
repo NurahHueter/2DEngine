@@ -10,6 +10,7 @@
 #include "CameraCmp.h"
 #include "SpriteRenderCmp.h"
 #include "HealthCmp.h"
+#include "ObjectTypes.h"
 #include "Tileson.hpp"
 #include "AssetManager.h"
 #include "RigidBodyCmp.h"
@@ -20,18 +21,15 @@
 
 namespace mmt_gd
 {
-void ObjectFactory::processTsonObject(tson::Object& object,
-    const tson::Layer& layer,
-    RenderManager& renderManager,
-    GameObjectManager& gameObjectManager)
+void ObjectFactory::processTsonObject(tson::Object& object, const tson::Layer& layer)
     {
         if (object.getType() == "Player")
         {
-           loadPlayer(object, layer.getName(), renderManager, gameObjectManager);
+           loadPlayer(object, layer.getName());
         }
         if (object.getType() == "Enemy")
         {
-            loadEnemy(object, layer.getName(), renderManager, gameObjectManager);
+            loadEnemy(object, layer.getName());
         }
         if (object.getType() == "Collider")
         {
@@ -41,12 +39,11 @@ void ObjectFactory::processTsonObject(tson::Object& object,
         }
     }
 void ObjectFactory::loadPlayer(tson::Object& object,
-    const std::string layer,
-    RenderManager& renderManager,
-    GameObjectManager& gameObjectManager)
+    const std::string layer)
     {
          auto gameObject =  std::make_shared<GameObject>(object.getName());
          gameObject->setPosition(static_cast<float>(object.getPosition().x), static_cast<float>(object.getPosition().y));
+         gameObject->setType(ObjectType::Player);
 
          std::string id;
          std::shared_ptr<sf::Texture> texture;
@@ -84,7 +81,12 @@ void ObjectFactory::loadPlayer(tson::Object& object,
 
          gameObject->addComponent(std::make_shared<MoveCmp>(*gameObject, sf::Vector2f(velocity, velocity)));
 
-         const auto& animationCmp = std::make_shared<SpriteAnimationCmp>(*gameObject, renderManager.getWindow(), texture, 8, 8, false, 4);
+         const auto& animationCmp = std::make_shared<SpriteAnimationCmp>(*gameObject, RenderManager::instance().getWindow(),
+             texture,
+             8,
+             8,
+             false,
+             4);
          animationCmp->addAnimation( {
             {"MoveUp", 8},
             {"MoveLeftUp", 8},
@@ -97,42 +99,44 @@ void ObjectFactory::loadPlayer(tson::Object& object,
          });
          animationCmp->setCurrentAnimation("MoveRight");
          animationCmp->init();
-         renderManager.addCompToLayer(layer, animationCmp);
+         RenderManager::instance().addCompToLayer(layer, animationCmp);
          gameObject->addComponent(animationCmp);
 
-         gameObject->addComponent(std::make_shared<RigidBodyCmp>(*gameObject, mass, sf::Vector2f(velocity, velocity)));
+         gameObject->addComponent(std::make_shared<RigidBodyCmp>(*gameObject,
+             mass, 
+             sf::Vector2f(velocity, velocity)));
 
          const auto& boxCollider = std::make_shared<BoxCollisionCmp>(*gameObject, sf::FloatRect(animationCmp->getTextureRect()));
          gameObject->addComponent(boxCollider);
 
          PhysicsManager::instance().addBoxCollisionCmp(boxCollider);
 
-         const auto cameraCmp = std::make_shared<CameraCmp>(*gameObject, renderManager.getWindow(), sf::Vector2f(renderManager.getWindow().getSize().x / 2.0f, renderManager.getWindow().getSize().y / 2.0f));
+         const auto cameraCmp = std::make_shared<CameraCmp>(*gameObject,
+             RenderManager::instance().getWindow(),
+             sf::Vector2f(RenderManager::instance().getWindow().getSize().x / 2.0f,
+             RenderManager::instance().getWindow().getSize().y / 2.0f));
+
          cameraCmp->setTarget(gameObject);
          gameObject->addComponent(cameraCmp);
-         renderManager.addCompToLayer(layer, cameraCmp);
+         RenderManager::instance().addCompToLayer(layer, cameraCmp);
 
-         const auto healtCmp = std::make_shared<HealthCmp>(*gameObject, renderManager.getWindow(), 5);
-         renderManager.addCompToLayer(layer, healtCmp);
+         const auto healtCmp = std::make_shared<HealthCmp>(*gameObject,
+             RenderManager::instance().getWindow(),
+             5);
+         RenderManager::instance().addCompToLayer(layer, healtCmp);
          gameObject->addComponent(healtCmp);
 
-         loadProjectile(object,
-             layer,
-             renderManager,
-             gameObjectManager,
-             gameObject);
+         loadProjectile(object, layer, gameObject);
 
          gameObject->init();
-         gameObjectManager.addGameObject(gameObject);
+         GameObjectManager::instance().addGameObject(gameObject);
     };
     
-    void ObjectFactory::loadEnemy(tson::Object& object,
-        const std::string layer,
-        RenderManager& renderManager,
-        GameObjectManager& gameObjectManager)
+    void ObjectFactory::loadEnemy(tson::Object& object, const std::string layer)
     {
         auto gameObject = std::make_shared<GameObject>(object.getName());
         gameObject->setPosition(static_cast<float>(object.getPosition().x), static_cast<float>(object.getPosition().y));
+        gameObject->setType(ObjectType::Enemy);
 
         std::string id;
         std::string texturpath;
@@ -167,8 +171,13 @@ void ObjectFactory::loadPlayer(tson::Object& object,
             }
         }
 
-        const auto& animationCmp = std::make_shared<SpriteAnimationCmp>(*gameObject, renderManager.getWindow(), texture, 6, 8, false, 4);
-        renderManager.addCompToLayer(layer, animationCmp);
+        const auto& animationCmp = std::make_shared<SpriteAnimationCmp>(*gameObject, RenderManager::instance().getWindow(),
+            texture,
+            6,
+            8,
+            false,
+            4);
+        RenderManager::instance().addCompToLayer(layer, animationCmp);
         animationCmp->addAnimation({
            {"MoveUp", 6},
            {"MoveLeftUp", 6},
@@ -181,28 +190,33 @@ void ObjectFactory::loadPlayer(tson::Object& object,
             });
         animationCmp->setCurrentAnimation("MoveRight");
         animationCmp->init();
-        renderManager.addCompToLayer(layer, animationCmp);
+        RenderManager::instance().addCompToLayer(layer, animationCmp);
         gameObject->addComponent(animationCmp);
 
          gameObject->addComponent(std::make_shared<MouseMoveCmp>(*gameObject, sf::Vector2f((object.getPosition().x), static_cast<float>(object.getPosition().y)), velocity));
         
-         const auto healtCmp = std::make_shared<HealthCmp>(*gameObject, renderManager.getWindow(), 3);
-         renderManager.addCompToLayer(layer, healtCmp);
+         const auto healtCmp = std::make_shared<HealthCmp>(*gameObject,
+             RenderManager::instance().getWindow(),
+             3);
+
+         RenderManager::instance().addCompToLayer(layer, healtCmp);
          gameObject->addComponent(healtCmp);
 
-        gameObject->addComponent(std::make_shared<RigidBodyCmp>(*gameObject, mass, sf::Vector2f(velocity, velocity)));
-        const auto& boxCollider = std::make_shared<BoxCollisionCmp>(*gameObject, sf::FloatRect(sf::FloatRect(animationCmp->getTextureRect())));
+        gameObject->addComponent(std::make_shared<RigidBodyCmp>(*gameObject,
+            mass,
+            sf::Vector2f(velocity, velocity)));
+
+        const auto& boxCollider = std::make_shared<BoxCollisionCmp>(*gameObject,
+            sf::FloatRect(sf::FloatRect(animationCmp->getTextureRect())));
         gameObject->addComponent(boxCollider);
         PhysicsManager::instance().addBoxCollisionCmp(boxCollider);
         gameObject->init();
-        gameObjectManager.addGameObject(gameObject);
+        GameObjectManager::instance().addGameObject(gameObject);
 
     }
 
     void ObjectFactory::loadProjectile(tson::Object& object,
         const std::string layer,
-        RenderManager& renderManager,
-        GameObjectManager& gameObjectManager,
         std::shared_ptr<GameObject> gameObject)
     {
 
@@ -242,19 +256,22 @@ void ObjectFactory::loadPlayer(tson::Object& object,
         for (int i = 0; i < sizeObjectPool; i++)
         {
             auto projectile = std::make_shared<GameObject>(object.getName() + "projectile" + std::to_string(i));
-
-            const auto& renderCmp = std::make_shared<SpriteRenderCmp>(*projectile, renderManager.getWindow(), texture);
-            renderManager.addCompToLayer(layer, renderCmp);
+            projectile->setType(ObjectType::Projectle);
+            const auto& renderCmp = std::make_shared<SpriteRenderCmp>(*projectile,
+                RenderManager::instance().getWindow(),
+                texture);
+            RenderManager::instance().addCompToLayer(layer, renderCmp);
             projectile->addComponent(renderCmp);
 
-            const auto& boxCollider = std::make_shared<BoxCollisionCmp>(*projectile, sf::FloatRect(renderCmp->getTextureRect()));
+            const auto& boxCollider = std::make_shared<BoxCollisionCmp>(*projectile,
+                sf::FloatRect(renderCmp->getTextureRect()));
 
             projectile->addComponent(boxCollider);
             PhysicsManager::instance().addBoxCollisionCmp(boxCollider);
             
             projectile->init();
             projectiles.push_back(projectile);
-            gameObjectManager.addGameObject(projectile);
+            GameObjectManager::instance().addGameObject(projectile);
         }
         
         gameObject->addComponent(std::make_shared<ProjectileCmp>(*gameObject, projectiles, timeToLive, velocity, intervall));

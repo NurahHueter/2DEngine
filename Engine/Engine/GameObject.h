@@ -5,6 +5,7 @@
 #include <SFML/Graphics.hpp>
 #include <list>
 #include <string>
+#include "ObjectTypes.h"
 #include <utility>
 
 namespace mmt_gd
@@ -99,10 +100,22 @@ namespace mmt_gd
             m_id = id;
         }
 
+
+        ObjectType getType() const
+        {
+            return m_type;
+        }
+
+        void setType(const ObjectType& type)
+        {
+            m_type = type;
+        }
+
     protected:
         std::string m_id = "unnamed"; ///< unique name of object, e.g. player
         bool        m_wantToDie = false;
         bool        m_isActive = true;
+        ObjectType m_type = Default;
 
         std::vector<IComponent::Ptr> m_componentList;
     };

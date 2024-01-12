@@ -1,9 +1,9 @@
-//Game.cpp
 #pragma once
 #include "pch.h"
 #include "Game.h"
 #include "InputManager.h"
 #include "AssetManager.h"
+#include "RenderManager.h"
 #include "GameStateManager.h"
 #include "GameState.h"
 
@@ -12,40 +12,24 @@ namespace mmt_gd
 
 	void Game::Initialize()
 	{
-		m_window.setVerticalSyncEnabled(true);
-		m_window.create({ 1920, 1080 }, "SFML Window");
-		InputManager::instance().setWindow(m_window);
+		RenderManager::instance().getWindow().setVerticalSyncEnabled(true);
+		RenderManager::instance().getWindow().create({ 1920, 1080 }, "SFML Window");
+		InputManager::instance().setWindow(RenderManager::instance().getWindow());
 
-		InputManager::instance().bind("up", sf::Keyboard::Key::W, 1);
-		InputManager::instance().bind("down", sf::Keyboard::Key::S, 1);
-		InputManager::instance().bind("left", sf::Keyboard::Key::A, 1);
-		InputManager::instance().bind("right", sf::Keyboard::Key::D, 1);
-		InputManager::instance().bind("shoot", sf::Keyboard::Key::R, 2);
-		InputManager::instance().bind("leftclick", sf::Mouse::Left, 2);
-		InputManager::instance().bind("debugdraw", sf::Keyboard::Key::Num0, 1);
-		InputManager::instance().bind("space", sf::Keyboard::Key::Space, 1);
-		InputManager::instance().bind("health", sf::Keyboard::Key::H, 1);
+		bindInput();
 
-		InputManager::instance().bind("MainState", sf::Keyboard::Key::Num2, 1);
-		InputManager::instance().bind("MenuState", sf::Keyboard::Key::Num1, 1);
-		InputManager::instance().bind("SpaceGameState", sf::Keyboard::Key::Num3, 1);
-
-		auto menu = std::make_shared<MenuState>(m_window);
-		auto main = std::make_shared<MainState>(m_window);
-		auto spaceGame = std::make_shared<SpaceState>(m_window);
-
-		GameStateManager::instance().addState("MainState", main);
-		GameStateManager::instance().addState("MenuState", menu);
-		GameStateManager::instance().addState("SpaceGameState", spaceGame);
+		GameStateManager::instance().addState("MainState", std::make_shared<MainState>());
+		GameStateManager::instance().addState("MenuState", std::make_shared<MenuState>());
+		GameStateManager::instance().addState("SpaceGameState", std::make_shared<SpaceState>());
 
 		GameStateManager::instance().setState("MenuState");
-	};
+	}
 
 	void Game::Run()
 	{
 		Initialize();
 
-		while (m_window.isOpen())
+		while (RenderManager::instance().getWindow().isOpen())
 		{
 			float deltaTime = m_clock.restart().asSeconds();
 			HandleEvents();
@@ -79,19 +63,19 @@ namespace mmt_gd
 		m_fps.update();
 		ss << " | FPS: " << m_fps.getFps();
 
-		m_window.setTitle(ss.str());
+		RenderManager::instance().getWindow().setTitle(ss.str());
 	}
 
 	void Game::HandleEvents()
 	{
 		sf::Event event;
-		while (m_window.pollEvent(event))
+		while (RenderManager::instance().getWindow().pollEvent(event))
 		{
 			if (event.type == sf::Event::Closed)
 			{
 				GameStateManager::instance().CloseGame();
 				Game::~Game();
-				m_window.close();
+				RenderManager::instance().getWindow().close();
 			}
 
 			InputManager::instance().handleEvents(event);
@@ -104,9 +88,25 @@ namespace mmt_gd
 		if (e.code == sf::Keyboard::Key::Escape)
 		{
 			GameStateManager::instance().CloseGame();
-			m_window.close();
+			RenderManager::instance().getWindow().close();
 			Game::~Game();
 		}
 	};
+
+	void Game::bindInput()
+	{
+		InputManager::instance().bind("up", sf::Keyboard::Key::W, 1);
+		InputManager::instance().bind("down", sf::Keyboard::Key::S, 1);
+		InputManager::instance().bind("left", sf::Keyboard::Key::A, 1);
+		InputManager::instance().bind("right", sf::Keyboard::Key::D, 1);
+		InputManager::instance().bind("shoot", sf::Keyboard::Key::R, 2);
+		InputManager::instance().bind("leftclick", sf::Mouse::Left, 2);
+		InputManager::instance().bind("debugdraw", sf::Keyboard::Key::Num0, 1);
+		InputManager::instance().bind("space", sf::Keyboard::Key::Space, 1);
+		InputManager::instance().bind("health", sf::Keyboard::Key::H, 1);
+		InputManager::instance().bind("MainState", sf::Keyboard::Key::Num2, 1);
+		InputManager::instance().bind("MenuState", sf::Keyboard::Key::Num1, 1);
+		InputManager::instance().bind("SpaceGameState", sf::Keyboard::Key::Num3, 1);
+	}
 }
 

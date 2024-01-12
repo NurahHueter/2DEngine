@@ -193,6 +193,7 @@ sfml-window-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="MoveCmp.h" />
     <ClInclude Include="ObjectFactory.h" />
+    <ClInclude Include="ObjectTypes.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="PhysicsManager.h" />
     <ClInclude Include="ProjectileCmp.h" />
