@@ -60,8 +60,7 @@ namespace mmt_gd
     }
 
     void PhysicsManager::update()
-    {
-        
+    {   
         m_manifolds.clear();
         findCollisions(m_bodies);
         resolveCollisions(m_manifolds);
@@ -76,6 +75,7 @@ namespace mmt_gd
         {
             if (std::shared_ptr<BoxCollisionCmp> tempP = body.lock())
             {
+                if(tempP->getGameObject().isActive())
                 bodies.push_back(tempP);
             }
         }
@@ -125,6 +125,10 @@ namespace mmt_gd
     {
         for (auto man : m_manifolds)
         {
+            if (man.m_body1->isLogicTrigger() || man.m_body2->isLogicTrigger())
+            {
+                std::cout << "Collision:" << man.m_body1->getGameObject().getType() << "with" << man.m_body2->getGameObject().getType() << std::endl;
+            }
             sf::Vector2f rv = man.m_body1->rigidBody->m_velocity - man.m_body2->rigidBody->m_velocity;
             // Calculate relative velocity in terms of the normal direction
           
@@ -136,7 +140,7 @@ namespace mmt_gd
             }
 
             // Apply impulse
-            //std::cout << "ALARM!!";
+            std::cout << "ALARM!!";
             sf::Vector2f impulse = velAlongNormal * man.m_normal;
             
             man.m_body1->rigidBody->m_velocity -= 2.f * impulse;

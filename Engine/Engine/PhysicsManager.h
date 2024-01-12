@@ -3,30 +3,7 @@
 #include "BoxCollisionCmp.h"
 #include <SFML/Graphics/Rect.hpp>
 
-//struct RigidBody
-//{
-//     Collision geometry. In the component-based architecture, the
-//     collision geometry should be in a separate component, e.g.,
-//     BBoxCollisionComponent
-//    sf::FloatRect m_shape;
-//
-//     The debug geometry to visualize the bounding geometry of the object.
-//     Can be part of a BBoxCollisionComponent.
-//    
-//
-//     Parameters used for the rigid body physics
-//
-//    float m_mass;
-//    float m_invMass;
-//
-//    sf::Vector2f m_position;
-//
-//    std::list<sf::Vector2f> m_forces;   ///< forces constantly applied to object, e.g., gravity
-//    std::list<sf::Vector2f> m_impulses; ///< impulses fire only once, e.g., during collision
-//
-//    sf::Vector2f m_acceleration;
-//    sf::Vector2f m_velocity;
-//};
+
 
 namespace mmt_gd
 {
@@ -38,7 +15,6 @@ struct Manifold
     float    m_penetration{};
     sf::Vector2f m_normal;
 };
-
 
     class RigidBodyCmp; 
 

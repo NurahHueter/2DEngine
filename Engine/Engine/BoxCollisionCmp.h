@@ -29,6 +29,6 @@ namespace mmt_gd
         
         sf::FloatRect m_shape;
         sf::Vector2f m_position;
-        bool logicTrigger = false;
+        bool logicTrigger = true;
     };
 }
