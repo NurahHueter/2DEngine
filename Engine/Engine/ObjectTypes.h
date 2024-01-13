@@ -6,5 +6,6 @@ namespace mmt_gd
 		Default,
 		Spaceship,
 		Projectile,
+		PowerUp,
 	};
 }

@@ -7,8 +7,8 @@
 #include "MouseMoveCmp.h"
 #include "SpriteAnimationCmp.h"
 #include "MoveCmp.h"
-#include "CameraCmp.h"
 #include "SpriteRenderCmp.h"
+#include "CameraCmp.h"
 #include "HealthCmp.h"
 #include "ObjectTypes.h"
 #include "Tileson.hpp"
@@ -108,6 +108,15 @@ void ObjectFactory::loadSpaceship(tson::Object& object,
                 {"MoveLeft", 8},
                 {"MoveRightUp", 8},
                  });
+
+             const auto cameraCmp = std::make_shared<CameraCmp>(*gameObject,
+                 RenderManager::instance().getWindow(),
+                 sf::Vector2f(RenderManager::instance().getWindow().getSize().x / 2.0f,
+                 RenderManager::instance().getWindow().getSize().y / 2.0f));
+
+             cameraCmp->setTarget(gameObject);
+             gameObject->addComponent(cameraCmp);
+             RenderManager::instance().addCompToLayer(layer, cameraCmp);
          }
          else
          {

@@ -141,6 +141,9 @@
     <ClCompile Include="CameraCmp.cpp">
       <Filter>Source Files\Components\CustomComponentsSpaceGame</Filter>
     </ClCompile>
+    <ClCompile Include="PowerUpCmp.cpp">
+      <Filter>Source Files\Components\CustomComponentsSpaceGame</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -233,11 +236,14 @@
     <ClInclude Include="SpriteAnimationCmp.h">
       <Filter>Header Files\Components\Components</Filter>
     </ClInclude>
-    <ClInclude Include="HealthCmp.h">
-      <Filter>Header Files\Components\CustomComponentsSpaceGame</Filter>
-    </ClInclude>
     <ClInclude Include="ObjectTypes.h">
       <Filter>Header Files\Enums</Filter>
+    </ClInclude>
+    <ClInclude Include="PowerUpsCmp.h">
+      <Filter>Header Files\Components\CustomComponentsSpaceGame</Filter>
+    </ClInclude>
+    <ClInclude Include="HealthCmp.h">
+      <Filter>Header Files\Components\CustomComponentsSpaceGame</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

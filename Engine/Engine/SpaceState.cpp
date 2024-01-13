@@ -27,17 +27,6 @@ namespace mmt_gd
 
         GameObjectManager::instance().addGameObject(mapGo);
 
-        //camera
-        auto camera = std::make_shared<GameObject>("camera");
-        const auto cameraCmp = std::make_shared<CameraCmp>(
-            *GameObjectManager::instance().getGameObject("Player"),
-            RenderManager::instance().getWindow(),
-            sf::Vector2f(RenderManager::instance().getWindow().getSize().x / 2.0f,
-                RenderManager::instance().getWindow().getSize().y / 2.0f));
-        cameraCmp->setTarget(GameObjectManager::instance().getGameObject("Player"));
-        camera->addComponent(cameraCmp);
-        RenderManager::instance().addCompToLayer("Objects", cameraCmp);
-        GameObjectManager::instance().addGameObject(camera);
     }
 
     void SpaceState::exit()
@@ -56,7 +45,7 @@ namespace mmt_gd
         {
             if (p.first->getType() == ObjectType::Spaceship && (p.second == ObjectType::Spaceship || p.second == ObjectType::Projectile))
             {
-                /*p.first->getComponent<HealthCmp>()->getDamage();*/
+                p.first->getComponent<HealthCmp>()->getDamage();
             }
         }
     }
