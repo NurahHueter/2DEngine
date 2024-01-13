@@ -10,6 +10,8 @@ namespace mmt_gd
 			:IRenderComponent(gameObject, renderWindow), m_health(health), m_currentHealth(health) {};
 		bool init() override;
 		void update(float deltaTime) override;
+		void getDamage();
+		void getHealth();
 		void draw() override;
 
 	protected:

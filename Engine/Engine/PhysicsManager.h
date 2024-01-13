@@ -33,12 +33,15 @@ struct Manifold
         PhysicsManager& operator = (const PhysicsManager&) = delete;
 
        void addBoxCollisionCmp(std::weak_ptr<BoxCollisionCmp> component);
+       std::vector<std::weak_ptr<BoxCollisionCmp>> m_bodies;
+       const std::map<GameObject*, ObjectType> getCollisionPairs() { return m_collisionPairs; };
 
-        std::vector<std::weak_ptr<BoxCollisionCmp>> m_bodies;
-        std::vector<Manifold>  m_manifolds;
         void update();
         void shutdown();
     private:
+        
+        std::vector<Manifold>  m_manifolds;
+        std::map<GameObject*, ObjectType> m_collisionPairs;
         void resolveCollisions(std::vector<Manifold>& m_manifolds);
         bool aabbVsAabb(const sf::FloatRect& a, const sf::FloatRect& b, sf::Vector2f& normal, float& penetration); // returns true if interseciton
         void findCollisions(std::vector<std::weak_ptr<BoxCollisionCmp>>& m_bodies);

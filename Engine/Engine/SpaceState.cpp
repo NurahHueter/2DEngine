@@ -6,6 +6,7 @@
 #include "GameState.h"
 #include "CameraCmp.h"
 #include "GameObject.h"
+#include "HealthCmp.h"
 #include "GameObjectManager.h"
 #include "PhysicsManager.h"
 namespace mmt_gd
@@ -38,6 +39,15 @@ namespace mmt_gd
     {
         PhysicsManager::instance().update();
         GameObjectManager::instance().update(deltaTime);
+
+        const auto coll_pairs = PhysicsManager::instance().getCollisionPairs();
+        for (const auto p : coll_pairs)
+        {
+            if (p.first->getType() == ObjectType::Spaceship && (p.second == ObjectType::Spaceship || p.second == ObjectType::Projectile))
+            {
+                p.first->getComponent<HealthCmp>()->getDamage();
+            }
+        }
     }
 
     void SpaceState::draw() 

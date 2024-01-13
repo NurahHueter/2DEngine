@@ -12,7 +12,6 @@ namespace mmt_gd
         constexpr float acc = 1000.0f; ///< "const" is evaluated at compile time; "const" could be changed at runtime
 
         sf::Vector2f accVec;
-        std::cout << gameObject.getId() << std::endl;
         const auto& animation = gameObject.getComponent<SpriteAnimationCmp>();
         if (InputManager::instance().isKeyPressed("up", gameObject.getPlayerIdx()))
         {

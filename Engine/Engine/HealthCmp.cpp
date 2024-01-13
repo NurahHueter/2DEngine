@@ -17,30 +17,23 @@ namespace mmt_gd
 	};
 	void HealthCmp::update(float deltaTime)
 	{
-		//ToDo CollisonCheck --> Projectile
-		auto const& rb = gameObject.getComponent<RigidBodyCmp>();
-		if (std::shared_ptr<GameObject> tempP = rb->getCollision().lock())
-		{
-			if (tempP->getType() != ObjectType::Default)
-			{
-				m_currentHealth--;
-				if (m_currentHealth <= 0)
-				{
-					gameObject.markForDelete();
-				}
-			}
-		};
-		//ToDo CollisonCheck --> Item
-		//if (InputManager::instance().isMouseDown("space", 1))
-		//{
-		//	m_currentHealth++;
-		//};
-
 		float sliderWidth = (float)m_currentHealth / m_health * m_background.getSize().x;
 		m_slider.setSize(sf::Vector2f(sliderWidth, m_slider.getSize().y)); 
 
 		m_background.setPosition(gameObject.getPosition().x, gameObject.getPosition().y - 5.f);
 		m_slider.setPosition(gameObject.getPosition().x, gameObject.getPosition().y - 5.f);
+	};
+	void HealthCmp::getDamage()
+	{
+		m_currentHealth--;
+		if (m_currentHealth <= 0)
+		{
+			gameObject.markForDelete();
+		}
+	};
+	void HealthCmp::getHealth()
+	{
+		m_currentHealth++;
 	};
 	void HealthCmp::draw()
 	{

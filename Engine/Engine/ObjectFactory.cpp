@@ -43,7 +43,7 @@ void ObjectFactory::loadPlayer(tson::Object& object,
     {
          auto gameObject =  std::make_shared<GameObject>(object.getName());
          gameObject->setPosition(static_cast<float>(object.getPosition().x), static_cast<float>(object.getPosition().y));
-         gameObject->setType(ObjectType::Player);
+         gameObject->setType(ObjectType::Spaceship);
          gameObject->setPlayerIdx(1);        //Player 1
          std::string id;
          std::shared_ptr<sf::Texture> texture;
@@ -136,7 +136,7 @@ void ObjectFactory::loadPlayer(tson::Object& object,
     {
         auto gameObject = std::make_shared<GameObject>(object.getName());
         gameObject->setPosition(static_cast<float>(object.getPosition().x), static_cast<float>(object.getPosition().y));
-        gameObject->setType(ObjectType::Enemy);
+        gameObject->setType(ObjectType::Spaceship);
         gameObject->setPlayerIdx(2);        //Player 2
         std::string id;
         std::string texturpath;
@@ -257,7 +257,7 @@ void ObjectFactory::loadPlayer(tson::Object& object,
         for (int i = 0; i < sizeObjectPool; i++)
         {
             auto projectile = std::make_shared<GameObject>(object.getName() + "projectile" + std::to_string(i));
-            projectile->setType(ObjectType::Projectle);
+            projectile->setType(ObjectType::Projectile);
             const auto& renderCmp = std::make_shared<SpriteRenderCmp>(*projectile,
                 RenderManager::instance().getWindow(),
                 texture);

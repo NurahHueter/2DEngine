@@ -5,6 +5,7 @@
 #include "GameState.h"
 #include "PhysicsManager.h"
 #include "RigidBodyCmp.h"
+#include "ObjectTypes.h"
 #include "GameObjectManager.h"
 namespace mmt_gd
 {
@@ -61,6 +62,7 @@ namespace mmt_gd
 
     void PhysicsManager::update()
     {   
+        m_collisionPairs.clear();
         m_manifolds.clear();
         findCollisions(m_bodies);
         resolveCollisions(m_manifolds);
@@ -129,11 +131,11 @@ namespace mmt_gd
             {
                 if (man.m_body1->isLogicTrigger())
                 {
-                    man.m_body1->rigidBody->notifiyCollision(man.m_body2->getGameObject());
+                    m_collisionPairs.insert(std::make_pair(&man.m_body1->getGameObject(), man.m_body2->getGameObject().getType()));
                 }
                 if (man.m_body2->isLogicTrigger())
                 {
-                    man.m_body1->rigidBody->notifiyCollision(man.m_body1->getGameObject());
+                    m_collisionPairs.insert(std::make_pair(&man.m_body2->getGameObject(), man.m_body1->getGameObject().getType()));
                 }
             }
             else
@@ -152,7 +154,7 @@ namespace mmt_gd
                 std::cout << "ALARM!!";
                 sf::Vector2f impulse = velAlongNormal * man.m_normal;
 
-                man.m_body1->rigidBody->setVelocityN(2.f * impulse) ;
+                man.m_body1->rigidBody->setVelocityN(2.f * impulse);
                 man.m_body2->rigidBody->setVelocityP(2.f * impulse);
             }
         }
