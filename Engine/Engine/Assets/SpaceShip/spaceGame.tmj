@@ -300,6 +300,38 @@
                  "width":54.6667,
                  "x":679.66665,
                  "y":285.33335
+                }, 
+                {
+                 "height":33,
+                 "id":14,
+                 "name":"PowerUps",
+                 "properties":[
+                        {
+                         "name":"Arrow",
+                         "type":"string",
+                         "value":"..\/Engine\/Assets\/SpaceShip\/Arrow.png"
+                        }, 
+                        {
+                         "name":"Health",
+                         "type":"int",
+                         "value":3
+                        }, 
+                        {
+                         "name":"Heart",
+                         "type":"string",
+                         "value":"..\/Engine\/Assets\/SpaceShip\/Heart.png"
+                        }, 
+                        {
+                         "name":"Speed",
+                         "type":"int",
+                         "value":3
+                        }],
+                 "rotation":0,
+                 "type":"PowerUps",
+                 "visible":true,
+                 "width":34,
+                 "x":648,
+                 "y":128
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -308,7 +340,7 @@
          "y":0
         }],
  "nextlayerid":5,
- "nextobjectid":14,
+ "nextobjectid":15,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.10.2",

@@ -110,7 +110,6 @@ namespace mmt_gd
                     normal,
                     penetration))
                 {
-                   // std::cout << "ALARM!!";
                     Manifold manifold;
                     manifold.m_body1 = body1;
                     manifold.m_body2 = body2;
@@ -127,15 +126,21 @@ namespace mmt_gd
     {
         for (auto man : m_manifolds)
         {
+            if (&man.m_body1->getGameObject() == &man.m_body2->getGameObject())
+            {
+                continue;
+            }
+
             if (man.m_body1->isLogicTrigger() || man.m_body2->isLogicTrigger())
             {
+                
                 if (man.m_body1->isLogicTrigger())
                 {
-                    m_collisionPairs.insert(std::make_pair(&man.m_body1->getGameObject(), man.m_body2->getGameObject().getType()));
+                    m_collisionPairs.insert(std::make_pair(&man.m_body1->getGameObject(), &man.m_body2->getGameObject()));
                 }
                 if (man.m_body2->isLogicTrigger())
                 {
-                    m_collisionPairs.insert(std::make_pair(&man.m_body2->getGameObject(), man.m_body1->getGameObject().getType()));
+                    m_collisionPairs.insert(std::make_pair(&man.m_body2->getGameObject(), &man.m_body1->getGameObject()));
                 }
             }
             else
@@ -151,7 +156,6 @@ namespace mmt_gd
                 }
 
                 // Apply impulse
-                std::cout << "ALARM!!";
                 sf::Vector2f impulse = velAlongNormal * man.m_normal;
 
                 man.m_body1->rigidBody->setVelocityN(2.f * impulse);
