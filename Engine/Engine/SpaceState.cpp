@@ -28,6 +28,8 @@ namespace mmt_gd
 
         GameObjectManager::instance().addGameObject(mapGo);
 
+        //GameObjectManager::instance().getObjectsByType(Spaceship)
+
     }
 
     void SpaceState::exit()
@@ -42,7 +44,7 @@ namespace mmt_gd
         GameObjectManager::instance().update(deltaTime);
 
         const auto coll_pairs = PhysicsManager::instance().getCollisionPairs();
-       /* for (const auto p : coll_pairs)
+       for (const auto p : coll_pairs)
         {
             if (p.first->getType() == ObjectType::Spaceship && (p.second->getType() == ObjectType::Spaceship || p.second->getType() == ObjectType::Projectile))
             {
@@ -56,7 +58,16 @@ namespace mmt_gd
             {
                 p.first->setActive(false);
             }
-        }*/
+        }
+
+        if (!GameObjectManager::instance().getGameObject("Player"))
+        {
+            GameStateManager::instance().setState("MenuState");
+        }
+        else if (GameObjectManager::instance().getObjectsByType(ObjectType::Spaceship).size() <= 1)
+        {
+            GameStateManager::instance().setState("MenuState");
+        }
     }
 
     void SpaceState::draw() 

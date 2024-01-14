@@ -13,6 +13,9 @@ namespace mmt_gd
 		bool init() override { return true; };
 		void update(float deltaTime) override;
 
+		void shoot(sf::Vector2f direction);
+		
+
 	private:
 		std::vector<std::tuple<std::shared_ptr<GameObject>, float, sf::Vector2f>> m_projectiles;
 		float m_shootIntervall;

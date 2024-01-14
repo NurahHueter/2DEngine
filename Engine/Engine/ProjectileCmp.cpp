@@ -38,12 +38,8 @@ namespace mmt_gd
 					+ std::get<2>(p)
 					* m_velocity
 					* deltaTime);
-
-				
-
 				std::get<1>(p) -= deltaTime;
 
-				//ToDo -> CollisionCheck
 				if (std::get<1>(p) <= 0)
 				{
 					std::get<0>(p)->setActive(false);
@@ -58,7 +54,7 @@ namespace mmt_gd
 					const auto& animation = gameObject.getComponent<SpriteAnimationCmp>();
 
 					std::get<0>(p)->setActive(true);
-					std::get<0>(p)->setPosition(gameObject.getPosition().x + 100, gameObject.getPosition().y - 100);
+					std::get<0>(p)->setPosition(gameObject.getPosition().x, gameObject.getPosition().y);
 
 					sf::Vector2f direction = InputManager::instance().getMousPosition() - std::get<0>(p)->getPosition();
 					std::get<2>(p) = MathUtil::unitVector(direction);
