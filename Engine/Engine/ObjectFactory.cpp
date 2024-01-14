@@ -147,9 +147,15 @@ void ObjectFactory::loadSpaceship(tson::Object& object,
          //Collider
          gameObject->addComponent(std::make_shared<RigidBodyCmp>(*gameObject,
              mass, 
+<<<<<<< Updated upstream
          const auto& boxCollider = std::make_shared<BoxCollisionCmp>(*gameObject, sf::FloatRect(animationCmp->getTextureRect()), false);
          const auto& trigger = std::make_shared<BoxCollisionCmp>(*gameObject, sf::FloatRect(animationCmp->getTextureRect()), true);
              sf::Vector2f(0.f, 0.f), gameObject->getPosition()));
+=======
+             sf::Vector2f(0.f, 0.f), gameObject->getPosition()));
+
+         const auto& boxCollider = std::make_shared<BoxCollisionCmp>(*gameObject, sf::FloatRect(animationCmp->getTextureRect()));
+>>>>>>> Stashed changes
          gameObject->addComponent(boxCollider);
          gameObject->addComponent(trigger);
 
@@ -168,7 +174,96 @@ void ObjectFactory::loadSpaceship(tson::Object& object,
          GameObjectManager::instance().addGameObject(gameObject);
     };
     
+<<<<<<< Updated upstream
     
+=======
+    void ObjectFactory::loadEnemy(tson::Object& object, const std::string layer)
+    {
+        auto gameObject = std::make_shared<GameObject>(object.getName());
+        gameObject->setPosition(static_cast<float>(object.getPosition().x), static_cast<float>(object.getPosition().y));
+      
+   
+        gameObject->setType(ObjectType::Enemy);
+        gameObject->setPlayerIdx(2);        //Player 2
+        std::string id;
+        std::string texturpath;
+        std::shared_ptr<sf::Texture> texture;
+        float velocity{};
+        float mass;
+
+        for (const auto* property : object.getProperties().get())
+        {
+            if (auto name = property->getName(); name == "Texture")
+            {
+                if ((texturpath = std::any_cast<std::string>(property->getValue())).length() > 0)
+                {
+                    AssetManager::instance().LoadTexture(object.getName(), texturpath);
+                    texture = AssetManager::instance().m_Textures[object.getName()];
+                }
+            }
+            else if (name == "id")
+            {
+                if ((id = property->getValue<std::string>()).length() > 0)
+                {
+                    gameObject->setId(id);
+                }
+            }
+            else if (name == "velocity")
+            {
+                velocity = property->getValue<float>();
+            }
+            else if (name == "mass")
+            {
+                mass = property->getValue<float>();
+            }
+        }
+
+        const auto& animationCmp = std::make_shared<SpriteAnimationCmp>(*gameObject, RenderManager::instance().getWindow(),
+            texture,
+            6,
+            8,
+            false,
+            4);
+        RenderManager::instance().addCompToLayer(layer, animationCmp);
+        animationCmp->addAnimation({
+           {"MoveUp", 6},
+           {"MoveLeftUp", 6},
+           {"MoveRight", 6},
+           {"MoveRightDown", 6},
+           {"MoveDown", 6},
+           {"MoveLeftDown", 6},
+           {"MoveLeft", 6},
+           {"MoveRightUp", 6},
+            });
+        animationCmp->setCurrentAnimation("MoveRight");
+        animationCmp->init();
+        RenderManager::instance().addCompToLayer(layer, animationCmp);
+        gameObject->addComponent(animationCmp);
+
+         //gameObject->addComponent(std::make_shared<MouseMoveCmp>(*gameObject, sf::Vector2f((object.getPosition().x), static_cast<float>(object.getPosition().y)), velocity));
+        gameObject->addComponent(std::make_shared<MoveCmp>(*gameObject, sf::Vector2f(velocity, velocity)));
+         const auto healtCmp = std::make_shared<HealthCmp>(*gameObject,
+             RenderManager::instance().getWindow(),
+             3);
+
+         RenderManager::instance().addCompToLayer(layer, healtCmp);
+         gameObject->addComponent(healtCmp);
+
+        gameObject->addComponent(std::make_shared<RigidBodyCmp>(*gameObject,
+            mass,
+            sf::Vector2f(0.f, 0.f), gameObject->getPosition()));
+
+        const auto& boxCollider = std::make_shared<BoxCollisionCmp>(*gameObject,
+            sf::FloatRect(sf::FloatRect(animationCmp->getTextureRect())));
+        gameObject->addComponent(boxCollider);
+        PhysicsManager::instance().addBoxCollisionCmp(boxCollider);
+        loadProjectile(object, layer, gameObject);
+        gameObject->init();
+        GameObjectManager::instance().addGameObject(gameObject);
+
+    }
+
+>>>>>>> Stashed changes
     void ObjectFactory::loadProjectile(tson::Object& object,
         const std::string layer,
         std::shared_ptr<GameObject> gameObject)
