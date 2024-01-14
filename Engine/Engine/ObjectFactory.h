@@ -18,9 +18,10 @@ namespace mmt_gd
     public:
         static void processTsonObject(tson::Object& object, const tson::Layer& layer);
         static void loadSpaceship(tson::Object& object, const std::string layer);
+        static void loadPowerUp(tson::Object& object, const tson::Layer& layer);
         static void loadStaticCollider(tson::Object& object, const std::string layer);
         static void loadProjectile(tson::Object& object,
-             const std::string layer,
+             const const tson::Layer& layer,
             std::shared_ptr<GameObject> gameObject);
 
     };

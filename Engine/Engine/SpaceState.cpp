@@ -7,6 +7,7 @@
 #include "CameraCmp.h"
 #include "GameObject.h"
 #include "HealthCmp.h"
+#include "PowerUpsCmp.h"
 #include "GameObjectManager.h"
 #include "PhysicsManager.h"
 namespace mmt_gd
@@ -43,9 +44,17 @@ namespace mmt_gd
         const auto coll_pairs = PhysicsManager::instance().getCollisionPairs();
        /* for (const auto p : coll_pairs)
         {
-            if (p.first->getType() == ObjectType::Spaceship && (p.second == ObjectType::Spaceship || p.second == ObjectType::Projectile))
+            if (p.first->getType() == ObjectType::Spaceship && (p.second->getType() == ObjectType::Spaceship || p.second->getType() == ObjectType::Projectile))
             {
-                p.first->getComponent<HealthCmp>()->getDamage();
+                //p.first->getComponent<HealthCmp>()->getDamage();
+            }
+            else if (p.first->getType() == ObjectType::PowerUp && p.second->getType() == ObjectType::Spaceship)
+            {
+                p.first->getComponent<PowerUpCmp>()->collect(p.second);
+            }
+            else if (p.first->getType() == ObjectType::Projectile)
+            {
+                p.first->setActive(false);
             }
         }*/
     }

@@ -13,14 +13,14 @@ namespace mmt_gd
 	public:
 		PowerUpCmp(GameObject& gameObject, sf::FloatRect respawnBounds, PowerUpType type)
 			:IComponent(gameObject), m_respawnBounds(respawnBounds), m_type(type){};
-		bool init() override {};
+		bool init() override { return true; };
 		void update(float deltaTime) override {};
-		void collect(GameObject& go);
+		void collect(GameObject* go);
+
+		void respawn();
 
 	protected:
 		sf::FloatRect m_respawnBounds;
 		PowerUpType m_type;
 	};
-
-	
 }

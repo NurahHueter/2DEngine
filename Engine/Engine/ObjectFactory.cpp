@@ -15,6 +15,7 @@
 #include "AssetManager.h"
 #include "RigidBodyCmp.h"
 #include "ProjectileCmp.h"
+#include "PowerUpsCmp.h"
 #include "BoxCollisionCmp.h"
 #include "PhysicsManager.h"
 
@@ -26,19 +27,20 @@ void ObjectFactory::processTsonObject(tson::Object& object, const tson::Layer& l
     
         if (object.getType() == "SpaceShip")
         {
-           loadSpaceship(object, layer.getName());
-           
+           loadSpaceship(object, layer);
+    
         }
         if (object.getType() == "Collider")
         {
             loadStaticCollider(object, layer.getName());
         }
-        if (object.getType() == "Trigger")
+        if (object.getType() == "PowerUps")
         {         
+            loadPowerUp(object, layer);
         }
     }
 void ObjectFactory::loadSpaceship(tson::Object& object,
-    const std::string layer)
+    const tson::Layer& layer)
     {
          auto gameObject =  std::make_shared<GameObject>(object.getName());
          gameObject->setPosition(static_cast<float>(object.getPosition().x), static_cast<float>(object.getPosition().y));
@@ -117,7 +119,7 @@ void ObjectFactory::loadSpaceship(tson::Object& object,
 
              cameraCmp->setTarget(gameObject);
              gameObject->addComponent(cameraCmp);
-             RenderManager::instance().addCompToLayer(layer, cameraCmp);
+             RenderManager::instance().addCompToLayer(layer.getName(), cameraCmp);
          }
          else
          {
@@ -127,7 +129,7 @@ void ObjectFactory::loadSpaceship(tson::Object& object,
                  8,
                  false,
                  4);
-             RenderManager::instance().addCompToLayer(layer, animationCmp);
+             RenderManager::instance().addCompToLayer(layer.getName(), animationCmp);
              animationCmp->addAnimation({
                 {"MoveUp", 6},
                 {"MoveLeftUp", 6},
@@ -142,7 +144,7 @@ void ObjectFactory::loadSpaceship(tson::Object& object,
 
          animationCmp->setCurrentAnimation("MoveRight");
          animationCmp->init();
-         RenderManager::instance().addCompToLayer(layer, animationCmp);
+         RenderManager::instance().addCompToLayer(layer.getName(), animationCmp);
          gameObject->addComponent(animationCmp);
 
          //Collider
@@ -160,7 +162,7 @@ void ObjectFactory::loadSpaceship(tson::Object& object,
          const auto healtCmp = std::make_shared<HealthCmp>(*gameObject,
              RenderManager::instance().getWindow(),
              5);
-         RenderManager::instance().addCompToLayer(layer, healtCmp);
+         RenderManager::instance().addCompToLayer(layer.getName(), healtCmp);
          gameObject->addComponent(healtCmp);
 
          loadProjectile(object, layer, gameObject);
@@ -171,7 +173,7 @@ void ObjectFactory::loadSpaceship(tson::Object& object,
 
 
     void ObjectFactory::loadProjectile(tson::Object& object,
-        const std::string layer,
+        const tson::Layer& layer,
         std::shared_ptr<GameObject> gameObject)
     {
 
@@ -216,7 +218,7 @@ void ObjectFactory::loadSpaceship(tson::Object& object,
                 RenderManager::instance().getWindow(),
                 texture);
             
-            RenderManager::instance().addCompToLayer(layer, renderCmp);
+            RenderManager::instance().addCompToLayer(layer.getName(), renderCmp);
             projectile->addComponent(renderCmp);
 
             renderCmp->init();
@@ -233,6 +235,93 @@ void ObjectFactory::loadSpaceship(tson::Object& object,
         
         gameObject->addComponent(std::make_shared<ProjectileCmp>(*gameObject, projectiles, timeToLive, velocity, intervall));
     }
+
+    void ObjectFactory::loadPowerUp(tson::Object& object,
+        const tson::Layer& layer)
+    {
+        std::shared_ptr<sf::Texture> heartTexture;
+        std::shared_ptr<sf::Texture> arrowTexture;
+
+        int heart = 0;
+        int speed = 0;
+
+        for (const auto* property : object.getProperties().get())
+        {
+            auto name = property->getName();
+            if (name == "Heart")
+            {
+                 AssetManager::instance().LoadTexture("projectile", property->getValue<std::string>());
+                 heartTexture = AssetManager::instance().m_Textures["projectile"];
+            }
+            else if (name == "Arrow")
+            {
+                AssetManager::instance().LoadTexture("arrow", property->getValue<std::string>());
+                arrowTexture = AssetManager::instance().m_Textures["arrow"];
+            }
+            else if (name == "Health")
+            {
+                heart = property->getValue<int>();
+            }
+            else if (name == "Speed")
+            {
+                speed = property->getValue<int>();
+            }
+        }
+
+        for (int i = 0; i < heart; i++)
+        {
+            auto heart = std::make_shared<GameObject>(object.getName() + "heart" + std::to_string(i));
+            heart->setType(ObjectType::PowerUp);
+            const auto& renderCmp = std::make_shared<SpriteRenderCmp>(*heart,
+                RenderManager::instance().getWindow(),
+                heartTexture);
+
+            RenderManager::instance().addCompToLayer(layer.getName(), renderCmp);
+            heart->addComponent(renderCmp);
+
+            renderCmp->init();
+
+            const auto& trigger = std::make_shared<BoxCollisionCmp>(*heart,
+                sf::FloatRect(sf::FloatRect(renderCmp->getTextureRect())), true);
+            heart->addComponent(trigger);
+            PhysicsManager::instance().addBoxCollisionCmp(trigger);
+            std::cout << layer.getSize().x << layer.getSize().y << std::endl;
+            const auto& powerUpCmp = std::make_shared<PowerUpCmp>(*heart, 
+                sf::FloatRect(0.f, 0.f, 1400, 800),
+                Health);
+            heart->addComponent(powerUpCmp);
+            powerUpCmp->respawn();
+            heart->init();
+            GameObjectManager::instance().addGameObject(heart);
+        }
+        for (int i = 0; i < speed; i++)
+        {
+            auto speed = std::make_shared<GameObject>(object.getName() + "speed" + std::to_string(i));
+            speed->setType(ObjectType::PowerUp);
+            const auto& renderCmp = std::make_shared<SpriteRenderCmp>(*speed,
+                RenderManager::instance().getWindow(),
+                heartTexture);
+
+            RenderManager::instance().addCompToLayer(layer.getName(), renderCmp);
+            speed->addComponent(renderCmp);
+            
+            renderCmp->init();
+
+            const auto& trigger = std::make_shared<BoxCollisionCmp>(*speed,
+                sf::FloatRect(sf::FloatRect(renderCmp->getTextureRect())), true);
+            speed->addComponent(trigger);
+            PhysicsManager::instance().addBoxCollisionCmp(trigger);
+            std::cout << layer.getSize().x << layer.getSize().y << std::endl;
+            const auto& powerUpCmp = std::make_shared<PowerUpCmp>(*speed,
+                sf::FloatRect(0.f, 0.f, 1400, 800),
+                Speed);
+            powerUpCmp->respawn();
+            speed->addComponent(powerUpCmp);
+            speed->init();
+            GameObjectManager::instance().addGameObject(speed);
+        }
+    }
+
 
     void ObjectFactory::loadStaticCollider(tson::Object& object,
         const std::string layer)
