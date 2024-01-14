@@ -7,6 +7,7 @@
 #include "MouseMoveCmp.h"
 #include "SpriteAnimationCmp.h"
 #include "MoveCmp.h"
+#include "SteeringCmp.h"
 #include "SpriteRenderCmp.h"
 #include "CameraCmp.h"
 #include "HealthCmp.h"
@@ -89,7 +90,7 @@ void ObjectFactory::loadSpaceship(tson::Object& object,
              }
          }
         
-         gameObject->addComponent(std::make_shared<MoveCmp>(*gameObject, sf::Vector2f(velocity, velocity)));
+         
 
          std::shared_ptr<SpriteAnimationCmp> animationCmp;
          if (object.getName() == "Player")
@@ -119,6 +120,8 @@ void ObjectFactory::loadSpaceship(tson::Object& object,
              cameraCmp->setTarget(gameObject);
              gameObject->addComponent(cameraCmp);
              RenderManager::instance().addCompToLayer(layer.getName(), cameraCmp);
+
+             gameObject->addComponent(std::make_shared<MoveCmp>(*gameObject, sf::Vector2f(velocity, velocity)));
          }
          else
          {
@@ -139,6 +142,8 @@ void ObjectFactory::loadSpaceship(tson::Object& object,
                 {"MoveLeft", 6},
                 {"MoveRightUp", 6},
                  });
+
+             gameObject->addComponent(std::make_shared<SteeringCmp>(*gameObject, sf::Vector2f(velocity, velocity)));
          }
 
          animationCmp->setCurrentAnimation("MoveRight");
@@ -249,8 +254,8 @@ void ObjectFactory::loadSpaceship(tson::Object& object,
             auto name = property->getName();
             if (name == "Heart")
             {
-                 AssetManager::instance().LoadTexture("projectile", property->getValue<std::string>());
-                 heartTexture = AssetManager::instance().m_Textures["projectile"];
+                 AssetManager::instance().LoadTexture("heart", property->getValue<std::string>());
+                 heartTexture = AssetManager::instance().m_Textures["heart"];
             }
             else if (name == "Arrow")
             {
@@ -299,7 +304,7 @@ void ObjectFactory::loadSpaceship(tson::Object& object,
             speed->setType(ObjectType::PowerUp);
             const auto& renderCmp = std::make_shared<SpriteRenderCmp>(*speed,
                 RenderManager::instance().getWindow(),
-                heartTexture);
+                arrowTexture);
 
             RenderManager::instance().addCompToLayer(layer.getName(), renderCmp);
             speed->addComponent(renderCmp);

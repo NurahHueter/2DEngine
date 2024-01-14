@@ -67,7 +67,7 @@ namespace mmt_gd
             }
         }
 
-        std::vector<std::weak_ptr<GameObject>> GameObjectManager::getObjectsByType(ObjectType& type)
+        std::vector<std::weak_ptr<GameObject>> GameObjectManager::getObjectsByType(ObjectType type)
         {
             std::vector <std::weak_ptr<GameObject>> gameObjectPointers;
 
