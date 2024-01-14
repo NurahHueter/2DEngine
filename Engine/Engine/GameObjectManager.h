@@ -34,7 +34,7 @@ namespace mmt_gd
 
         void removeGameObject(const std::shared_ptr<GameObject>& go);
 
-        std::vector<std::weak_ptr<GameObject>> getObjectsByType(ObjectType& type);
+        std::vector<std::weak_ptr<GameObject>> getObjectsByType(ObjectType type);
         std::vector<std::weak_ptr<GameObject>> getObjectsByArea(sf::Rect<float>& area);
 
     private:
