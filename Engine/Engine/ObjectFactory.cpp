@@ -32,13 +32,14 @@ void ObjectFactory::processTsonObject(tson::Object& object, const tson::Layer& l
         }
         if (object.getType() == "Collider")
         {
-            loadStaticCollider(object, layer.getName());
+            loadStaticCollider(object, layer);
         }
         if (object.getType() == "PowerUps")
         {         
             loadPowerUp(object, layer);
         }
     }
+
 void ObjectFactory::loadSpaceship(tson::Object& object,
     const tson::Layer& layer)
     {
@@ -324,7 +325,7 @@ void ObjectFactory::loadSpaceship(tson::Object& object,
 
 
     void ObjectFactory::loadStaticCollider(tson::Object& object,
-        const std::string layer)
+        const tson::Layer& layer)
     {
         auto gameObject = std::make_shared<GameObject>(object.getName());
         gameObject->setPosition(static_cast<float>(object.getPosition().x), static_cast<float>(object.getPosition().y));
