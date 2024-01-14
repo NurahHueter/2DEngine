@@ -152,6 +152,7 @@ sfml-window-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameObjectManager.cpp" />
     <ClCompile Include="GameStateManager.cpp" />
+    <ClCompile Include="HealthCmp.cpp" />
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="MainState.cpp" />
     <ClCompile Include="MapTile.cpp" />
@@ -165,10 +166,12 @@ sfml-window-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="PhysicsManager.cpp" />
-    <ClCompile Include="ProjectilePoolCmp.cpp" />
+    <ClCompile Include="PowerUpCmp.cpp" />
+    <ClCompile Include="ProjectileCmp.cpp" />
     <ClCompile Include="RenderManager.cpp" />
     <ClCompile Include="RigidBodyCmp.cpp" />
     <ClCompile Include="SpaceState.cpp" />
+    <ClCompile Include="SpriteAnimationCmp.cpp" />
     <ClCompile Include="SpriteRenderCmp.cpp" />
     <ClCompile Include="TileLayerCmp.cpp" />
   </ItemGroup>
@@ -179,6 +182,7 @@ sfml-window-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     <ClInclude Include="DebugDraw.h" />
     <ClInclude Include="FPS.h" />
     <ClInclude Include="GameObjectManager.h" />
+    <ClInclude Include="HealthCmp.h" />
     <ClInclude Include="IRenderComponent.h" />
     <ClInclude Include="MapTile.h" />
     <ClInclude Include="MouseMoveCmp.h" />
@@ -190,12 +194,15 @@ sfml-window-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="MoveCmp.h" />
     <ClInclude Include="ObjectFactory.h" />
+    <ClInclude Include="ObjectTypes.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="PhysicsManager.h" />
-    <ClInclude Include="ProjectilePoolCmp.h" />
+    <ClInclude Include="PowerUpsCmp.h" />
+    <ClInclude Include="ProjectileCmp.h" />
     <ClInclude Include="RigidBodyCmp.h" />
     <ClInclude Include="BoxCollisionCmp.h" />
     <ClInclude Include="RenderManager.h" />
+    <ClInclude Include="SpriteAnimationCmp.h" />
     <ClInclude Include="SpriteRenderCmp.h" />
     <ClInclude Include="TileLayerCmp.h" />
     <ClInclude Include="tileson.hpp" />

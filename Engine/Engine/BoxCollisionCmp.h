@@ -10,8 +10,8 @@ namespace mmt_gd
     class BoxCollisionCmp : public IComponent , std::enable_shared_from_this< BoxCollisionCmp >
     {
     public:
-        BoxCollisionCmp(GameObject& gameObject, sf::FloatRect m_shape)
-            : IComponent(gameObject), m_shape(m_shape) {}
+        BoxCollisionCmp(GameObject& gameObject, sf::FloatRect m_shape, bool isTrigger)
+            : IComponent(gameObject), m_shape(m_shape), logicTrigger(isTrigger) {}
 
         bool init() override;
         void update(float deltaTime) override;
@@ -24,11 +24,11 @@ namespace mmt_gd
 
         // Setters
         void setLogicTrigger(bool value) { logicTrigger = value; }
-
+        
         std::shared_ptr<RigidBodyCmp> rigidBody = nullptr;
         
         sf::FloatRect m_shape;
         sf::Vector2f m_position;
-        bool logicTrigger = false;
+        bool logicTrigger;
     };
 }

@@ -14,18 +14,18 @@ namespace mmt_gd
 
     void MenuState::exit()
     {
-        m_gameObjectManager.shutdown();
+        GameObjectManager::instance().shutdown();
     }
 
     void MenuState::update(float deltaTime)
     {
-        m_gameObjectManager.update(deltaTime);
+        GameObjectManager::instance().update(deltaTime);
     }
 
     void MenuState::draw()
     {
-        m_window.clear({ 0, 0, 0 });
+        RenderManager::instance().getWindow().clear({ 0, 0, 0 });
 
-        m_window.display();
+        RenderManager::instance().getWindow().display();
     }
 }

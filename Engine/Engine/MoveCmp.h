@@ -7,12 +7,14 @@ namespace mmt_gd
 	{
 	public:
 		MoveCmp(GameObject& gameObject, sf::Vector2f velocity)
-			:IComponent(gameObject), velocity(velocity) {};
+			:IComponent(gameObject), m_velocity(velocity){};
 		bool init() override { return true; };
 		void update(float deltaTime) override;
-		sf::Vector2f velocity;
-	private:
-		sf::Vector2f direction = {0.f, 0.f};
 		
+		
+	private:
+		float m_maxSpeed = 500.f;
+		sf::Vector2f m_velocity;
+		sf::Vector2f direction = {0.f, 0.f};
 	};
 }

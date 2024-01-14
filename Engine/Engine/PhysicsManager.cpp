@@ -5,6 +5,7 @@
 #include "GameState.h"
 #include "PhysicsManager.h"
 #include "RigidBodyCmp.h"
+#include "ObjectTypes.h"
 #include "GameObjectManager.h"
 namespace mmt_gd
 {
@@ -60,8 +61,8 @@ namespace mmt_gd
     }
 
     void PhysicsManager::update()
-    {
-        
+    {   
+        m_collisionPairs.clear();
         m_manifolds.clear();
         findCollisions(m_bodies);
         resolveCollisions(m_manifolds);
@@ -76,6 +77,7 @@ namespace mmt_gd
         {
             if (std::shared_ptr<BoxCollisionCmp> tempP = body.lock())
             {
+                if(tempP->getGameObject().isActive())
                 bodies.push_back(tempP);
             }
         }
@@ -108,7 +110,6 @@ namespace mmt_gd
                     normal,
                     penetration))
                 {
-                   // std::cout << "ALARM!!";
                     Manifold manifold;
                     manifold.m_body1 = body1;
                     manifold.m_body2 = body2;
@@ -125,24 +126,55 @@ namespace mmt_gd
     {
         for (auto man : m_manifolds)
         {
-            sf::Vector2f rv = man.m_body1->rigidBody->m_velocity - man.m_body2->rigidBody->m_velocity;
-            // Calculate relative velocity in terms of the normal direction
-          
-            float velAlongNormal = rv.x * man.m_normal.x + rv.y * man.m_normal.y;
-            // Do not resolve if velocities are separating
-            if (velAlongNormal > 0)
+            if (&man.m_body1->getGameObject() == &man.m_body2->getGameObject())
             {
-                return;
+                continue;
             }
 
-            // Apply impulse
-            //std::cout << "ALARM!!";
-            sf::Vector2f impulse = velAlongNormal * man.m_normal;
-            
-            man.m_body1->rigidBody->m_velocity -= 2.f * impulse;
-            man.m_body2->rigidBody->m_velocity += 2.f * impulse;
+            if (man.m_body1->isLogicTrigger() || man.m_body2->isLogicTrigger())
+            {
+                
+                if (man.m_body1->isLogicTrigger())
+                {
+                    m_collisionPairs.insert(std::make_pair(&man.m_body1->getGameObject(), &man.m_body2->getGameObject()));
+                }
+                if (man.m_body2->isLogicTrigger())
+                {
+                    m_collisionPairs.insert(std::make_pair(&man.m_body2->getGameObject(), &man.m_body1->getGameObject()));
+                }
+            }
+            else
+            {
+           
+                sf::Vector2f rv = man.m_body1->rigidBody->getVelocity() - man.m_body2->rigidBody->getVelocity();
+                // Calculate relative velocity in terms of the normal direction
+
+                bool isWall1 = (man.m_body1->getGameObject().getType() == ObjectType::StaticCollider);
+                bool isWall2 = (man.m_body2->getGameObject().getType() == ObjectType::StaticCollider);
+                //sind die gameObjects StaticCollider?
+
+                float velAlongNormal = rv.x * man.m_normal.x + rv.y * man.m_normal.y;
+                // Do not resolve if velocities are separating
+                if (velAlongNormal > 0 && !(isWall1 || isWall2)) {
+                    continue;  // Continue to the next manifold
+                }
+
+
+                // Apply impulse
+                sf::Vector2f impulse = velAlongNormal * man.m_normal;
+
+                if (isWall1) {
+                    man.m_body2->rigidBody->setVelocityP(2.f * impulse);
+                }
+                else if (isWall2) {
+                    man.m_body1->rigidBody->setVelocityN(2.f * impulse);
+                }
+                else {
+                    man.m_body1->rigidBody->setVelocityN(2.f * impulse);
+                    man.m_body2->rigidBody->setVelocityP(2.f * impulse);
+                }
+            }
         }
-       // std::cout << "ALARM!!";
     }
 
     void PhysicsManager::shutdown()

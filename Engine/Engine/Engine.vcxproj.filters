@@ -46,6 +46,21 @@
     <Filter Include="Source Files\States">
       <UniqueIdentifier>{98ff1aed-d33a-4c63-b98b-6f629d649a28}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Components\Components">
+      <UniqueIdentifier>{2c86efb3-00c2-4028-9e2b-a0d7dbed99f5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Components\CustomComponentsSpaceGame">
+      <UniqueIdentifier>{55d176e3-3422-4629-9727-1bc91ce73799}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Components\Components">
+      <UniqueIdentifier>{e90dd375-0c91-4774-a3b7-947320dc3549}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Components\CustomComponentsSpaceGame">
+      <UniqueIdentifier>{f738bc46-c050-40d5-8c82-6724873659fe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Enums">
+      <UniqueIdentifier>{897cde11-dd21-4e26-bde4-d68e83b003b1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine.cpp">
@@ -63,23 +78,8 @@
     <ClCompile Include="InputManager.cpp">
       <Filter>Source Files\Manager</Filter>
     </ClCompile>
-    <ClCompile Include="SpriteRenderCmp.cpp">
-      <Filter>Source Files\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="MoveCmp.cpp">
-      <Filter>Source Files\Components</Filter>
-    </ClCompile>
     <ClCompile Include="GameObject.cpp">
       <Filter>Source Files\GameObjects</Filter>
-    </ClCompile>
-    <ClCompile Include="CameraCmp.cpp">
-      <Filter>Source Files\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="MouseMoveCmp.cpp">
-      <Filter>Source Files\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="ProjectilePoolCmp.cpp">
-      <Filter>Source Files\Components</Filter>
     </ClCompile>
     <ClCompile Include="MapTile.cpp">
       <Filter>Source Files</Filter>
@@ -96,29 +96,53 @@
     <ClCompile Include="GameStateManager.cpp">
       <Filter>Source Files\Manager</Filter>
     </ClCompile>
-    <ClCompile Include="TileLayerCmp.cpp">
-      <Filter>Source Files\Components</Filter>
-    </ClCompile>
     <ClCompile Include="RenderManager.cpp">
       <Filter>Source Files\Manager</Filter>
     </ClCompile>
     <ClCompile Include="ObjectFactory.cpp">
       <Filter>Source Files\GameObjects</Filter>
     </ClCompile>
-    <ClCompile Include="PhysicsManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="BoxCollision.cpp">
-      <Filter>Source Files\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="RigidBodyCmp.cpp">
-      <Filter>Source Files\Components</Filter>
-    </ClCompile>
     <ClCompile Include="MenüState.cpp">
       <Filter>Source Files\States</Filter>
     </ClCompile>
+    <ClCompile Include="BoxCollision.cpp">
+      <Filter>Source Files\Components\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="MouseMoveCmp.cpp">
+      <Filter>Source Files\Components\CustomComponentsSpaceGame</Filter>
+    </ClCompile>
+    <ClCompile Include="MoveCmp.cpp">
+      <Filter>Source Files\Components\CustomComponentsSpaceGame</Filter>
+    </ClCompile>
+    <ClCompile Include="ProjectileCmp.cpp">
+      <Filter>Source Files\Components\CustomComponentsSpaceGame</Filter>
+    </ClCompile>
+    <ClCompile Include="RigidBodyCmp.cpp">
+      <Filter>Source Files\Components\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="SpriteRenderCmp.cpp">
+      <Filter>Source Files\Components\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="TileLayerCmp.cpp">
+      <Filter>Source Files\Components\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="PhysicsManager.cpp">
+      <Filter>Source Files\Manager</Filter>
+    </ClCompile>
     <ClCompile Include="SpaceState.cpp">
       <Filter>Source Files\States</Filter>
+    </ClCompile>
+    <ClCompile Include="SpriteAnimationCmp.cpp">
+      <Filter>Source Files\Components\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="HealthCmp.cpp">
+      <Filter>Source Files\Components\CustomComponentsSpaceGame</Filter>
+    </ClCompile>
+    <ClCompile Include="CameraCmp.cpp">
+      <Filter>Source Files\Components\CustomComponentsSpaceGame</Filter>
+    </ClCompile>
+    <ClCompile Include="PowerUpCmp.cpp">
+      <Filter>Source Files\Components\CustomComponentsSpaceGame</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -140,19 +164,7 @@
     <ClInclude Include="GameState.h">
       <Filter>Header Files\Manager\GameStateManager</Filter>
     </ClInclude>
-    <ClInclude Include="SpriteRenderCmp.h">
-      <Filter>Header Files\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="MoveCmp.h">
-      <Filter>Header Files\Components</Filter>
-    </ClInclude>
     <ClInclude Include="CameraCmp.h">
-      <Filter>Header Files\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="MouseMoveCmp.h">
-      <Filter>Header Files\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="ProjectilePoolCmp.h">
       <Filter>Header Files\Components</Filter>
     </ClInclude>
     <ClInclude Include="tileson.hpp">
@@ -182,32 +194,56 @@
     <ClInclude Include="VectorAlgebra3D.h">
       <Filter>Header Files\Math</Filter>
     </ClInclude>
-    <ClInclude Include="TileLayerCmp.h">
-      <Filter>Header Files\Components</Filter>
-    </ClInclude>
     <ClInclude Include="RenderManager.h">
       <Filter>Header Files\Manager</Filter>
-    </ClInclude>
-    <ClInclude Include="IComponent.h">
-      <Filter>Header Files\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="IRenderComponent.h">
-      <Filter>Header Files\Components</Filter>
     </ClInclude>
     <ClInclude Include="ObjectFactory.h">
       <Filter>Header Files\GameObjects</Filter>
     </ClInclude>
-    <ClInclude Include="RigidBodyCmp.h">
-      <Filter>Header Files\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="BoxCollisionCmp.h">
-      <Filter>Header Files\Components</Filter>
-    </ClInclude>
     <ClInclude Include="PhysicsManager.h">
       <Filter>Header Files\Manager</Filter>
     </ClInclude>
+    <ClInclude Include="TileLayerCmp.h">
+      <Filter>Header Files\Components\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="SpriteRenderCmp.h">
+      <Filter>Header Files\Components\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="RigidBodyCmp.h">
+      <Filter>Header Files\Components\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="IRenderComponent.h">
+      <Filter>Header Files\Components\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="IComponent.h">
+      <Filter>Header Files\Components\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="BoxCollisionCmp.h">
+      <Filter>Header Files\Components\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="MoveCmp.h">
+      <Filter>Header Files\Components\CustomComponentsSpaceGame</Filter>
+    </ClInclude>
+    <ClInclude Include="MouseMoveCmp.h">
+      <Filter>Header Files\Components\CustomComponentsSpaceGame</Filter>
+    </ClInclude>
+    <ClInclude Include="ProjectileCmp.h">
+      <Filter>Header Files\Components\CustomComponentsSpaceGame</Filter>
+    </ClInclude>
     <ClInclude Include="Game.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SpriteAnimationCmp.h">
+      <Filter>Header Files\Components\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjectTypes.h">
+      <Filter>Header Files\Enums</Filter>
+    </ClInclude>
+    <ClInclude Include="PowerUpsCmp.h">
+      <Filter>Header Files\Components\CustomComponentsSpaceGame</Filter>
+    </ClInclude>
+    <ClInclude Include="HealthCmp.h">
+      <Filter>Header Files\Components\CustomComponentsSpaceGame</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

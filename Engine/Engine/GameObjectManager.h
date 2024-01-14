@@ -2,12 +2,24 @@
 #include <string>
 #include <unordered_map>
 #include "GameObject.h"
+#include "ObjectTypes.h"
 namespace mmt_gd
 {
-    class GameObjectManager
+    struct GameObjectManager
     {
-    public:
+    
         using GameObjectMap = std::map<std::string, GameObject::Ptr>;
+
+        static
+            GameObjectManager&
+            instance()
+        {
+            static GameObjectManager s;
+            return s;
+        } 
+
+        GameObjectManager(const GameObjectManager&) = delete;
+        GameObjectManager& operator = (const GameObjectManager&) = delete;
 
         static void     init();
         void            shutdown();
@@ -22,7 +34,13 @@ namespace mmt_gd
 
         void removeGameObject(const std::shared_ptr<GameObject>& go);
 
+        std::vector<std::weak_ptr<GameObject>> getObjectsByType(ObjectType& type);
+        std::vector<std::weak_ptr<GameObject>> getObjectsByArea(sf::Rect<float>& area);
+
     private:
+        GameObjectManager() {}
+        ~GameObjectManager() {}
+
         GameObjectMap m_gameObjects;
         
     };

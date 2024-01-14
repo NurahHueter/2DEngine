@@ -66,4 +66,31 @@ namespace mmt_gd
                 m_gameObjects.erase(go->getId());
             }
         }
+
+        std::vector<std::weak_ptr<GameObject>> GameObjectManager::getObjectsByType(ObjectType& type)
+        {
+            std::vector <std::weak_ptr<GameObject>> gameObjectPointers;
+
+            for (const auto& goPair : getGameObjects())
+            {
+                if (type == goPair.second->getType())
+                {
+                    gameObjectPointers.push_back(goPair.second);
+                }
+            }
+            return gameObjectPointers;
+        }
+        std::vector<std::weak_ptr<GameObject>> GameObjectManager::getObjectsByArea(sf::Rect<float>& area)
+        {
+            std::vector <std::weak_ptr<GameObject>> gameObjectPointers;
+
+            for (const auto& goPair : getGameObjects())
+            {
+                if (area.contains(goPair.second->getPosition()))
+                {
+                    gameObjectPointers.push_back(goPair.second);
+                }
+            }
+            return gameObjectPointers;
+        };
 }
