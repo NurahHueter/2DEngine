@@ -41,13 +41,13 @@ namespace mmt_gd
         GameObjectManager::instance().update(deltaTime);
 
         const auto coll_pairs = PhysicsManager::instance().getCollisionPairs();
-        for (const auto p : coll_pairs)
+       /* for (const auto p : coll_pairs)
         {
             if (p.first->getType() == ObjectType::Spaceship && (p.second == ObjectType::Spaceship || p.second == ObjectType::Projectile))
             {
                 p.first->getComponent<HealthCmp>()->getDamage();
             }
-        }
+        }*/
     }
 
     void SpaceState::draw() 

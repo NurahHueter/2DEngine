@@ -7,5 +7,6 @@ namespace mmt_gd
 		Spaceship,
 		Projectile,
 		PowerUp,
+		StaticCollider,
 	};
 }

@@ -9,7 +9,7 @@ namespace mmt_gd
 {
     void MoveCmp::update(float deltaTime)
     {
-        constexpr float acc = 1000.0f; ///< "const" is evaluated at compile time; "const" could be changed at runtime
+        constexpr float acc = 1500.0f; ///< "const" is evaluated at compile time; "const" could be changed at runtime
 
         sf::Vector2f accVec;
         const auto& animation = gameObject.getComponent<SpriteAnimationCmp>();
@@ -41,7 +41,10 @@ namespace mmt_gd
             rigidBodyCmp->setVelocityP(accVec * deltaTime);
             rigidBodyCmp->setVelocityN(rigidBodyCmp->getVelocity()-(rigidBodyCmp->getVelocity()* 0.99f));
             rigidBodyCmp->setImpulse(accVec);
-            rigidBodyCmp->setPosition(rigidBodyCmp->getVelocity(),deltaTime);
+            sf::Vector2f velocity = rigidBodyCmp->getVelocity();
+            velocity.x = std::min(std::abs(rigidBodyCmp->getVelocity().x), m_maxSpeed) * (velocity.x < 0 ? -1 : 1);
+            velocity.y = std::min(std::abs(rigidBodyCmp->getVelocity().y), m_maxSpeed) * (velocity.y < 0 ? -1 : 1);
+            rigidBodyCmp->setPosition(velocity, deltaTime);
             gameObject.setPosition(rigidBodyCmp->getPosition());
         }
         

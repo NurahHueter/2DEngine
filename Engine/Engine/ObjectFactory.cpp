@@ -31,6 +31,7 @@ void ObjectFactory::processTsonObject(tson::Object& object, const tson::Layer& l
         }
         if (object.getType() == "Collider")
         {
+            loadStaticCollider(object, layer.getName());
         }
         if (object.getType() == "Trigger")
         {         
@@ -231,6 +232,56 @@ void ObjectFactory::loadSpaceship(tson::Object& object,
         }
         
         gameObject->addComponent(std::make_shared<ProjectileCmp>(*gameObject, projectiles, timeToLive, velocity, intervall));
+    }
+
+    void ObjectFactory::loadStaticCollider(tson::Object& object,
+        const std::string layer)
+    {
+        auto gameObject = std::make_shared<GameObject>(object.getName());
+        gameObject->setPosition(static_cast<float>(object.getPosition().x), static_cast<float>(object.getPosition().y));
+        gameObject->setType(ObjectType::StaticCollider);
+        
+
+        std::string id;
+       
+
+        float velocity{};
+        float mass;
+
+        for (const auto* property : object.getProperties().get())
+        {
+            auto name = property->getName();
+           
+            if (name == "id")
+            {
+                if ((id = property->getValue<std::string>()).length() > 0)
+                {
+
+                    gameObject->setId(id);
+                }
+            }
+           /* else if (name == "velocity")
+            {
+                velocity = property->getValue<float>();
+            }*/
+            else if (name == "mass")
+            {
+                mass = property->getValue<float>();
+            }
+        }
+
+
+        //Collider
+        gameObject->addComponent(std::make_shared<RigidBodyCmp>(*gameObject,
+            mass, sf::Vector2f(0.f, 0.f), gameObject->getPosition()));
+        const auto& boxCollider = std::make_shared<BoxCollisionCmp>(*gameObject, sf::FloatRect(gameObject->getPosition().x, gameObject->getPosition().y, object.getSize().x,object.getSize().y), false);
+     
+        gameObject->addComponent(boxCollider);
+      
+        PhysicsManager::instance().addBoxCollisionCmp(boxCollider);
+
+        gameObject->init();
+        GameObjectManager::instance().addGameObject(gameObject);
     }
 }
 

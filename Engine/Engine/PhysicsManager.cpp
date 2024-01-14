@@ -140,22 +140,34 @@ namespace mmt_gd
             }
             else
             {
+           
                 sf::Vector2f rv = man.m_body1->rigidBody->getVelocity() - man.m_body2->rigidBody->getVelocity();
                 // Calculate relative velocity in terms of the normal direction
 
+                bool isWall1 = (man.m_body1->getGameObject().getType() == ObjectType::StaticCollider);
+                bool isWall2 = (man.m_body2->getGameObject().getType() == ObjectType::StaticCollider);
+                //sind die gameObjects StaticCollider?
+
                 float velAlongNormal = rv.x * man.m_normal.x + rv.y * man.m_normal.y;
                 // Do not resolve if velocities are separating
-                if (velAlongNormal > 0)
-                {
-                    return;
+                if (velAlongNormal > 0 && !(isWall1 || isWall2)) {
+                    continue;  // Continue to the next manifold
                 }
 
+
                 // Apply impulse
-                std::cout << "ALARM!!";
                 sf::Vector2f impulse = velAlongNormal * man.m_normal;
 
-                man.m_body1->rigidBody->setVelocityN(2.f * impulse);
-                man.m_body2->rigidBody->setVelocityP(2.f * impulse);
+                if (isWall1) {
+                    man.m_body2->rigidBody->setVelocityP(2.f * impulse);
+                }
+                else if (isWall2) {
+                    man.m_body1->rigidBody->setVelocityN(2.f * impulse);
+                }
+                else {
+                    man.m_body1->rigidBody->setVelocityN(2.f * impulse);
+                    man.m_body2->rigidBody->setVelocityP(2.f * impulse);
+                }
             }
         }
     }
