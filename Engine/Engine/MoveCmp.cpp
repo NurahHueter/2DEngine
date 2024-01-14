@@ -9,7 +9,7 @@ namespace mmt_gd
 {
     void MoveCmp::update(float deltaTime)
     {
-        constexpr float acc = 1500.0f; ///< "const" is evaluated at compile time; "const" could be changed at runtime
+        constexpr float acc = 690.0f; ///< "const" is evaluated at compile time; "const" could be changed at runtime
 
         sf::Vector2f accVec;
         const auto& animation = gameObject.getComponent<SpriteAnimationCmp>();

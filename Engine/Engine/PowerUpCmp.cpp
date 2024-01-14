@@ -16,7 +16,7 @@ namespace mmt_gd
 		}
 		else if (m_type == Speed)
 		{
-			go->getComponent<RigidBodyCmp>()->setVelocityP(go->getComponent<RigidBodyCmp>()->getVelocity() += sf::Vector2f(1.f, 1.f));
+			go->getComponent<RigidBodyCmp>()->setVelocityP(go->getComponent<RigidBodyCmp>()->getVelocity() += sf::Vector2f(0.5f, 0.5f));
 		}
 
 		respawn();

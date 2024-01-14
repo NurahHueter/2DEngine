@@ -5,44 +5,40 @@
 #include "GameObjectManager.h"
 #include "SpriteAnimationCmp.h"
 #include "RigidBodyCmp.h"
+#include "VectorAlgebra2D.h"
 
 namespace mmt_gd
 {
     bool SteeringCmp::init() 
     {
-        setTarget(GameObjectManager::instance().getGameObject("Player")->getPosition());
+        
         return true;
     };
     void SteeringCmp::update(float deltaTime)
     {
-        constexpr float acc = 1000.0f; ///< "const" is evaluated at compile time; "const" could be changed at runtime
+        constexpr float acc = 200.0f; ///< "const" is evaluated at compile time; "const" could be changed at runtime
+
+        setTarget(GameObjectManager::instance().getGameObject("Player")->getPosition());
 
         sf::Vector2f accVec;
         const auto& animation = gameObject.getComponent<SpriteAnimationCmp>();
 
         sf::Vector2f distance = m_target - gameObject.getPosition();
+        MathUtil::unitVector(distance);
         
-        //std::cout << gameObject.getPlayerIdx() << std::endl;
-        if (distance.y > 0)
+        if (std::abs(distance.x) > std::abs(distance.y))
         {
-            accVec = { 0.0f, -acc };
-            animation->setCurrentAnimation("MoveUp");
+            // Horizontale Bewegung
+            accVec = { (distance.x > 0) ? acc : -acc, 0.0f };
+            animation->setCurrentAnimation((distance.x > 0) ? "MoveRight" : "MoveLeft");
         }
-        if (distance.y < 0)
+        else
         {
-            accVec = { 0.0f, acc };
-            animation->setCurrentAnimation("MoveDown");
+            // Vertikale Bewegung
+            accVec = { 0.0f, (distance.y > 0) ? acc : -acc };
+            animation->setCurrentAnimation((distance.y > 0) ? "MoveDown" : "MoveUp");
         }
-        if (distance.x < 0)
-        {
-            accVec = { -acc, 0.0f };
-            animation->setCurrentAnimation("MoveLeft");
-        }
-        if(distance.x > 0)
-        {
-            accVec = { acc, 0.0f };
-            animation->setCurrentAnimation("MoveRight");
-        }
+
         if (auto rigidBodyCmp = gameObject.getComponent<RigidBodyCmp>())
         {
             rigidBodyCmp->setVelocityP(accVec * deltaTime);
@@ -52,6 +48,7 @@ namespace mmt_gd
             gameObject.setPosition(rigidBodyCmp->getPosition());
         }
 
+        
         // Reset acceleration 
         accVec = sf::Vector2f(0, 0);
     };
