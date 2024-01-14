@@ -3,6 +3,11 @@
 #include<memory>
 namespace mmt_gd
 {
+	enum PowerUpType
+	{
+		Health,
+		Speed
+	};
 	class PowerUpCmp : public IComponent
 	{
 	public:
@@ -17,9 +22,5 @@ namespace mmt_gd
 		PowerUpType m_type;
 	};
 
-	enum PowerUpType
-	{
-		Health,
-		Speed
-	};
+	
 }
