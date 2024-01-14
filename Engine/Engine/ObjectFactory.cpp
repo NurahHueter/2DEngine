@@ -54,7 +54,7 @@ void ObjectFactory::loadSpaceship(tson::Object& object,
          std::string id;
          std::shared_ptr<sf::Texture> texture;
          std::string texturePath;
-         float velocity;
+         float velocity{};
          float mass;
 
          for (const auto* property : object.getProperties().get())
@@ -86,7 +86,7 @@ void ObjectFactory::loadSpaceship(tson::Object& object,
                  mass = property->getValue<float>();
              }
          }
-
+        
          gameObject->addComponent(std::make_shared<MoveCmp>(*gameObject, sf::Vector2f(velocity, velocity)));
 
          std::shared_ptr<SpriteAnimationCmp> animationCmp;
@@ -147,9 +147,9 @@ void ObjectFactory::loadSpaceship(tson::Object& object,
          //Collider
          gameObject->addComponent(std::make_shared<RigidBodyCmp>(*gameObject,
              mass, 
-             sf::Vector2f(velocity, velocity)));
          const auto& boxCollider = std::make_shared<BoxCollisionCmp>(*gameObject, sf::FloatRect(animationCmp->getTextureRect()), false);
          const auto& trigger = std::make_shared<BoxCollisionCmp>(*gameObject, sf::FloatRect(animationCmp->getTextureRect()), true);
+             sf::Vector2f(0.f, 0.f), gameObject->getPosition()));
          gameObject->addComponent(boxCollider);
          gameObject->addComponent(trigger);
 

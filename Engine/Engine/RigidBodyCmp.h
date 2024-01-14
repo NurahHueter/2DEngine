@@ -8,8 +8,8 @@ namespace mmt_gd
     class RigidBodyCmp : public IComponent
     {
     public:
-        RigidBodyCmp(GameObject& gameObject, float mass, const sf::Vector2f velocity)
-            : IComponent(gameObject), m_mass(mass), m_velocity(velocity)
+        RigidBodyCmp(GameObject& gameObject, float mass, const sf::Vector2f velocity, sf::Vector2f position)
+            : IComponent(gameObject), m_mass(mass), m_velocity(velocity),m_position(position)
         {
             if (auto temP = gameObject.getComponent<RigidBodyCmp>())
             {

@@ -43,7 +43,6 @@ namespace mmt_gd
             rigidBodyCmp->setImpulse(accVec);
             rigidBodyCmp->setPosition(rigidBodyCmp->getVelocity(),deltaTime);
             gameObject.setPosition(rigidBodyCmp->getPosition());
-
         }
         
         // Reset acceleration 
