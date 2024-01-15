@@ -4,7 +4,7 @@
 #include "InputManager.h"
 #include "GameStateManager.h"
 #include "GameState.h"
-#include "CameraCmp.h"
+#include "ProjectileCmp.h"
 #include "GameObject.h"
 #include "HealthCmp.h"
 #include "PowerUpsCmp.h"
@@ -48,7 +48,7 @@ namespace mmt_gd
         {
             if (p.first->getType() == ObjectType::Spaceship && (p.second->getType() == ObjectType::Spaceship || p.second->getType() == ObjectType::Projectile))
             {
-                //p.first->getComponent<HealthCmp>()->getDamage();
+                p.first->getComponent<HealthCmp>()->getDamage();
             }
             else if (p.first->getType() == ObjectType::PowerUp && p.second->getType() == ObjectType::Spaceship)
             {
@@ -60,6 +60,7 @@ namespace mmt_gd
             }
         }
 
+       //Lose and Winning Condition
         if (!GameObjectManager::instance().getGameObject("Player"))
         {
             GameStateManager::instance().setState("MenuState");
@@ -75,9 +76,10 @@ namespace mmt_gd
         RenderManager::instance().getWindow().clear({0, 0, 0});
         RenderManager::instance().draw();
 
-        for (auto body : PhysicsManager::instance().m_bodies)
+ /*       for (auto body : PhysicsManager::instance().m_bodies)
         {
             if (std::shared_ptr<BoxCollisionCmp> tempP = body.lock())
+            {
             {
                 sf::RectangleShape m_debugGeometry;
                 m_debugGeometry.setPosition(tempP->m_shape.getPosition());
@@ -88,7 +90,7 @@ namespace mmt_gd
 
                 RenderManager::instance().getWindow().draw(m_debugGeometry);
             }
-        }
+        }*/
         RenderManager::instance().getWindow().display();
     }
 }

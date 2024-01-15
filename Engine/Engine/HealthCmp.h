@@ -11,7 +11,8 @@ namespace mmt_gd
 		bool init() override;
 		void update(float deltaTime) override;
 		void getDamage();
-		void getHealth();
+		void gainHealth();
+		int getHealth() { return m_currentHealth; };
 		void draw() override;
 
 	protected:

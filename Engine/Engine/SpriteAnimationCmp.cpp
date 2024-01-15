@@ -2,6 +2,7 @@
 #include"pch.h"
 #include"SpriteAnimationCmp.h"
 #include"SpriteRenderCmp.h"
+#include"AnimationTypes.h"
 #include "GameObject.h"
 namespace mmt_gd
 {
@@ -59,12 +60,12 @@ namespace mmt_gd
 		sprite->setPosition(gameObject.getPosition());
 	}
 
-	void SpriteAnimationCmp::addAnimation(std::string animation, int frames)
+	void SpriteAnimationCmp::addAnimation(AnimationType animation, int frames)
 	{
 			m_animations[animation] = frames;
 			m_animationOrder.push_back(animation);
 	}
-	void SpriteAnimationCmp::addAnimation(std::vector<std::pair<std::string, int>> animations)
+	void SpriteAnimationCmp::addAnimation(std::vector<std::pair<AnimationType, int>> animations)
 	{
 		for (auto& e : animations)
 		{

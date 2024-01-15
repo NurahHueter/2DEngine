@@ -31,7 +31,7 @@ namespace mmt_gd
 			gameObject.markForDelete();
 		}
 	};
-	void HealthCmp::getHealth()
+	void HealthCmp::gainHealth()
 	{
 		m_currentHealth++;
 	};

@@ -18,22 +18,22 @@ namespace mmt_gd
           
             //std::cout << gameObject.getPlayerIdx() << std::endl;
             accVec = { 0.0f, -acc };
-            animation->setCurrentAnimation("MoveUp");
+            animation->setCurrentAnimation(MoveUp);
         }
         if (InputManager::instance().isKeyPressed("down", gameObject.getPlayerIdx()))
         {
             accVec = { 0.0f, acc };
-            animation->setCurrentAnimation("MoveDown");
+            animation->setCurrentAnimation(MoveDown);
         }
         if (InputManager::instance().isKeyPressed("left", gameObject.getPlayerIdx()))
         {
             accVec = { -acc, 0.0f };
-            animation->setCurrentAnimation("MoveLeft");
+            animation->setCurrentAnimation(MoveLeft);
         }
         if (InputManager::instance().isKeyPressed("right", gameObject.getPlayerIdx()))
         {
             accVec = { acc, 0.0f };
-            animation->setCurrentAnimation("MoveRight");
+            animation->setCurrentAnimation(MoveRight);
         }
         
         if (auto rigidBodyCmp = gameObject.getComponent<RigidBodyCmp>())

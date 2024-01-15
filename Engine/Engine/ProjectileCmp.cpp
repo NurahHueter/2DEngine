@@ -3,8 +3,9 @@
 #include "ProjectileCmp.h"
 #include "GameObject.h"
 #include "InputManager.h"
-#include "VectorAlgebra2D.h"
 #include "SpriteAnimationCmp.h"
+#include "VectorAlgebra2D.h"
+#include "AnimationTypes.h"
 
 namespace mmt_gd
 {
@@ -46,21 +47,55 @@ namespace mmt_gd
 					std::get<1>(p) = m_timeToLife;
 				}
 			}
-			else
+		} 
+
+		if (InputManager::instance().isKeyDown("shoot", gameObject.getPlayerIdx()))
+		{
+			shoot(InputManager::instance().getMousPosition());
+		}
+	}
+	void ProjectileCmp::shoot(sf::Vector2f direction)
+	{
+		if (lastSpawnTimer == 0)
+		{
+			lastSpawnTimer += 0.1;
+			for (auto& p : m_projectiles)
 			{
-				if (InputManager::instance().isKeyPressed("shoot", gameObject.getPlayerIdx()) && lastSpawnTimer == 0)
+				if (!std::get<0>(p)->isActive())
 				{
-					lastSpawnTimer += deltaTime;
-					const auto& animation = gameObject.getComponent<SpriteAnimationCmp>();
-
 					std::get<0>(p)->setActive(true);
-					std::get<0>(p)->setPosition(gameObject.getPosition().x, gameObject.getPosition().y);
-
-					sf::Vector2f direction = InputManager::instance().getMousPosition() - std::get<0>(p)->getPosition();
+					std::get<0>(p)->setPosition(getAlignment(gameObject));
 					std::get<2>(p) = MathUtil::unitVector(direction);
-
-				}
+					break;
+				};
 			}
 		}
-	};
+	}
+	sf::Vector2f ProjectileCmp::getAlignment(GameObject& go)
+	{
+		const auto animation = go.getComponent<SpriteAnimationCmp>();
+		float width = static_cast<float>(animation->getTextureRect().width) +1;
+		float height = static_cast<float>(animation->getTextureRect().height) +1;
+		sf::Vector2f position(gameObject.getPosition().x, gameObject.getPosition().y);
+		switch (animation->getCurrentAnimation())
+		{
+		case mmt_gd::MoveUp:
+			position.x += width / 2;
+			break;
+		case mmt_gd::MoveRight:
+			position.x += width;
+			position.y += height / 2;
+			break;
+		case mmt_gd::MoveDown:
+			position.x += width / 2;
+			position.y += height;
+			break;
+		case mmt_gd::MoveLeft:
+			position.y += height / 2;
+			break;
+		default:
+			break;
+		}
+		return position;
+	}
 }

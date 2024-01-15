@@ -2,6 +2,7 @@
 #pragma once 
 #include "IRenderComponent.h"
 #include "SpriteRenderCmp.h"
+#include "AnimationTypes.h"
 #include<map>
 
 namespace mmt_gd
@@ -29,21 +30,21 @@ namespace mmt_gd
 		 * \brief 
 		 *Add a animation row to the sprite
 		 */
-		void addAnimation(std::string animation, int frames);
+		void addAnimation(AnimationType animation, int frames);
 		/**
 		 * \brief
 		 *Add animations to the sprite
 		 */
-		void addAnimation(std::vector<std::pair<std::string, int>> animations);
+		void addAnimation(std::vector<std::pair<AnimationType, int>> animations);
 
-		void setCurrentAnimation(std::string animtion)
+		void setCurrentAnimation(AnimationType animation)
 		{
-			if (m_animations[animtion])
+			if (m_animations[animation])
 			{
-				m_currentAnimation = animtion;
+				m_currentAnimation = animation;
 			}
 		};
-		std::string getCurrentAnimation(std::string)
+		AnimationType getCurrentAnimation()
 		{
 			return m_currentAnimation;
 		};
@@ -56,8 +57,8 @@ namespace mmt_gd
 		float m_animationTime = 0;
 		float m_animationSpeed;
 		int m_animationFrame = 0;
-		std::string m_currentAnimation;
-		std::map<std::string, int> m_animations;
-		std::vector<std::string> m_animationOrder;
+		AnimationType m_currentAnimation;
+		std::map<AnimationType, int> m_animations;
+		std::vector<AnimationType> m_animationOrder;
 	};
 }

@@ -147,6 +147,9 @@
     <ClCompile Include="SteeringCmp.cpp">
       <Filter>Source Files\Components\CustomComponentsSpaceGame</Filter>
     </ClCompile>
+    <ClCompile Include="AIControllerCmp.cpp">
+      <Filter>Source Files\Components\CustomComponentsSpaceGame</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -248,11 +251,14 @@
     <ClInclude Include="HealthCmp.h">
       <Filter>Header Files\Components\CustomComponentsSpaceGame</Filter>
     </ClInclude>
-    <ClInclude Include="AIStateCmp.h">
+    <ClInclude Include="AIControllerCmp.h">
       <Filter>Header Files\Components\CustomComponentsSpaceGame</Filter>
     </ClInclude>
     <ClInclude Include="SteeringCmp.h">
       <Filter>Header Files\Components\CustomComponentsSpaceGame</Filter>
+    </ClInclude>
+    <ClInclude Include="AnimationTypes.h">
+      <Filter>Header Files\Enums</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

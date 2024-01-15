@@ -18,8 +18,6 @@ namespace mmt_gd
     {
         constexpr float acc = 200.0f; ///< "const" is evaluated at compile time; "const" could be changed at runtime
 
-        setTarget(GameObjectManager::instance().getGameObject("Player")->getPosition());
-
         sf::Vector2f accVec;
         const auto& animation = gameObject.getComponent<SpriteAnimationCmp>();
 
@@ -30,13 +28,13 @@ namespace mmt_gd
         {
             // Horizontale Bewegung
             accVec = { (distance.x > 0) ? acc : -acc, 0.0f };
-            animation->setCurrentAnimation((distance.x > 0) ? "MoveRight" : "MoveLeft");
+            animation->setCurrentAnimation((distance.x > 0) ? MoveRight : MoveLeft);
         }
         else
         {
             // Vertikale Bewegung
             accVec = { 0.0f, (distance.y > 0) ? acc : -acc };
-            animation->setCurrentAnimation((distance.y > 0) ? "MoveDown" : "MoveUp");
+            animation->setCurrentAnimation((distance.y > 0) ? MoveDown : MoveUp);
         }
 
         if (auto rigidBodyCmp = gameObject.getComponent<RigidBodyCmp>())
