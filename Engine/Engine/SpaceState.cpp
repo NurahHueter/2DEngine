@@ -48,7 +48,7 @@ namespace mmt_gd
         {
             if (p.first->getType() == ObjectType::Spaceship && (p.second->getType() == ObjectType::Spaceship || p.second->getType() == ObjectType::Projectile))
             {
-                p.first->getComponent<HealthCmp>()->getDamage();
+                //p.first->getComponent<HealthCmp>()->getDamage();
             }
             else if (p.first->getType() == ObjectType::PowerUp && p.second->getType() == ObjectType::Spaceship)
             {

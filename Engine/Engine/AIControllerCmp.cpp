@@ -21,12 +21,12 @@ namespace mmt_gd
         case Patrol:
             patrol();
             break;
-        case Attack:
-            attack();
-            break;
-        case Flee:
-            flee();
-            break;
+        //case Attack:
+        //    attack();
+        //    break;
+        //case Flee:
+        //    flee();
+        //    break;
         default:
             break;
         }
@@ -36,12 +36,15 @@ namespace mmt_gd
         auto playerPosition = GameObjectManager::instance().getGameObject("Player")->getPosition();
         if (m_patrolPoints.size() > 1)
         {
+            std::cout << m_currentWayPoint << std::endl;
             gameObject.getComponent<SteeringCmp>()->setTarget(m_patrolPoints[m_currentWayPoint]);
 
-            if (gameObject.getPosition() == m_patrolPoints[m_currentWayPoint])
+            float distanceToTarget = MathUtil::length(m_patrolPoints[m_currentWayPoint] - gameObject.getPosition());
+            float patrolRadius = 20.0f;
+            if (distanceToTarget <= patrolRadius)
             {
                 m_currentWayPoint++;
-                if (m_patrolPoints.size() > m_currentWayPoint)
+                if (m_currentWayPoint >= m_patrolPoints.size())
                 {
                     m_currentWayPoint = 0;
                 }
@@ -49,16 +52,16 @@ namespace mmt_gd
         }
 
 
-        if (std::abs(playerPosition.x - gameObject.getPosition().x) < m_attackRange 
-            || std::abs(playerPosition.y - gameObject.getPosition().y) < m_attackRange)
-        {
-            currentState = Attack;
-        }
-        if (gameObject.getComponent<HealthCmp>()->getHealth() == 1 && (playerPosition.x - gameObject.getPosition().x < m_attackRange 
-            || std::abs(playerPosition.y - gameObject.getPosition().y) < m_attackRange))
-        {
-            currentState = Flee;
-        };
+        //if (std::abs(playerPosition.x - gameObject.getPosition().x) < m_attackRange 
+        //    || std::abs(playerPosition.y - gameObject.getPosition().y) < m_attackRange)
+        //{
+        //    currentState = Attack;
+        //}
+        //if (gameObject.getComponent<HealthCmp>()->getHealth() == 1 && (playerPosition.x - gameObject.getPosition().x < m_attackRange 
+        //    || std::abs(playerPosition.y - gameObject.getPosition().y) < m_attackRange))
+        //{
+        //    currentState = Flee;
+        //};
     };
     void AIControllerCmp::attack()
     {
