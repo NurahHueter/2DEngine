@@ -21,9 +21,9 @@ namespace mmt_gd
         case Patrol:
             patrol();
             break;
-        //case Attack:
-        //    attack();
-        //    break;
+        case Attack:
+            attack();
+            break;
         //case Flee:
         //    flee();
         //    break;
@@ -52,11 +52,11 @@ namespace mmt_gd
         }
 
 
-        //if (std::abs(playerPosition.x - gameObject.getPosition().x) < m_attackRange 
-        //    || std::abs(playerPosition.y - gameObject.getPosition().y) < m_attackRange)
-        //{
-        //    currentState = Attack;
-        //}
+        if (std::abs(playerPosition.x - gameObject.getPosition().x) < m_attackRange 
+            || std::abs(playerPosition.y - gameObject.getPosition().y) < m_attackRange)
+        {
+            currentState = Attack;
+        }
         //if (gameObject.getComponent<HealthCmp>()->getHealth() == 1 && (playerPosition.x - gameObject.getPosition().x < m_attackRange 
         //    || std::abs(playerPosition.y - gameObject.getPosition().y) < m_attackRange))
         //{

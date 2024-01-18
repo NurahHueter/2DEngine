@@ -22,7 +22,7 @@ namespace mmt_gd
 		void patrol();
 		void attack();
 		void flee();
-		float m_attackRange = 200;
+		float m_attackRange = 100;
 		float m_fleeRange = 400;
 		int m_currentWayPoint = 0;
 		std::vector<sf::Vector2f> m_patrolPoints = {};
