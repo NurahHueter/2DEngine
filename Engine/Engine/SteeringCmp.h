@@ -1,13 +1,15 @@
 #pragma once
 #include "IComponent.h"
+
 #include<memory>
 namespace mmt_gd
 {
+	class MapTile;
 	class SteeringCmp : public IComponent
 	{
 	public:
-		SteeringCmp(GameObject& gameObject, sf::Vector2f velocity)
-			:IComponent(gameObject), m_velocity(velocity) {};
+		SteeringCmp(GameObject& gameObjectPlayer,  const sf::Vector2f& velocity)
+			: IComponent(gameObjectPlayer),  m_velocity(velocity) {};
 		bool init() override;
 		void update(float deltaTime) override;
 		void setTarget(sf::Vector2f target) { m_target = target; };
@@ -15,6 +17,7 @@ namespace mmt_gd
 
 
 	private:
+		
 		bool m_reachedTarget = false;
 		sf::Vector2f m_target = { 0.f, 0.f };
 		sf::Vector2f m_velocity;

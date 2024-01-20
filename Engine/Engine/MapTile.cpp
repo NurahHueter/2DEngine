@@ -13,9 +13,40 @@ namespace mmt_gd
 
 	using namespace sf;
 	using namespace std;
-
+	std::vector<std::vector<int>> MapTile::m_LayerKachel;
 	void MapTile::loadMap(const std::unique_ptr<tson::Map>& map, const fs::path resourcePath)
 	{
+
+		const int numRows = 50;
+		const int numCols = 90;
+
+		auto layerData0 = map->getLayers()[0].getData();
+		auto layerData1 = map->getLayers()[1].getData();
+		auto layerData2 = map->getLayers()[2].getData();
+
+		m_LayerKachel.reserve(numRows);
+		//TODO -> Eine reihe Polster für das Flugzeug
+
+		for (int i = 0; i < numRows; ++i) {
+			m_LayerKachel.emplace_back(); // Fügt eine leere Zeile hinzu
+			m_LayerKachel[i].reserve(numCols);
+
+			for (int j = 0; j < numCols; ++j) {
+				// Überprüfe, ob entweder layerData1 oder layerData2 an dieser Position nicht null ist
+				if (layerData1[i * numCols + j] != 0 || layerData2[i * numCols + j] != 0) {
+					m_LayerKachel[i].push_back(9);
+				}
+				else {
+					m_LayerKachel[i].push_back(1);
+				}
+			}
+		}
+		for (int i = 0; i < numRows; ++i) {
+			for (int j = 0; j < numCols; ++j) {
+				std::cout << m_LayerKachel[i][j] << " ";
+			}
+			std::cout << std::endl;
+		}
 
 		if (map->getStatus() == tson::ParseStatus::OK)
 		{

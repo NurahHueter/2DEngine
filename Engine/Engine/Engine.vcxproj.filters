@@ -147,6 +147,9 @@
     <ClCompile Include="SteeringCmp.cpp">
       <Filter>Source Files\Components\CustomComponentsSpaceGame</Filter>
     </ClCompile>
+    <ClCompile Include="Astar.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -253,6 +256,9 @@
     </ClInclude>
     <ClInclude Include="SteeringCmp.h">
       <Filter>Header Files\Components\CustomComponentsSpaceGame</Filter>
+    </ClInclude>
+    <ClInclude Include="Astar.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

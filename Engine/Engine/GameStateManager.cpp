@@ -12,24 +12,38 @@ namespace mmt_gd
     };
 
     void GameStateManager::update(float delta) {
-        currentState->update(delta);
+        if (currentState)
+        {
+            currentState->update(delta);
+        }
     }
 
     void GameStateManager::draw() {
-        currentState->draw();
+        if (currentState)
+        {
+            currentState->draw();
+        }
        
     }
 
     void GameStateManager::setState(std::string stateName) {
-        std::shared_ptr<GameState> state = states[stateName];
+        auto it = states.find(stateName);
+        if (it != states.end()) {
+            std::shared_ptr<GameState> state = it->second;
 
-        if (state != currentState) {
-            if (currentState != nullptr) {
-                std::cout << "exit State" << std::endl;
-                currentState->exit();
+            if (state != currentState) {
+                if (currentState != nullptr) {
+                    std::cout << "exit State" << std::endl;
+                    currentState->exit();
+                }
+                //Vielleciht memory leak
+                currentState = state;
+                currentState->init();
             }
-            currentState = std::move(state);
-            currentState->init();
+        }
+        else {
+            // Handle the case where the stateName is not found in the states map.
+            std::cerr << "Error: State '" << stateName << "' not found." << std::endl;
         }
     }
 
