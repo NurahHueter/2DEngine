@@ -33,7 +33,7 @@ namespace mmt_gd
         Node goal(idxw_target, idxh_target, 0, 0); // Assuming g and h are 0 initially
 
         // Call A* algorithm
-        AStar(MapTile::m_LayerKachel, start, goal);
+        AStar(MapTile::m_LayerKachelWithBuffer, start, goal);
 
         return true;
     };

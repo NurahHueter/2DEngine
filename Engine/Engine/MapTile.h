@@ -17,9 +17,6 @@ namespace mmt_gd
        void getObjectLayer(const std::unique_ptr<tson::Map>& map);
 
        static std::vector<std::vector<int>> m_LayerKachel;
+       static std::vector<std::vector<int>> m_LayerKachelWithBuffer;
     };
-      
-
-    
-
 }
