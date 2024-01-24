@@ -43,7 +43,7 @@ namespace mmt_gd
         }
         if (object.getType() == "WayPoint")
         {
-            loadWayPoint(object, layer);
+            //loadWayPoint(object, layer);
         }
     }
 
@@ -301,9 +301,6 @@ namespace mmt_gd
             PhysicsManager::instance().addBoxCollisionCmp(trigger);
 
            // std::cout << layer.getSize().x << layer.getSize().y << std::endl;
-            const auto& powerUpCmp = std::make_shared<PowerUpCmp>(*heart, 
-
-            std::cout << layer.getSize().x << layer.getSize().y << std::endl;
             const auto& powerUpCmp = std::make_shared<PowerUpCmp>(*heart,
                 sf::FloatRect(0.f, 0.f, 1400, 800),
                 Health);
@@ -399,7 +396,7 @@ namespace mmt_gd
         GameObjectManager::instance().addGameObject(gameObject);
     }
 
-    void ObjectFactory::loadWayPoint(tson::Object& object, const tson::Layer& layer)
+   /* void ObjectFactory::loadWayPoint(tson::Object& object, const tson::Layer& layer)
     {
         std::string EnemyId;
         for (const auto* property : object.getProperties().get())
@@ -414,6 +411,6 @@ namespace mmt_gd
                 }
             }
         };
-    }
+    }*/
 }
 

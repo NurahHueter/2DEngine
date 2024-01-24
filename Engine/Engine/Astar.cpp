@@ -34,7 +34,7 @@ namespace mmt_gd
     }
 
 
-    void AStar(const std::vector<std::vector<int>>& grid, const Node& start, const Node& goal)
+    std::vector<std::pair<int, int>> AStar(const std::vector<std::vector<int>>& grid, const Node& start, const Node& goal)
     {
         //direction, in den man gehen kann
         const int dx[] = { 0, 1, 0, -1 };
@@ -68,15 +68,16 @@ namespace mmt_gd
 
 
                 // Print the path in reverse order
-                std::cout << "Steps Amount: " << path.size() << std::endl;
-                std::cout << "Path: ";
-                for (auto it = path.rbegin(); it != path.rend(); ++it)
-                {
-                    std::cout << "(" << it->second << ", " << it->first << ") ";            //ist dann x, y denk ich
-                }
-                std::cout << std::endl;
+                //std::cout << "Steps Amount: " << path.size() << std::endl;
+                //std::cout << "Path: ";
+                //
+                //for (auto it = path.rbegin(); it != path.rend(); ++it)
+                //{
+                //    std::cout << "(" << it->second << ", " << it->first << ") ";            //ist dann x, y denk ich
+                //}
+                //std::cout << std::endl;
 
-                break;
+                return path;
             }
 
             seenSet.insert({ current.m_x, current.m_y }); //wenn man einmal an den punkt war, dann muss mann nicht ein zweites mal kommen

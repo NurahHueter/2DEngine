@@ -22,5 +22,6 @@ namespace mmt_gd
 		sf::Vector2f m_target = { 0.f, 0.f };
 		sf::Vector2f m_velocity;
 		sf::Vector2f direction = { 0.f, 0.f };
+		std::vector<std::pair<int, int>> m_pathlist;
 	};
 }

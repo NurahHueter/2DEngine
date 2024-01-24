@@ -250,58 +250,6 @@
                  "y":400
                 }, 
                 {
-                 "height":53.3333,
-                 "id":12,
-                 "name":"Enemy2",
-                 "properties":[
-                        {
-                         "name":"Projectile",
-                         "type":"string",
-                         "value":"..\/Engine\/Assets\/SpaceShip\/Projectile.png"
-                        }, 
-                        {
-                         "name":"Texture",
-                         "type":"string",
-                         "value":"..\/Engine\/Assets\/SpaceShip\/Spaceships\/Spaceship#01 SpriteSheet.png"
-                        }, 
-                        {
-                         "name":"id",
-                         "type":"string",
-                         "value":"Enemy2"
-                        }, 
-                        {
-                         "name":"mass",
-                         "type":"float",
-                         "value":1
-                        }, 
-                        {
-                         "name":"shootIntervall",
-                         "type":"float",
-                         "value":0.5
-                        }, 
-                        {
-                         "name":"timeToLive",
-                         "type":"float",
-                         "value":10
-                        }, 
-                        {
-                         "name":"velocity",
-                         "type":"float",
-                         "value":200
-                        }, 
-                        {
-                         "name":"velocityP",
-                         "type":"float",
-                         "value":300
-                        }],
-                 "rotation":0,
-                 "type":"SpaceShip",
-                 "visible":true,
-                 "width":54.6667,
-                 "x":679.66665,
-                 "y":285.33335
-                }, 
-                {
                  "height":33,
                  "id":14,
                  "name":"PowerUps",
@@ -615,58 +563,6 @@
                  "width":54.6667,
                  "x":961.999983333333,
                  "y":324.000016666667
-                }, 
-                {
-                 "height":53.3333,
-                 "id":47,
-                 "name":"Enemy3",
-                 "properties":[
-                        {
-                         "name":"Projectile",
-                         "type":"string",
-                         "value":"..\/Engine\/Assets\/SpaceShip\/Projectile.png"
-                        }, 
-                        {
-                         "name":"Texture",
-                         "type":"string",
-                         "value":"..\/Engine\/Assets\/SpaceShip\/Spaceships\/Spaceship#01 SpriteSheet.png"
-                        }, 
-                        {
-                         "name":"id",
-                         "type":"string",
-                         "value":"Enemy3"
-                        }, 
-                        {
-                         "name":"mass",
-                         "type":"float",
-                         "value":1
-                        }, 
-                        {
-                         "name":"shootIntervall",
-                         "type":"float",
-                         "value":0.5
-                        }, 
-                        {
-                         "name":"timeToLive",
-                         "type":"float",
-                         "value":10
-                        }, 
-                        {
-                         "name":"velocity",
-                         "type":"float",
-                         "value":200
-                        }, 
-                        {
-                         "name":"velocityP",
-                         "type":"float",
-                         "value":300
-                        }],
-                 "rotation":0,
-                 "type":"SpaceShip",
-                 "visible":true,
-                 "width":54.6667,
-                 "x":99.3333166666666,
-                 "y":233.33335
                 }],
          "opacity":1,
          "type":"objectgroup",

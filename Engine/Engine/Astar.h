@@ -28,5 +28,5 @@ namespace mmt_gd
         
     };
 
-    void AStar(const std::vector<std::vector<int>>& grid, const Node& start, const Node& goal);
+    std::vector<std::pair<int, int>> AStar(const std::vector<std::vector<int>>& grid, const Node& start, const Node& goal);
 }
