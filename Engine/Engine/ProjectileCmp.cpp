@@ -49,11 +49,6 @@ namespace mmt_gd
 				}
 			}
 		} 
-
-		if (InputManager::instance().isKeyDown("shoot", gameObject.getPlayerIdx()))
-		{
-			shoot(InputManager::instance().getMousPosition());
-		}
 	}
 	void ProjectileCmp::shoot(sf::Vector2f direction)
 	{

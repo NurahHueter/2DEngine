@@ -39,7 +39,15 @@ namespace mmt_gd
         PhysicsManager::instance().update();
         GameObjectManager::instance().update(deltaTime);
 
-        const auto coll_pairs = PhysicsManager::instance().getCollisionPairs();
+        if (const auto player = GameObjectManager::instance().getGameObject("Player"))
+        {
+            if (InputManager::instance().isKeyDown("shoot", 1) && player)
+            {
+                player->getComponent<ProjectileCmp>()->shoot(InputManager::instance().getMousPosition());
+            }
+        }
+
+       const auto coll_pairs = PhysicsManager::instance().getCollisionPairs();
        for (const auto p : coll_pairs)
         {
             if (p.first->getType() == ObjectType::Spaceship && (p.second->getType() == ObjectType::Spaceship || p.second->getType() == ObjectType::Projectile))
@@ -53,6 +61,10 @@ namespace mmt_gd
             else if (p.first->getType() == ObjectType::Projectile)
             {
                 p.first->setActive(false);
+            }
+            else if (p.first->getType() == ObjectType::PowerUp)
+            {
+                p.first->getComponent<PowerUpCmp>()->respawn();
             }
         }
 
