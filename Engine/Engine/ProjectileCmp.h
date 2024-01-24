@@ -18,7 +18,7 @@ namespace mmt_gd
 		 * \brief gets the Alignment of the spaceShip
 		 * so that the projectile is spawned at the correct side
 		 */
-		sf::Vector2f getAlignment(GameObject& go);
+		sf::Vector2f getAlignment(GameObject& go, GameObject& projectile);
 
 		std::vector<std::tuple<std::shared_ptr<GameObject>, float, sf::Vector2f>> m_projectiles;
 		float m_shootIntervall;

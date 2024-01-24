@@ -14,7 +14,6 @@ namespace mmt_gd
 {
     void SpaceState::init()
     {
-
         //map
         tson::Tileson t;
         const fs::path tileMapresourcePath = { "Assets/SpaceShip" };
@@ -27,9 +26,6 @@ namespace mmt_gd
         mapGo->init();
 
         GameObjectManager::instance().addGameObject(mapGo);
-
-        //GameObjectManager::instance().getObjectsByType(Spaceship)
-
     }
 
     void SpaceState::exit()
@@ -48,7 +44,7 @@ namespace mmt_gd
         {
             if (p.first->getType() == ObjectType::Spaceship && (p.second->getType() == ObjectType::Spaceship || p.second->getType() == ObjectType::Projectile))
             {
-                //p.first->getComponent<HealthCmp>()->getDamage();
+              p.first->getComponent<HealthCmp>()->getDamage();
             }
             else if (p.first->getType() == ObjectType::PowerUp && p.second->getType() == ObjectType::Spaceship)
             {
@@ -76,21 +72,22 @@ namespace mmt_gd
         RenderManager::instance().getWindow().clear({0, 0, 0});
         RenderManager::instance().draw();
 
- /*       for (auto body : PhysicsManager::instance().m_bodies)
-        {
-            if (std::shared_ptr<BoxCollisionCmp> tempP = body.lock())
-            {
-            {
-                sf::RectangleShape m_debugGeometry;
-                m_debugGeometry.setPosition(tempP->m_shape.getPosition());
-                m_debugGeometry.setSize(tempP->m_shape.getSize());
-                m_debugGeometry.setFillColor(sf::Color::Transparent);
-                m_debugGeometry.setOutlineColor(sf::Color::Red);
-                m_debugGeometry.setOutlineThickness(2);
+        //for (auto body : PhysicsManager::instance().m_bodies)
+        //{
+        //    if (std::shared_ptr<BoxCollisionCmp> tempP = body.lock())
+        //    {
+        //        {
+        //            sf::RectangleShape m_debugGeometry;
+        //            m_debugGeometry.setPosition(tempP->m_shape.getPosition());
+        //            m_debugGeometry.setSize(tempP->m_shape.getSize());
+        //            m_debugGeometry.setFillColor(sf::Color::Transparent);
+        //            m_debugGeometry.setOutlineColor(sf::Color::Red);
+        //            m_debugGeometry.setOutlineThickness(2);
 
-                RenderManager::instance().getWindow().draw(m_debugGeometry);
-            }
-        }*/
+        //            RenderManager::instance().getWindow().draw(m_debugGeometry);
+        //        }
+        //    }
+        //}
         RenderManager::instance().getWindow().display();
     }
 }
