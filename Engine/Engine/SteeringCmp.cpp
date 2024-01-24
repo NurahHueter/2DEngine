@@ -17,7 +17,7 @@ namespace mmt_gd
         int sizeY = gameObject.getComponent<SpriteAnimationCmp>()->getTextureRect().getSize().y;
 
         //Kachelposition von der AI
-        int idxw_player = (gameObject.getPosition().x + (sizeX / 2)) / 16;          //16-> tileGröße
+        int idxw_player = (gameObject.getPosition().x + (sizeX / 2)) / 16;          //16-> tileGrï¿½ï¿½e
         int idxh_player = (gameObject.getPosition().y + (sizeY / 2)) / 16;
         //std::cout << "Pos Player X " << idxw_player << "Pos Player Y " << idxh_player << std::endl;
 
@@ -47,13 +47,6 @@ namespace mmt_gd
         int idxw_target = (GameObjectManager::instance().getGameObject("Player")->getPosition().x + (sizeX / 2)) / 16;
         int idxh_target = (GameObjectManager::instance().getGameObject("Player")->getPosition().y + (sizeY / 2)) / 16;
 
-<<<<<<< HEAD
-       // std::cout << "Pos Target X " << idxw_target << "Pos Target Y " << idxh_target << std::endl;
-
-      
-
-    ////std::cout << idxw_target << "  " << idxh_target <<  std::endl;
-=======
         sf::Vector2f accVec;
         const auto& animation = gameObject.getComponent<SpriteAnimationCmp>();
 

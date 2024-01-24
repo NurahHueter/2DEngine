@@ -299,13 +299,12 @@ namespace mmt_gd
                 sf::FloatRect(sf::FloatRect(renderCmp->getTextureRect())), true);
             heart->addComponent(trigger);
             PhysicsManager::instance().addBoxCollisionCmp(trigger);
-<<<<<<< HEAD
+
            // std::cout << layer.getSize().x << layer.getSize().y << std::endl;
             const auto& powerUpCmp = std::make_shared<PowerUpCmp>(*heart, 
-=======
+
             std::cout << layer.getSize().x << layer.getSize().y << std::endl;
             const auto& powerUpCmp = std::make_shared<PowerUpCmp>(*heart,
->>>>>>> e343015e8205b641f5dc3a72746def3998547a55
                 sf::FloatRect(0.f, 0.f, 1400, 800),
                 Health);
             heart->addComponent(powerUpCmp);

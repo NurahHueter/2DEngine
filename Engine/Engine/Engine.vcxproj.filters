@@ -147,14 +147,13 @@
     <ClCompile Include="SteeringCmp.cpp">
       <Filter>Source Files\Components\CustomComponentsSpaceGame</Filter>
     </ClCompile>
-<<<<<<< HEAD
     <ClCompile Include="Astar.cpp">
-      <Filter>Source Files</Filter>
-=======
+    <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="AIControllerCmp.cpp">
       <Filter>Source Files\Components\CustomComponentsSpaceGame</Filter>
->>>>>>> e343015e8205b641f5dc3a72746def3998547a55
     </ClCompile>
+      
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -262,13 +261,11 @@
     <ClInclude Include="SteeringCmp.h">
       <Filter>Header Files\Components\CustomComponentsSpaceGame</Filter>
     </ClInclude>
-<<<<<<< HEAD
     <ClInclude Include="Astar.h">
       <Filter>Header Files</Filter>
-=======
+        </ClInclude>
     <ClInclude Include="AnimationTypes.h">
       <Filter>Header Files\Enums</Filter>
->>>>>>> e343015e8205b641f5dc3a72746def3998547a55
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
