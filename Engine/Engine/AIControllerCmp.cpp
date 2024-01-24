@@ -6,6 +6,7 @@
 #include "GameObject.h"
 #include "GameObjectManager.h"
 #include "VectorAlgebra2D.h"
+#include "SpriteAnimationCmp.h"
 #include "AIControllerCmp.h"
 
 namespace mmt_gd
@@ -16,7 +17,10 @@ namespace mmt_gd
     };
     void AIControllerCmp::update(float deltaTime)
     {
-        playerPosition = GameObjectManager::instance().getGameObject("Player")->getPosition();
+        const auto player = GameObjectManager::instance().getGameObject("Player");
+        const auto texture = player->getComponent<SpriteAnimationCmp>()->getTextureRect().getSize();
+        playerPosition = sf::Vector2f(player->getPosition().x + texture.x / 2, player->getPosition().y + texture.y / 2);
+
         distance_x = std::abs(playerPosition.x - gameObject.getPosition().x);
         distance_y = std::abs(playerPosition.y - gameObject.getPosition().y);
 

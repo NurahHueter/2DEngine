@@ -300,12 +300,8 @@ namespace mmt_gd
             heart->addComponent(trigger);
             PhysicsManager::instance().addBoxCollisionCmp(trigger);
 
-           // std::cout << layer.getSize().x << layer.getSize().y << std::endl;
-            const auto& powerUpCmp = std::make_shared<PowerUpCmp>(*heart, 
-
-            std::cout << layer.getSize().x << layer.getSize().y << std::endl;
             const auto& powerUpCmp = std::make_shared<PowerUpCmp>(*heart,
-                sf::FloatRect(0.f, 0.f, 1400, 800),
+                sf::FloatRect(10.f, 10.f, 1300, 750),
                 Health);
             heart->addComponent(powerUpCmp);
             powerUpCmp->respawn();
@@ -331,7 +327,7 @@ namespace mmt_gd
             PhysicsManager::instance().addBoxCollisionCmp(trigger);
             //std::cout << layer.getSize().x << layer.getSize().y << std::endl;
             const auto& powerUpCmp = std::make_shared<PowerUpCmp>(*speed,
-                sf::FloatRect(0.f, 0.f, 1400, 800),
+                sf::FloatRect(10.f, 10.f, 1300, 750),
                 Speed);
             powerUpCmp->respawn();
             speed->addComponent(powerUpCmp);

@@ -39,34 +39,7 @@ namespace mmt_gd
     };
     void SteeringCmp::update(float deltaTime)
     {
-        //Werte von den Kacheln ausgeben
-        //std::cout << MapTile::m_LayerKachel[0][0] << std::endl;
-        int sizeX = gameObject.getComponent<SpriteAnimationCmp>()->getTextureRect().getSize().x;
-        int sizeY = gameObject.getComponent<SpriteAnimationCmp>()->getTextureRect().getSize().y;
-          //Kachelposition vom Target
-        int idxw_target = (GameObjectManager::instance().getGameObject("Player")->getPosition().x + (sizeX / 2)) / 16;
-        int idxh_target = (GameObjectManager::instance().getGameObject("Player")->getPosition().y + (sizeY / 2)) / 16;
-
-        sf::Vector2f accVec;
-        const auto& animation = gameObject.getComponent<SpriteAnimationCmp>();
-
-        sf::Vector2f distance = m_target - gameObject.getPosition();
-        MathUtil::unitVector(distance);
-        
-        if (std::abs(distance.x) > std::abs(distance.y))
-        {
-            // Horizontale Bewegung
-            accVec = { (distance.x > 0) ? acc : -acc, 0.0f };
-            animation->setCurrentAnimation((distance.x > 0) ? MoveRight : MoveLeft);
-        }
-        else
-        {
-            // Vertikale Bewegung
-            accVec = { 0.0f, (distance.y > 0) ? acc : -acc };
-            animation->setCurrentAnimation((distance.y > 0) ? MoveDown : MoveUp);
-        }
->>>>>>> e343015e8205b641f5dc3a72746def3998547a55
-
+ 
     //    constexpr float acc = 200.0f; ///< "const" is evaluated at compile time; "const" could be changed at runtime
 
     //     setTarget(GameObjectManager::instance().getGameObject("Player")->getPosition());
