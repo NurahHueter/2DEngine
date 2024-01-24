@@ -17,8 +17,6 @@ struct Manifold
 };
 
     class RigidBodyCmp; 
-
-    class GameObjectManager;
     struct PhysicsManager
     {
         static

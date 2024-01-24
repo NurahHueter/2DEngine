@@ -9,6 +9,7 @@
 #include "HealthCmp.h"
 #include "PowerUpsCmp.h"
 #include "GameObjectManager.h"
+#include "ProjectileIdentityCmp.h"
 #include "PhysicsManager.h"
 namespace mmt_gd
 {
@@ -41,7 +42,7 @@ namespace mmt_gd
 
         if (const auto player = GameObjectManager::instance().getGameObject("Player"))
         {
-            if (InputManager::instance().isKeyDown("shoot", 1) && player)
+            if (InputManager::instance().isKeyPressed("shoot", 1) && player)
             {
                 player->getComponent<ProjectileCmp>()->shoot(InputManager::instance().getMousPosition());
             }
@@ -50,17 +51,32 @@ namespace mmt_gd
        const auto coll_pairs = PhysicsManager::instance().getCollisionPairs();
        for (const auto p : coll_pairs)
         {
-            if (p.first->getType() == ObjectType::Spaceship && (p.second->getType() == ObjectType::Spaceship || p.second->getType() == ObjectType::Projectile))
+            if (p.first->getType() == ObjectType::Spaceship 
+                && p.second->getType() == ObjectType::Spaceship)
             {
               p.first->getComponent<HealthCmp>()->getDamage();
             }
-            else if (p.first->getType() == ObjectType::PowerUp && p.second->getType() == ObjectType::Spaceship)
+            else if(p.first->getType() == ObjectType::Spaceship 
+                && p.second->getType() == Projectile 
+                && (p.first->getId() != p.second->getComponent<ProjectileIdentityCmp>()->getSpaceShipId()))
+            {
+                p.first->getComponent<HealthCmp>()->getDamage();
+            }
+            else if (p.first->getType() == ObjectType::PowerUp 
+                && p.second->getType() == ObjectType::Spaceship)
             {
                 p.first->getComponent<PowerUpCmp>()->collect(p.second);
             }
             else if (p.first->getType() == ObjectType::Projectile)
             {
-                p.first->setActive(false);
+                if (p.second->getType() == ObjectType::Spaceship &&
+                    (p.second->getId() == p.first->getComponent<ProjectileIdentityCmp>()->getSpaceShipId()))
+                {
+                }
+                else
+                {
+                    p.first->setActive(false);
+                }
             }
             else if (p.first->getType() == ObjectType::PowerUp)
             {

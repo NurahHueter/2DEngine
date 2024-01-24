@@ -49,15 +49,14 @@ namespace mmt_gd
     };
     void SteeringCmp::update(float deltaTime)
     {
+        
+    //    constexpr float acc = 200.0f; ///< "const" is evaluated at compile time; "const" could be changed at runtime
         static sf::Clock movementClock; // Static ensures the clock is created only once
 
         int sizeX = gameObject.getComponent<SpriteAnimationCmp>()->getTextureRect().getSize().x;
         int sizeY = gameObject.getComponent<SpriteAnimationCmp>()->getTextureRect().getSize().y;
 
-        // Kachelposition vom Target
         int idxw_player = (gameObject.getPosition().x + (sizeX / 2)) / 16; // 16-> tileGröße
-        int idxh_player = (gameObject.getPosition().y + (sizeY / 2)) / 16;
-
         if (movementClock.getElapsedTime().asSeconds() >= 0.1f)
         {
             if (!m_pathlist.empty())

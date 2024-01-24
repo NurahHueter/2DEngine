@@ -15,6 +15,7 @@
 #include "Tileson.hpp"
 #include "AssetManager.h"
 #include "RigidBodyCmp.h"
+#include "ProjectileIdentityCmp.h"
 #include "ProjectileCmp.h"
 #include "PowerUpsCmp.h"
 #include "BoxCollisionCmp.h"
@@ -237,6 +238,9 @@ namespace mmt_gd
 
             renderCmp->init();
 
+            const auto& identityCmp = std::make_shared<ProjectileIdentityCmp>(*projectile, gameObject->getId());
+            projectile->addComponent(identityCmp);
+
             const auto& trigger = std::make_shared<BoxCollisionCmp>(*projectile,
                 sf::FloatRect(sf::FloatRect(renderCmp->getTextureRect())), true);
             projectile->addComponent(trigger);
@@ -300,9 +304,10 @@ namespace mmt_gd
             heart->addComponent(trigger);
             PhysicsManager::instance().addBoxCollisionCmp(trigger);
 
-           // std::cout << layer.getSize().x << layer.getSize().y << std::endl;
+
+            std::cout << layer.getSize().x << layer.getSize().y << std::endl;
             const auto& powerUpCmp = std::make_shared<PowerUpCmp>(*heart,
-                sf::FloatRect(0.f, 0.f, 1400, 800),
+                sf::FloatRect(10.f, 10.f, 1300, 750),
                 Health);
             heart->addComponent(powerUpCmp);
             powerUpCmp->respawn();
@@ -328,7 +333,7 @@ namespace mmt_gd
             PhysicsManager::instance().addBoxCollisionCmp(trigger);
             //std::cout << layer.getSize().x << layer.getSize().y << std::endl;
             const auto& powerUpCmp = std::make_shared<PowerUpCmp>(*speed,
-                sf::FloatRect(0.f, 0.f, 1400, 800),
+                sf::FloatRect(10.f, 10.f, 1300, 750),
                 Speed);
             powerUpCmp->respawn();
             speed->addComponent(powerUpCmp);
@@ -336,10 +341,6 @@ namespace mmt_gd
             GameObjectManager::instance().addGameObject(speed);
         }
     }
-
-  
-    
-
 
     void ObjectFactory::loadStaticCollider(tson::Object& object,
         const tson::Layer& layer)
