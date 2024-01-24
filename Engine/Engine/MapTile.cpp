@@ -13,9 +13,78 @@ namespace mmt_gd
 
 	using namespace sf;
 	using namespace std;
+	std::vector<std::vector<int>> MapTile::m_LayerKachel;
+	std::vector<std::vector<int>> MapTile::m_LayerKachelWithBuffer;
 
 	void MapTile::loadMap(const std::unique_ptr<tson::Map>& map, const fs::path resourcePath)
 	{
+		const int numRows = 50;
+		const int numCols = 90;
+
+		auto& layerData0 = map->getLayers()[0].getData();
+		auto& layerData1 = map->getLayers()[1].getData();
+		auto& layerData2 = map->getLayers()[2].getData();
+
+		m_LayerKachel.reserve(numRows);
+
+		// Eine Reihe Polster für das Flugzeug - TODO
+
+		for (int i = 0; i < numRows; ++i)
+		{
+			m_LayerKachel.emplace_back(); // Fügt eine leere Zeile hinzu
+			m_LayerKachel[i].reserve(numCols);
+
+			for (int j = 0; j < numCols; ++j)
+			{
+				// Überprüfe, ob entweder layerData1 oder layerData2 an dieser Position nicht null ist
+				if (layerData1[i * numCols + j] != 0 || layerData2[i * numCols + j] != 0)
+				{
+					m_LayerKachel[i].emplace_back(9);
+				}
+				else
+				{
+					m_LayerKachel[i].emplace_back(1);
+				}
+			}
+		}
+
+		m_LayerKachelWithBuffer = m_LayerKachel;
+
+		for (int i = 0; i < numRows; ++i)
+		{
+			for (int j = 0; j < numCols; ++j)
+			{
+				// Überprüfe, ob die Zelle im ersten Array den Wert 9 hat
+				if (m_LayerKachel[i][j] == 9)
+				{
+					// Überprüfe und setze die angrenzenden Zellen im zweiten Array auf 9
+					for (int di = -1; di <= 1; ++di)
+					{
+						for (int dj = -1; dj <= 1; ++dj)
+						{
+							int ni = i + di;
+							int nj = j + dj;
+
+							// Überprüfe, ob die Nachbarzellen innerhalb der Grenzen liegen
+							if (ni >= 0 && ni < numRows && nj >= 0 && nj < numCols && m_LayerKachelWithBuffer[ni][nj] != 9)
+							{
+								m_LayerKachelWithBuffer[ni][nj] = 9;
+							}
+						}
+					}
+				}
+			}
+		}
+
+		// Ausgabe des zweiten Arrays
+		for (int i = 0; i < numRows; ++i)
+		{
+			for (int j = 0; j < numCols; ++j)
+			{
+				std::cout << m_LayerKachelWithBuffer[i][j] << " ";
+			}
+			std::cout << std::endl;
+		}
 
 		if (map->getStatus() == tson::ParseStatus::OK)
 		{

@@ -291,7 +291,7 @@ void ObjectFactory::loadSpaceship(tson::Object& object,
                 sf::FloatRect(sf::FloatRect(renderCmp->getTextureRect())), true);
             heart->addComponent(trigger);
             PhysicsManager::instance().addBoxCollisionCmp(trigger);
-            std::cout << layer.getSize().x << layer.getSize().y << std::endl;
+           // std::cout << layer.getSize().x << layer.getSize().y << std::endl;
             const auto& powerUpCmp = std::make_shared<PowerUpCmp>(*heart, 
                 sf::FloatRect(0.f, 0.f, 1400, 800),
                 Health);
@@ -317,7 +317,7 @@ void ObjectFactory::loadSpaceship(tson::Object& object,
                 sf::FloatRect(sf::FloatRect(renderCmp->getTextureRect())), true);
             speed->addComponent(trigger);
             PhysicsManager::instance().addBoxCollisionCmp(trigger);
-            std::cout << layer.getSize().x << layer.getSize().y << std::endl;
+            //std::cout << layer.getSize().x << layer.getSize().y << std::endl;
             const auto& powerUpCmp = std::make_shared<PowerUpCmp>(*speed,
                 sf::FloatRect(0.f, 0.f, 1400, 800),
                 Speed);
@@ -327,6 +327,9 @@ void ObjectFactory::loadSpaceship(tson::Object& object,
             GameObjectManager::instance().addGameObject(speed);
         }
     }
+
+  
+    
 
 
     void ObjectFactory::loadStaticCollider(tson::Object& object,
