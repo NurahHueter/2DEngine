@@ -15,6 +15,7 @@
 #include "Tileson.hpp"
 #include "AssetManager.h"
 #include "RigidBodyCmp.h"
+#include "ProjectileIdentityCmp.h"
 #include "ProjectileCmp.h"
 #include "PowerUpsCmp.h"
 #include "BoxCollisionCmp.h"
@@ -237,6 +238,9 @@ namespace mmt_gd
 
             renderCmp->init();
 
+            const auto& identityCmp = std::make_shared<ProjectileIdentityCmp>(*projectile, gameObject->getId());
+            projectile->addComponent(identityCmp);
+
             const auto& trigger = std::make_shared<BoxCollisionCmp>(*projectile,
                 sf::FloatRect(sf::FloatRect(renderCmp->getTextureRect())), true);
             projectile->addComponent(trigger);
@@ -335,10 +339,6 @@ namespace mmt_gd
             GameObjectManager::instance().addGameObject(speed);
         }
     }
-
-  
-    
-
 
     void ObjectFactory::loadStaticCollider(tson::Object& object,
         const tson::Layer& layer)

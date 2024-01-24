@@ -240,7 +240,7 @@
                         {
                          "name":"velocityP",
                          "type":"float",
-                         "value":300
+                         "value":400
                         }],
                  "rotation":0,
                  "type":"SpaceShip",
