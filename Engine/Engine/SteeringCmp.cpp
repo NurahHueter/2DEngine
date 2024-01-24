@@ -47,11 +47,32 @@ namespace mmt_gd
         int idxw_target = (GameObjectManager::instance().getGameObject("Player")->getPosition().x + (sizeX / 2)) / 16;
         int idxh_target = (GameObjectManager::instance().getGameObject("Player")->getPosition().y + (sizeY / 2)) / 16;
 
+<<<<<<< HEAD
        // std::cout << "Pos Target X " << idxw_target << "Pos Target Y " << idxh_target << std::endl;
 
       
 
     ////std::cout << idxw_target << "  " << idxh_target <<  std::endl;
+=======
+        sf::Vector2f accVec;
+        const auto& animation = gameObject.getComponent<SpriteAnimationCmp>();
+
+        sf::Vector2f distance = m_target - gameObject.getPosition();
+        MathUtil::unitVector(distance);
+        
+        if (std::abs(distance.x) > std::abs(distance.y))
+        {
+            // Horizontale Bewegung
+            accVec = { (distance.x > 0) ? acc : -acc, 0.0f };
+            animation->setCurrentAnimation((distance.x > 0) ? MoveRight : MoveLeft);
+        }
+        else
+        {
+            // Vertikale Bewegung
+            accVec = { 0.0f, (distance.y > 0) ? acc : -acc };
+            animation->setCurrentAnimation((distance.y > 0) ? MoveDown : MoveUp);
+        }
+>>>>>>> e343015e8205b641f5dc3a72746def3998547a55
 
     //    constexpr float acc = 200.0f; ///< "const" is evaluated at compile time; "const" could be changed at runtime
 

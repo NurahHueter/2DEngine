@@ -143,6 +143,7 @@ sfml-window-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AIControllerCmp.cpp" />
     <ClCompile Include="AssetManager.cpp" />
     <ClCompile Include="Astar.cpp" />
     <ClCompile Include="BoxCollision.cpp" />
@@ -178,7 +179,8 @@ sfml-window-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     <ClCompile Include="TileLayerCmp.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="AIStateCmp.h" />
+    <ClInclude Include="AIControllerCmp.h" />
+    <ClInclude Include="AnimationTypes.h" />
     <ClInclude Include="AssetManager.h" />
     <ClInclude Include="Astar.h" />
     <ClInclude Include="CameraCmp.h" />

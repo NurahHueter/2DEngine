@@ -19,11 +19,15 @@ namespace mmt_gd
     }
 
     void GameStateManager::draw() {
+<<<<<<< HEAD
         if (currentState)
         {
             currentState->draw();
         }
        
+=======
+        currentState->draw();      
+>>>>>>> e343015e8205b641f5dc3a72746def3998547a55
     }
 
     void GameStateManager::setState(std::string stateName) {

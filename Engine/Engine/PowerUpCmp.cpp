@@ -12,7 +12,7 @@ namespace mmt_gd
 	{
 		if(m_type == Health)
 		{
-			go->getComponent<HealthCmp>()->getHealth();
+			go->getComponent<HealthCmp>()->gainHealth();
 		}
 		else if (m_type == Speed)
 		{
