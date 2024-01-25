@@ -49,21 +49,18 @@ namespace mmt_gd
     };
     void SteeringCmp::update(float deltaTime)
     {
-        
-    //    constexpr float acc = 200.0f; ///< "const" is evaluated at compile time; "const" could be changed at runtime
+        constexpr float acc = 400.0f; 
+        sf::Vector2f accVec;
+
         static sf::Clock movementClock; // Static ensures the clock is created only once
 
-        int sizeX = gameObject.getComponent<SpriteAnimationCmp>()->getTextureRect().getSize().x;
-        int sizeY = gameObject.getComponent<SpriteAnimationCmp>()->getTextureRect().getSize().y;
-
-        int idxw_player = (gameObject.getPosition().x + (sizeX / 2)) / 16; // 16-> tileGröße
         if (movementClock.getElapsedTime().asSeconds() >= 0.1f)
         {
             if (!m_pathlist.empty())
             {
                 auto path = m_pathlist.rbegin(); // Get the next path
 
-                gameObject.setPosition(path->second * 16, path->first * 16);
+                nextTarget = sf::Vector2f(path->second * 16, path->first * 16);
 
                 m_pathlist.pop_back(); // Remove the used path from the list
 
@@ -71,6 +68,30 @@ namespace mmt_gd
             }
         }
 
-        // Rest of your update logic...
+        sf::Vector2f direction = nextTarget - gameObject.getPosition();
+        const auto animation = gameObject.getComponent<SpriteAnimationCmp>();
+        sf::Vector2f distance = MathUtil::unitVector(direction);
+
+        if (std::abs(distance.x) > std::abs(distance.y))
+        {
+            // Horizontale Bewegung
+            accVec = { (distance.x > 0) ? acc : -acc, 0.0f };
+            animation->setCurrentAnimation((distance.x > 0) ? MoveRight : MoveLeft);
+        }
+        else
+        {
+            // Vertikale Bewegung
+            accVec = { 0.0f, (distance.y > 0) ? acc : -acc };
+            animation->setCurrentAnimation((distance.y > 0) ? MoveDown : MoveUp);
+        }
+
+        if (auto rigidBodyCmp = gameObject.getComponent<RigidBodyCmp>())
+        {
+            rigidBodyCmp->setVelocityP(accVec * deltaTime);
+            rigidBodyCmp->setVelocityN(rigidBodyCmp->getVelocity() - (rigidBodyCmp->getVelocity() * 0.99f));
+            rigidBodyCmp->setImpulse(accVec);
+            rigidBodyCmp->setPosition(rigidBodyCmp->getVelocity(), deltaTime);
+            gameObject.setPosition(rigidBodyCmp->getPosition());
+        }
     }
 }
