@@ -90,7 +90,7 @@ namespace mmt_gd
             m_isActive = isActive;
         }
 
-        std::string getId() const
+        std::string getId() 
         {
             return m_id;
         }

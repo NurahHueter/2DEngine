@@ -12,14 +12,23 @@ namespace mmt_gd
 	class AIControllerCmp : public IComponent
 	{
 	public:
-		AIControllerCmp(GameObject& gameObject, std::vector<sf::Vector2f> patrolPoints)
-			:IComponent(gameObject), m_patrolPoints(patrolPoints) {};
-		bool init() override;
+		AIControllerCmp(GameObject& gameObject)
+			:IComponent(gameObject){};
+		bool init() override { return true; };
 		void update(float deltaTime) override;
+		void addPatrolPoint(sf::Vector2f point);
 
 	private:
-		std::vector<sf::Vector2f> m_patrolPoints;
+		void patrol();
+		void attack();
+		void flee();
+		float m_attackRange = 300.f;
+		int m_currentWayPoint = 0;
+		std::vector<sf::Vector2f> m_patrolPoints = {};
 		AIState currentState = Patrol;
 
+		sf::Vector2f playerPosition = { 0.f, 0.f};
+		float distance_x = 0.f;
+		float distance_y = 0.f;
 	};
 }

@@ -34,7 +34,7 @@ namespace mmt_gd
     }
 
 
-    void AStar(const std::vector<std::vector<int>>& grid, const Node& start, const Node& goal)
+    std::vector<std::pair<int, int>> AStar(const std::vector<std::vector<int>>& grid, const Node& start, const Node& goal)
     {
         //direction, in den man gehen kann
         const int dx[] = { 0, 1, 0, -1 };
@@ -65,6 +65,17 @@ namespace mmt_gd
                     currentPos = parentMap[currentPos];
                 }
                 path.push_back(std::make_pair(start.m_x, start.m_y));
+
+
+                // Print the path in reverse order
+                //std::cout << "Steps Amount: " << path.size() << std::endl;
+                //std::cout << "Path: ";
+                //
+                //for (auto it = path.rbegin(); it != path.rend(); ++it)
+                //{
+                //    std::cout << "(" << it->second << ", " << it->first << ") ";            //ist dann x, y denk ich
+                //}
+                //std::cout << std::endl;
 
                 return path;
             }

@@ -4,17 +4,17 @@
 #include "InputManager.h"
 #include "GameStateManager.h"
 #include "GameState.h"
-#include "CameraCmp.h"
+#include "ProjectileCmp.h"
 #include "GameObject.h"
 #include "HealthCmp.h"
 #include "PowerUpsCmp.h"
 #include "GameObjectManager.h"
+#include "ProjectileIdentityCmp.h"
 #include "PhysicsManager.h"
 namespace mmt_gd
 {
     void SpaceState::init()
     {
-
         //map
         tson::Tileson t;
         const fs::path tileMapresourcePath = { "Assets/SpaceShip" };
@@ -27,9 +27,6 @@ namespace mmt_gd
         mapGo->init();
 
         GameObjectManager::instance().addGameObject(mapGo);
-
-        //GameObjectManager::instance().getObjectsByType(Spaceship)
-
     }
 
     void SpaceState::exit()
@@ -43,23 +40,51 @@ namespace mmt_gd
         PhysicsManager::instance().update();
         GameObjectManager::instance().update(deltaTime);
 
-        const auto coll_pairs = PhysicsManager::instance().getCollisionPairs();
+        if (const auto player = GameObjectManager::instance().getGameObject("Player"))
+        {
+            if (InputManager::instance().isKeyPressed("shoot", 1) && player)
+            {
+                player->getComponent<ProjectileCmp>()->shoot(InputManager::instance().getMousPosition());
+            }
+        }
+
+       const auto coll_pairs = PhysicsManager::instance().getCollisionPairs();
        for (const auto p : coll_pairs)
         {
-            if (p.first->getType() == ObjectType::Spaceship && (p.second->getType() == ObjectType::Spaceship || p.second->getType() == ObjectType::Projectile))
+            if (p.first->getType() == ObjectType::Spaceship 
+                && p.second->getType() == ObjectType::Spaceship)
             {
-                //p.first->getComponent<HealthCmp>()->getDamage();
+              p.first->getComponent<HealthCmp>()->getDamage();
             }
-            else if (p.first->getType() == ObjectType::PowerUp && p.second->getType() == ObjectType::Spaceship)
+            else if(p.first->getType() == ObjectType::Spaceship 
+                && p.second->getType() == Projectile 
+                && (p.first->getId() != p.second->getComponent<ProjectileIdentityCmp>()->getSpaceShipId()))
+            {
+                p.first->getComponent<HealthCmp>()->getDamage();
+            }
+            else if (p.first->getType() == ObjectType::PowerUp 
+                && p.second->getType() == ObjectType::Spaceship)
             {
                 p.first->getComponent<PowerUpCmp>()->collect(p.second);
             }
             else if (p.first->getType() == ObjectType::Projectile)
             {
-                p.first->setActive(false);
+                if (p.second->getType() == ObjectType::Spaceship &&
+                    (p.second->getId() == p.first->getComponent<ProjectileIdentityCmp>()->getSpaceShipId()))
+                {
+                }
+                else
+                {
+                    p.first->setActive(false);
+                }
+            }
+            else if (p.first->getType() == ObjectType::PowerUp)
+            {
+                p.first->getComponent<PowerUpCmp>()->respawn();
             }
         }
 
+       //Lose and Winning Condition
         if (!GameObjectManager::instance().getGameObject("Player"))
         {
             GameStateManager::instance().setState("MenuState");
@@ -75,20 +100,22 @@ namespace mmt_gd
         RenderManager::instance().getWindow().clear({0, 0, 0});
         RenderManager::instance().draw();
 
-        for (auto body : PhysicsManager::instance().m_bodies)
-        {
-            if (std::shared_ptr<BoxCollisionCmp> tempP = body.lock())
-            {
-                sf::RectangleShape m_debugGeometry;
-                m_debugGeometry.setPosition(tempP->m_shape.getPosition());
-                m_debugGeometry.setSize(tempP->m_shape.getSize());
-                m_debugGeometry.setFillColor(sf::Color::Transparent);
-                m_debugGeometry.setOutlineColor(sf::Color::Red);
-                m_debugGeometry.setOutlineThickness(2);
+        //for (auto body : PhysicsManager::instance().m_bodies)
+        //{
+        //    if (std::shared_ptr<BoxCollisionCmp> tempP = body.lock())
+        //    {
+        //        {
+        //            sf::RectangleShape m_debugGeometry;
+        //            m_debugGeometry.setPosition(tempP->m_shape.getPosition());
+        //            m_debugGeometry.setSize(tempP->m_shape.getSize());
+        //            m_debugGeometry.setFillColor(sf::Color::Transparent);
+        //            m_debugGeometry.setOutlineColor(sf::Color::Red);
+        //            m_debugGeometry.setOutlineThickness(2);
 
-                RenderManager::instance().getWindow().draw(m_debugGeometry);
-            }
-        }
+        //            RenderManager::instance().getWindow().draw(m_debugGeometry);
+        //        }
+        //    }
+        //}
         RenderManager::instance().getWindow().display();
     }
 }

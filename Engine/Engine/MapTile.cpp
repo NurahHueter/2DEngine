@@ -40,7 +40,7 @@ namespace mmt_gd
 				// Überprüfe, ob entweder layerData1 oder layerData2 an dieser Position nicht null ist
 				if (layerData1[i * numCols + j] != 0 || layerData2[i * numCols + j] != 0)
 				{
-					m_LayerKachel[i].emplace_back(9);
+					m_LayerKachel[i].emplace_back(0);
 				}
 				else
 				{
@@ -56,7 +56,7 @@ namespace mmt_gd
 			for (int j = 0; j < numCols; ++j)
 			{
 				// Überprüfe, ob die Zelle im ersten Array den Wert 9 hat
-				if (m_LayerKachel[i][j] == 9)
+				if (m_LayerKachel[i][j] == 0)
 				{
 					// Überprüfe und setze die angrenzenden Zellen im zweiten Array auf 9
 					for (int di = -1; di <= 1; ++di)
@@ -67,9 +67,9 @@ namespace mmt_gd
 							int nj = j + dj;
 
 							// Überprüfe, ob die Nachbarzellen innerhalb der Grenzen liegen
-							if (ni >= 0 && ni < numRows && nj >= 0 && nj < numCols && m_LayerKachelWithBuffer[ni][nj] != 9)
+							if (ni >= 0 && ni < numRows && nj >= 0 && nj < numCols && m_LayerKachelWithBuffer[ni][nj] != 0)
 							{
-								m_LayerKachelWithBuffer[ni][nj] = 9;
+								m_LayerKachelWithBuffer[ni][nj] = 0;
 							}
 						}
 					}

@@ -240,7 +240,7 @@
                         {
                          "name":"velocityP",
                          "type":"float",
-                         "value":300
+                         "value":400
                         }],
                  "rotation":0,
                  "type":"SpaceShip",
@@ -248,58 +248,6 @@
                  "width":54.6666666666667,
                  "x":398.666666666667,
                  "y":400
-                }, 
-                {
-                 "height":53.3333,
-                 "id":12,
-                 "name":"Enemy2",
-                 "properties":[
-                        {
-                         "name":"Projectile",
-                         "type":"string",
-                         "value":"..\/Engine\/Assets\/SpaceShip\/Projectile.png"
-                        }, 
-                        {
-                         "name":"Texture",
-                         "type":"string",
-                         "value":"..\/Engine\/Assets\/SpaceShip\/Spaceships\/Spaceship#01 SpriteSheet.png"
-                        }, 
-                        {
-                         "name":"id",
-                         "type":"string",
-                         "value":"Enemy2"
-                        }, 
-                        {
-                         "name":"mass",
-                         "type":"float",
-                         "value":1
-                        }, 
-                        {
-                         "name":"shootIntervall",
-                         "type":"float",
-                         "value":0.5
-                        }, 
-                        {
-                         "name":"timeToLive",
-                         "type":"float",
-                         "value":10
-                        }, 
-                        {
-                         "name":"velocity",
-                         "type":"float",
-                         "value":200
-                        }, 
-                        {
-                         "name":"velocityP",
-                         "type":"float",
-                         "value":300
-                        }],
-                 "rotation":0,
-                 "type":"SpaceShip",
-                 "visible":true,
-                 "width":54.6667,
-                 "x":679.66665,
-                 "y":285.33335
                 }, 
                 {
                  "height":33,
@@ -563,6 +511,188 @@
                  "width":60,
                  "x":1044,
                  "y":130
+                }, 
+                {
+                 "height":53.3333,
+                 "id":44,
+                 "name":"Enemy1",
+                 "properties":[
+                        {
+                         "name":"Projectile",
+                         "type":"string",
+                         "value":"..\/Engine\/Assets\/SpaceShip\/Projectile.png"
+                        }, 
+                        {
+                         "name":"Texture",
+                         "type":"string",
+                         "value":"..\/Engine\/Assets\/SpaceShip\/Spaceships\/Spaceship#01 SpriteSheet.png"
+                        }, 
+                        {
+                         "name":"id",
+                         "type":"string",
+                         "value":"Enemy1"
+                        }, 
+                        {
+                         "name":"mass",
+                         "type":"float",
+                         "value":1
+                        }, 
+                        {
+                         "name":"shootIntervall",
+                         "type":"float",
+                         "value":0.5
+                        }, 
+                        {
+                         "name":"timeToLive",
+                         "type":"float",
+                         "value":10
+                        }, 
+                        {
+                         "name":"velocity",
+                         "type":"float",
+                         "value":200
+                        }, 
+                        {
+                         "name":"velocityP",
+                         "type":"float",
+                         "value":300
+                        }],
+                 "rotation":0,
+                 "type":"SpaceShip",
+                 "visible":true,
+                 "width":54.6667,
+                 "x":961.999983333333,
+                 "y":324.000016666667
+                }],
+         "opacity":1,
+         "type":"objectgroup",
+         "visible":true,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "draworder":"topdown",
+         "id":5,
+         "name":"PatrolPoints",
+         "objects":[
+                {
+                 "height":2,
+                 "id":34,
+                 "name":"PointAE1",
+                 "properties":[
+                        {
+                         "name":"EnemyId",
+                         "type":"string",
+                         "value":"Enemy1"
+                        }],
+                 "rotation":0,
+                 "type":"WayPoint",
+                 "visible":true,
+                 "width":7,
+                 "x":113,
+                 "y":107
+                }, 
+                {
+                 "height":14,
+                 "id":35,
+                 "name":"PointBE1",
+                 "properties":[
+                        {
+                         "name":"EnemyId",
+                         "type":"string",
+                         "value":"Enemy1"
+                        }],
+                 "rotation":0,
+                 "type":"WayPoint",
+                 "visible":true,
+                 "width":15,
+                 "x":106,
+                 "y":653
+                }, 
+                {
+                 "height":13,
+                 "id":36,
+                 "name":"PointAE2",
+                 "properties":[
+                        {
+                         "name":"EnemyId",
+                         "type":"string",
+                         "value":"Enemy2"
+                        }],
+                 "rotation":0,
+                 "type":"WayPoint",
+                 "visible":true,
+                 "width":13,
+                 "x":617.333333333333,
+                 "y":107.666666666667
+                }, 
+                {
+                 "height":13,
+                 "id":37,
+                 "name":"PointBE2",
+                 "properties":[
+                        {
+                         "name":"EnemyId",
+                         "type":"string",
+                         "value":"Enemy2"
+                        }],
+                 "rotation":0,
+                 "type":"WayPoint",
+                 "visible":true,
+                 "width":13,
+                 "x":626.666666666667,
+                 "y":445.333333333333
+                }, 
+                {
+                 "height":13,
+                 "id":40,
+                 "name":"PointCE2",
+                 "properties":[
+                        {
+                         "name":"EnemyId",
+                         "type":"string",
+                         "value":"Enemy2"
+                        }],
+                 "rotation":0,
+                 "type":"WayPoint",
+                 "visible":true,
+                 "width":13,
+                 "x":628.666666666667,
+                 "y":673.5
+                }, 
+                {
+                 "height":13,
+                 "id":42,
+                 "name":"PointAE3",
+                 "properties":[
+                        {
+                         "name":"EnemyId",
+                         "type":"string",
+                         "value":"Enemy3"
+                        }],
+                 "rotation":0,
+                 "type":"WayPoint",
+                 "visible":true,
+                 "width":13,
+                 "x":1013.5,
+                 "y":430.83
+                }, 
+                {
+                 "height":13,
+                 "id":43,
+                 "name":"PointBE3",
+                 "properties":[
+                        {
+                         "name":"EnemyId",
+                         "type":"string",
+                         "value":"Enemy3"
+                        }],
+                 "rotation":0,
+                 "type":"WayPoint",
+                 "visible":true,
+                 "width":13,
+                 "x":231.833333333333,
+                 "y":544.833333333334
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -570,9 +700,8 @@
          "x":0,
          "y":0
         }],
- "nextlayerid":5,
- "nextobjectid":15,
- "nextobjectid":34,
+ "nextlayerid":6,
+ "nextobjectid":48,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.10.2",

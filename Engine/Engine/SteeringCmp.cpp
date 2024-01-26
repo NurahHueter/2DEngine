@@ -13,6 +13,7 @@ namespace mmt_gd
 {
     bool SteeringCmp::init() 
     {
+        //TODO Richtigen Player nehm,en
         int sizeX = gameObject.getComponent<SpriteAnimationCmp>()->getTextureRect().getSize().x;
         int sizeY = gameObject.getComponent<SpriteAnimationCmp>()->getTextureRect().getSize().y;
 
@@ -45,13 +46,8 @@ namespace mmt_gd
     };
     void SteeringCmp::update(float deltaTime)
     {
-        //Werte von den Kacheln ausgeben
-        //std::cout << MapTile::m_LayerKachel[0][0] << std::endl;
-        int sizeX = gameObject.getComponent<SpriteAnimationCmp>()->getTextureRect().getSize().x;
-        int sizeY = gameObject.getComponent<SpriteAnimationCmp>()->getTextureRect().getSize().y;
-          //Kachelposition vom Target
-        int idxw_target = (GameObjectManager::instance().getGameObject("Player")->getPosition().x + (sizeX / 2)) / 16;
-        int idxh_target = (GameObjectManager::instance().getGameObject("Player")->getPosition().y + (sizeY / 2)) / 16;
+        constexpr float acc = 400.0f; 
+        sf::Vector2f accVec;
 
         static sf::Clock movementClock; // Static ensures the clock is created only once
 
@@ -65,38 +61,34 @@ namespace mmt_gd
 
                 m_pathlist.pop_back(); // Remove the used path from the list
 
-    //     setTarget(GameObjectManager::instance().getGameObject("Player")->getPosition());
+                movementClock.restart(); // Restart the clock for the next second
+            }
+        }
 
-    //    sf::Vector2f accVec;
-    //    const auto& animation = gameObject.getComponent<SpriteAnimationCmp>();
+        sf::Vector2f direction = nextTarget - gameObject.getPosition();
+        const auto animation = gameObject.getComponent<SpriteAnimationCmp>();
+        sf::Vector2f distance = MathUtil::unitVector(direction);
 
-    //    sf::Vector2f distance = m_target - gameObject.getPosition();
-    //    MathUtil::unitVector(distance);
-    //    
-    //    if (std::abs(distance.x) > std::abs(distance.y))
-    //    {
-    //        // Horizontale Bewegung
-    //        accVec = { (distance.x > 0) ? acc : -acc, 0.0f };
-    //        animation->setCurrentAnimation((distance.x > 0) ? "MoveRight" : "MoveLeft");
-    //    }
-    //    else
-    //    {
-    //        // Vertikale Bewegung
-    //        accVec = { 0.0f, (distance.y > 0) ? acc : -acc };
-    //        animation->setCurrentAnimation((distance.y > 0) ? "MoveDown" : "MoveUp");
-    //    }
+        if (std::abs(distance.x) > std::abs(distance.y))
+        {
+            // Horizontale Bewegung
+            accVec = { (distance.x > 0) ? acc : -acc, 0.0f };
+            animation->setCurrentAnimation((distance.x > 0) ? MoveRight : MoveLeft);
+        }
+        else
+        {
+            // Vertikale Bewegung
+            accVec = { 0.0f, (distance.y > 0) ? acc : -acc };
+            animation->setCurrentAnimation((distance.y > 0) ? MoveDown : MoveUp);
+        }
 
-    //    if (auto rigidBodyCmp = gameObject.getComponent<RigidBodyCmp>())
-    //    {
-    //        rigidBodyCmp->setVelocityP(accVec * deltaTime);
-    //        rigidBodyCmp->setVelocityN(rigidBodyCmp->getVelocity() - (rigidBodyCmp->getVelocity() * 0.99f));
-    //        rigidBodyCmp->setImpulse(accVec);
-    //        rigidBodyCmp->setPosition(rigidBodyCmp->getVelocity(), deltaTime);
-    //        gameObject.setPosition(rigidBodyCmp->getPosition());
-    //    }
-
-    //    
-    //    // Reset acceleration 
-    //    accVec = sf::Vector2f(0, 0);
-    };
+        if (auto rigidBodyCmp = gameObject.getComponent<RigidBodyCmp>())
+        {
+            rigidBodyCmp->setVelocityP(accVec * deltaTime);
+            rigidBodyCmp->setVelocityN(rigidBodyCmp->getVelocity() - (rigidBodyCmp->getVelocity() * 0.99f));
+            rigidBodyCmp->setImpulse(accVec);
+            rigidBodyCmp->setPosition(rigidBodyCmp->getVelocity(), deltaTime);
+            gameObject.setPosition(rigidBodyCmp->getPosition());
+        }
+    }
 }
