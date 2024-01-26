@@ -77,15 +77,6 @@ namespace mmt_gd
 			}
 		}
 
-		// Ausgabe des zweiten Arrays
-		for (int i = 0; i < numRows; ++i)
-		{
-			for (int j = 0; j < numCols; ++j)
-			{
-				std::cout << m_LayerKachelWithBuffer[i][j] << " ";
-			}
-			std::cout << std::endl;
-		}
 
 		if (map->getStatus() == tson::ParseStatus::OK)
 		{

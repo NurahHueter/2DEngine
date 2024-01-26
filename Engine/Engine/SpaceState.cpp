@@ -60,7 +60,7 @@ namespace mmt_gd
                 && p.second->getType() == Projectile 
                 && (p.first->getId() != p.second->getComponent<ProjectileIdentityCmp>()->getSpaceShipId()))
             {
-                p.first->getComponent<HealthCmp>()->getDamage();
+              p.first->getComponent<HealthCmp>()->getDamage();
             }
             else if (p.first->getType() == ObjectType::PowerUp 
                 && p.second->getType() == ObjectType::Spaceship)

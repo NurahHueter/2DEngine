@@ -21,7 +21,7 @@ namespace mmt_gd
 		int m_sizeY;
 		bool m_reachedTarget = false;
 		sf::Vector2f nextTarget = { 0, 0 };
-		sf::Vector2f m_target = { 0.f, 0.f };
+		sf::Vector2f m_target;
 		sf::Vector2f m_velocity;
 		sf::Vector2f direction = { 0.f, 0.f };
 		std::vector<std::pair<int, int>> m_pathlist;

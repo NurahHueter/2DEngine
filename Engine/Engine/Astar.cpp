@@ -16,6 +16,7 @@ namespace mmt_gd
     {
         return Node::m_weight > other.m_weight;
     }
+
     template <class T1, class T2>
     std::size_t PairHash::operator()(const std::pair<T1, T2>& p) const
     {
@@ -27,12 +28,10 @@ namespace mmt_gd
     }
 
     template <class T1, class T2>
-
     bool PairEqual::operator()(const std::pair<T1, T2>& lhs, const std::pair<T1, T2>& rhs) const
     {
         return lhs.first == rhs.first && lhs.second == rhs.second;
     }
-
 
     std::vector<std::pair<int, int>> AStar(const std::vector<std::vector<int>>& grid, const Node& start, const Node& goal)
     {
@@ -65,18 +64,10 @@ namespace mmt_gd
                     currentPos = parentMap[currentPos];
                 }
                 path.push_back(std::make_pair(start.m_x, start.m_y));
-
-
-                // Print the path in reverse order
-                //std::cout << "Steps Amount: " << path.size() << std::endl;
-                //std::cout << "Path: ";
-                //
-                //for (auto it = path.rbegin(); it != path.rend(); ++it)
-                //{
-                //    std::cout << "(" << it->second << ", " << it->first << ") ";            //ist dann x, y denk ich
-                //}
-                //std::cout << std::endl;
-
+                openSet.empty();
+                seenSet.empty();
+                costMap.clear();
+                parentMap.clear();
                 return path;
             }
 

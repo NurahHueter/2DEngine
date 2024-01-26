@@ -13,43 +13,46 @@ namespace mmt_gd
 {
     bool SteeringCmp::init() 
     {
-        //TODO Richtigen Player nehm,en
-        int sizeX = gameObject.getComponent<SpriteAnimationCmp>()->getTextureRect().getSize().x;
-        int sizeY = gameObject.getComponent<SpriteAnimationCmp>()->getTextureRect().getSize().y;
-
         //Kachelposition von der AI
-        int idxw_player = (gameObject.getPosition().x + (m_sizeX / 2)) / MapTile::m_tileSize.x;          //16-> tileSize
+        int idxw_player = (gameObject.getPosition().x + (m_sizeX / 2)) / MapTile::m_tileSize.x;    
         int idxh_player = (gameObject.getPosition().y + (m_sizeY / 2)) / MapTile::m_tileSize.x;
 
-        //Kachelposition vom Target
-        int idxw_target = (GameObjectManager::instance().getGameObject("Player")->getPosition().x + (m_sizeX / 2)) / MapTile::m_tileSize.x;
-        int idxh_target = (GameObjectManager::instance().getGameObject("Player")->getPosition().y + (m_sizeX / 2)) / MapTile::m_tileSize.x;
-
-
+        m_target = GameObjectManager::instance().getGameObject("Player")->getPosition();
         // Create start and goal nodes
-        Node start(13, 62, 0, 0); // Assuming g and h are 0 initially
-        Node goal(39, 39, 0, 0); // Assuming g and h are 0 initially
-
+        Node start(idxh_player, idxw_player, 0, 0); // Assuming g and h are 0 initially
+        Node goal((m_target.y  / MapTile::m_tileSize.x), (m_target.x / MapTile::m_tileSize.y),0,0); // Assuming g and h are 0 initially
+        
         // Call A* algorithm
         m_pathlist = AStar(MapTile::m_LayerKachelWithBuffer, start, goal);
 
-        std::cout << "Steps Amount: " << m_pathlist.size() << std::endl;
-        std::cout << "Path: ";
-
-        for (auto it = m_pathlist.rbegin(); it != m_pathlist.rend(); ++it)
-        {
-            std::cout << "(" << it->second << ", " << it->first << ") ";            //ist dann x, y denk ich
-        }
+     
         std::cout << std::endl;
        
         return true;
     };
     void SteeringCmp::update(float deltaTime)
     {
-        constexpr float acc = 400.0f; 
+        constexpr float acc = 300.0f; 
         sf::Vector2f accVec;
 
-        static sf::Clock movementClock; // Static ensures the clock is created only once
+        static sf::Clock movementClock; 
+		static sf::Clock movementClock2;
+
+
+        if (movementClock2.getElapsedTime().asSeconds() >= 2.f)
+        {	
+			int idxw_player = (gameObject.getPosition().x + (m_sizeX / 2)) / MapTile::m_tileSize.x;         
+			int idxh_player = (gameObject.getPosition().y + (m_sizeY / 2)) / MapTile::m_tileSize.y;
+
+			// Create start and goal nodes
+			Node start(idxh_player, idxw_player, 0, 0); // Assuming g and h are 0 initially
+			Node goal((m_target.y / MapTile::m_tileSize.x), (m_target.x / MapTile::m_tileSize.y), 0, 0);
+            m_pathlist.clear();
+			// Call A* algorithm
+			m_pathlist = AStar(MapTile::m_LayerKachelWithBuffer, start, goal);
+
+			movementClock2.restart();
+        }
 
         if (movementClock.getElapsedTime().asSeconds() >= 0.1f)
         {

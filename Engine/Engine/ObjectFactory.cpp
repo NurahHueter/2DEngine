@@ -43,7 +43,7 @@ namespace mmt_gd
         }
         if (object.getType() == "WayPoint")
         {
-            //loadWayPoint(object, layer);
+            loadWayPoint(object, layer);
         }
     }
 
@@ -145,7 +145,7 @@ namespace mmt_gd
                {MoveRightUp, 6},
                 });
 
-            gameObject->addComponent(std::make_shared<SteeringCmp>(*gameObject, sf::Vector2f(velocity, velocity)));
+            gameObject->addComponent(std::make_shared<SteeringCmp>(*gameObject, sf::Vector2f(velocity, velocity), animationCmp->getTextureRect().getSize().x, animationCmp->getTextureRect().getSize().y));
             gameObject->addComponent(std::make_shared<AIControllerCmp>(*gameObject));
         }
 
@@ -396,7 +396,7 @@ namespace mmt_gd
         GameObjectManager::instance().addGameObject(gameObject);
     }
 
-   /* void ObjectFactory::loadWayPoint(tson::Object& object, const tson::Layer& layer)
+    void ObjectFactory::loadWayPoint(tson::Object& object, const tson::Layer& layer)
     {
         std::string EnemyId;
         for (const auto* property : object.getProperties().get())
@@ -411,6 +411,6 @@ namespace mmt_gd
                 }
             }
         };
-    }*/
+    }
 }
 
