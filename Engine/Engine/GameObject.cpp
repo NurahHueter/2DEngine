@@ -1,7 +1,5 @@
 #include "pch.h"
-
 #include "GameObject.h"
-
 #include "IRenderComponent.h"
 
 namespace mmt_gd

@@ -3,8 +3,6 @@
 #include "BoxCollisionCmp.h"
 #include <SFML/Graphics/Rect.hpp>
 
-
-
 namespace mmt_gd
 {
 struct Manifold

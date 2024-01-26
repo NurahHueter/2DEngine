@@ -1,8 +1,8 @@
-// GameStateManager.cpp
 #pragma once
 #include "pch.h"
 #include "GameStateManager.h"
 #include "GameState.h"
+
 namespace mmt_gd
 {
 

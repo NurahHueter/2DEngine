@@ -1,13 +1,11 @@
 #pragma once
 #include <string>
-#include <unordered_map>
 #include "GameObject.h"
 #include "ObjectTypes.h"
 namespace mmt_gd
 {
     struct GameObjectManager
     {
-    
         using GameObjectMap = std::map<std::string, GameObject::Ptr>;
 
         static

@@ -43,10 +43,10 @@ namespace mmt_gd
 	bool InputManager::isKeyDown(const std::string& action, int playerIdx)
 	{
 		std::string key = action + std::to_string(playerIdx);
-		if (m_bindings.find(key) != m_bindings.end()) // Überprüfen, ob "action" im Dictionary vorhanden ist
+		if (m_bindings.find(key) != m_bindings.end()) // Check whether "action" is present in the dictionary
 		{
-			auto binding = m_bindings[action]; // `binding` enthält die BindingForPlayer-Klasse
-			return isKeyDown(binding.keyCode) && binding.playerIdx == playerIdx; // Wenn ja, dann rufe isKeyDown mit dem KeyCode auf und überprüfe, ob der playerIdx übereinstimmt
+			auto binding = m_bindings[action]; // `binding` contains the BindingForPlayer class
+			return isKeyDown(binding.keyCode) && binding.playerIdx == playerIdx; // If yes, then call isKeyDown with the KeyCode and check if the playerIdx matches
 		}
 
 		return false;
@@ -94,10 +94,10 @@ namespace mmt_gd
 	bool InputManager::isMouseDown(const std::string& action, int playerIdx)
 	{
 		std::string key = action + std::to_string(playerIdx);
-		if (m_bindings.find(key) != m_bindings.end()) // Überprüfen, ob "action" im Dictionary vorhanden ist
+		if (m_bindings.find(key) != m_bindings.end())
 		{
-			auto binding = m_bindings[key]; // `binding` enthält die BindingForPlayer-Klasse
-			return isMouseDown(binding.keyCode) && binding.playerIdx == playerIdx; // Wenn ja, dann rufe isKeyDown mit dem KeyCode auf und überprüfe, ob der playerIdx übereinstimmt
+			auto binding = m_bindings[key]; 
+			return isMouseDown(binding.keyCode) && binding.playerIdx == playerIdx; // If yes, then call isKeyDown with the KeyCode and check if the playerIdx matches
 		}
 
 		return false;
@@ -129,22 +129,20 @@ namespace mmt_gd
 
 	void InputManager::bind(const std::string& name, int keyCode, int playerIdx)
 	{
-		std::string key = name + std::to_string(playerIdx); //Als Key wird der name und der playerIdx verwednet, so dass der key immer einzigartig ist
+		std::string key = name + std::to_string(playerIdx); //As the key, the name and the playerIdx are used so that the key is always unique
 
-		m_bindings[key] = { keyCode, playerIdx }; // In die Map werden die beiden Werte gespeichert. (BindingForPlayer)
+		m_bindings[key] = { keyCode, playerIdx }; // The two values are saved in the map. (BindingForPlayer)
 	};
 
 	void InputManager::unbind(const std::string& name, int playerIdx)
 	{
 		std::string key = name + std::to_string(playerIdx);
-		auto binding_iterator = m_bindings.find(key); // Wenn der Eintrag vorhanden ist, ist der Binding-Iterator ein Iterator, der auf den Wert zeigt. Andernfalls zeigt er ans Ende der Map.
-		if (binding_iterator != m_bindings.end() && binding_iterator->second.playerIdx == playerIdx) // `second` ist der zweite Wert in der Map (BindingForPlayer)(keyCode, playerIdx)
+		auto binding_iterator = m_bindings.find(key); // If the entry is present, the binding iterator is an iterator that points to the value. Otherwise, it points to the end of the map.
+		if (binding_iterator != m_bindings.end() && binding_iterator->second.playerIdx == playerIdx) // `second` is the second value in the map (BindingForPlayer)(keyCode, playerIdx)
 		{
 			m_bindings.erase(binding_iterator);
 		}
 	};
-
-
 
 	void InputManager::handleEvents(sf::Event& event)
 	{

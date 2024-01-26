@@ -31,8 +31,8 @@ namespace mmt_gd
         text.setCharacterSize(24); 
         text.setFillColor(sf::Color::White);
 
-        float x = (RenderManager::instance().getWindow().getView().getSize().x - text.getGlobalBounds().width) / 2;
-        float y = (RenderManager::instance().getWindow().getView().getSize().y - text.getGlobalBounds().height) / 2;
+        float x = (RenderManager::instance().getWindow().getSize().x - text.getGlobalBounds().width) / 2;
+        float y = (RenderManager::instance().getWindow().getSize().y - text.getGlobalBounds().height) / 2;
         text.setPosition(x, y);
         RenderManager::instance().getWindow().draw(text);
         RenderManager::instance().getWindow().display();

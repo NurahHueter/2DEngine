@@ -35,12 +35,12 @@ namespace mmt_gd
 
     std::vector<std::pair<int, int>> AStar(const std::vector<std::vector<int>>& grid, const Node& start, const Node& goal)
     {
-        //direction, in den man gehen kann
+        // Direction in which one can move
         const int dx[] = { 0, 1, 0, -1 };
         const int dy[] = { 1, 0, -1, 0 };
 
-        std::priority_queue<Node, std::vector<Node>, std::greater<Node>> openSet;   //noch zu behandelten punkte
-        std::unordered_set<std::pair<int, int>, PairHash, PairEqual> seenSet;       //schon behandelte punkte
+        std::priority_queue<Node, std::vector<Node>, std::greater<Node>> openSet;   // Points to be processed
+        std::unordered_set<std::pair<int, int>, PairHash, PairEqual> seenSet;       // Processed points
         std::unordered_map<std::pair<int, int>, int, PairHash, PairEqual> costMap;
         std::unordered_map<std::pair<int, int>, std::pair<int, int>, PairHash, PairEqual> parentMap;  // To store the parent information
 
@@ -71,17 +71,17 @@ namespace mmt_gd
                 return path;
             }
 
-            seenSet.insert({ current.m_x, current.m_y }); //wenn man einmal an den punkt war, dann muss mann nicht ein zweites mal kommen
+            seenSet.insert({ current.m_x, current.m_y }); // Once visited, no need to visit again
 
             for (int i = 0; i < 4; ++i)
             {
-                //alle 4 richtungen testen
+                // Test all 4 directions
                 int nx = current.m_x + dx[i];
                 int ny = current.m_y + dy[i];
 
                 if (nx >= 0 && nx < grid.size() && ny >= 0 && ny < grid[0].size())
                 {
-                    if (grid[nx][ny] == 1 && seenSet.find({ nx, ny }) == seenSet.end()) //wenn es begehbar ist und nicht in closedSet
+                    if (grid[nx][ny] == 1 && seenSet.find({ nx, ny }) == seenSet.end()) // If walkable and not in the closed set
                     {
 
                         int newSteps = current.m_steps + 1;

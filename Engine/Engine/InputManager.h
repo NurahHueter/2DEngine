@@ -15,9 +15,7 @@ namespace mmt_gd
         InputManager(const InputManager&) = delete;
         InputManager& operator = (const InputManager&) = delete;
 
-        //void Init(sf::Window& window);
         void update();
-
 
         bool isKeyDown(int keyCode);
         bool isKeyUp(int keyCode);
@@ -39,7 +37,6 @@ namespace mmt_gd
 
         sf::Vector2f getMousPosition();
 
-        // Tastenaktionen binden und lösen
         void bind(const std::string& name, int keyCode, int playerIdx);
         void unbind(const std::string& name, int playerIdx);
 
@@ -69,6 +66,5 @@ namespace mmt_gd
 
         InputManager() {}
         ~InputManager() {}
-
     };
 }

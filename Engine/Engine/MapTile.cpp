@@ -22,22 +22,22 @@ namespace mmt_gd
 		const int numRows = 50;
 		const int numCols = 90;
 		
+		// Get layer data from the map
 		auto& layerData0 = map->getLayers()[0].getData();
 		auto& layerData1 = map->getLayers()[1].getData();
 		auto& layerData2 = map->getLayers()[2].getData();
 		
 		m_LayerKachel.reserve(numRows);
 
-		// Eine Reihe Polster für das Flugzeug - TODO
-
 		for (int i = 0; i < numRows; ++i)
 		{
-			m_LayerKachel.emplace_back(); // Fügt eine leere Zeile hinzu
+			// Add an empty row
+			m_LayerKachel.emplace_back(); 
 			m_LayerKachel[i].reserve(numCols);
 
 			for (int j = 0; j < numCols; ++j)
 			{
-				// Überprüfe, ob entweder layerData1 oder layerData2 an dieser Position nicht null ist
+				// Check if either layerData1 or layerData2 at this position is not null
 				if (layerData1[i * numCols + j] != 0 || layerData2[i * numCols + j] != 0)
 				{
 					m_LayerKachel[i].emplace_back(0);
@@ -55,10 +55,10 @@ namespace mmt_gd
 		{
 			for (int j = 0; j < numCols; ++j)
 			{
-				// Überprüfe, ob die Zelle im ersten Array den Wert 9 hat
+				// Check if the cell in the first array has the value 0
 				if (m_LayerKachel[i][j] == 0)
 				{
-					// Überprüfe und setze die angrenzenden Zellen im zweiten Array auf 9
+					// Check and set the adjacent cells in the second array to 0
 					for (int di = -1; di <= 1; ++di)
 					{
 						for (int dj = -1; dj <= 1; ++dj)
@@ -66,7 +66,7 @@ namespace mmt_gd
 							int ni = i + di;
 							int nj = j + dj;
 
-							// Überprüfe, ob die Nachbarzellen innerhalb der Grenzen liegen
+							// check if neighborzell is inside the boarder
 							if (ni >= 0 && ni < numRows && nj >= 0 && nj < numCols && m_LayerKachelWithBuffer[ni][nj] != 0)
 							{
 								m_LayerKachelWithBuffer[ni][nj] = 0;

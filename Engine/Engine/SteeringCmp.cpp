@@ -13,14 +13,14 @@ namespace mmt_gd
 {
     bool SteeringCmp::init() 
     {
-        //Kachelposition von der AI
+        // Position from the ai on the grid
         int idxw_player = (gameObject.getPosition().x + (m_sizeX / 2)) / MapTile::m_tileSize.x;    
         int idxh_player = (gameObject.getPosition().y + (m_sizeY / 2)) / MapTile::m_tileSize.x;
 
         m_target = GameObjectManager::instance().getGameObject("Player")->getPosition();
         // Create start and goal nodes
-        Node start(idxh_player, idxw_player, 0, 0); // Assuming g and h are 0 initially
-        Node goal((m_target.y  / MapTile::m_tileSize.x), (m_target.x / MapTile::m_tileSize.y),0,0); // Assuming g and h are 0 initially
+        Node start(idxh_player, idxw_player, 0, 0); 
+        Node goal((m_target.y  / MapTile::m_tileSize.x), (m_target.x / MapTile::m_tileSize.y),0,0); 
         
         // Call A* algorithm
         m_pathlist = AStar(MapTile::m_LayerKachelWithBuffer, start, goal);
@@ -42,9 +42,10 @@ namespace mmt_gd
 			int idxh_player = (gameObject.getPosition().y + (m_sizeY / 2)) / MapTile::m_tileSize.y;
 
 			// Create start and goal nodes
-			Node start(idxh_player, idxw_player, 0, 0); // Assuming g and h are 0 initially
+			Node start(idxh_player, idxw_player, 0, 0); 
 			Node goal((m_target.y / MapTile::m_tileSize.x), (m_target.x / MapTile::m_tileSize.y), 0, 0);
             m_pathlist.clear();
+
 			// Call A* algorithm
 			m_pathlist = AStar(MapTile::m_LayerKachelWithBuffer, start, goal);
 
@@ -72,13 +73,13 @@ namespace mmt_gd
 
         if (std::abs(distance.x) > std::abs(distance.y))
         {
-            // Horizontale Bewegung
+            // horizontal movement
             accVec = { (distance.x > 0) ? acc : -acc, 0.0f };
             animation->setCurrentAnimation((distance.x > 0) ? MoveRight : MoveLeft);
         }
         else
         {
-            // Vertikale Bewegung
+            // vertical movement
             accVec = { 0.0f, (distance.y > 0) ? acc : -acc };
             animation->setCurrentAnimation((distance.y > 0) ? MoveDown : MoveUp);
         }

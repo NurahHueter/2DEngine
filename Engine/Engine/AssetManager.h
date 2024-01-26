@@ -33,6 +33,5 @@ namespace mmt_gd
 	private:
 		AssetManager() {}
 		~AssetManager() {}
-
 	};
 }

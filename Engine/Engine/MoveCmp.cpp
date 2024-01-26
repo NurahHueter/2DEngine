@@ -15,8 +15,6 @@ namespace mmt_gd
         const auto& animation = gameObject.getComponent<SpriteAnimationCmp>();
         if (InputManager::instance().isKeyPressed("up", gameObject.getPlayerIdx()))
         {
-          
-            //std::cout << gameObject.getPlayerIdx() << std::endl;
             accVec = { 0.0f, -acc };
             animation->setCurrentAnimation(MoveUp);
         }

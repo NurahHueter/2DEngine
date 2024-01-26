@@ -1,9 +1,9 @@
-    //GameState.h
-    #pragma once
-    #include <SFML/Graphics/RenderWindow.hpp>
-    #include "RenderManager.h"
-    #include "MapTile.h"
-    #include "PhysicsManager.h"
+#pragma once
+#include <SFML/Graphics/RenderWindow.hpp>
+#include "RenderManager.h"
+#include "MapTile.h"
+#include "PhysicsManager.h"
+
 namespace mmt_gd
 {
     class GameObject;

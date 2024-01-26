@@ -1,7 +1,7 @@
-// GameStateManager.h
 #pragma once
 #include <map>
 #include <SFML/Graphics/RenderWindow.hpp>
+
 namespace mmt_gd
 {
     class GameState; // forward declaration to avoid circular header file dependency

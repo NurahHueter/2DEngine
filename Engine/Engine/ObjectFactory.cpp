@@ -1,5 +1,4 @@
 #include "pch.h"
-
 #include "ObjectFactory.h"
 #include "GameObject.h"
 #include "RenderManager.h"
@@ -400,7 +399,6 @@ namespace mmt_gd
             {
                 if ((EnemyId = property->getValue<std::string>()).length() > 0)
                 {
-                    std::cout << EnemyId;
                     GameObjectManager::instance().getGameObject(EnemyId)->getComponent<AIControllerCmp>()->addPatrolPoint(sf::Vector2f(static_cast<float>(object.getPosition().x), static_cast<float>(object.getPosition().y)));
                 }
             }

@@ -120,7 +120,6 @@ namespace mmt_gd
         shape->setOutlineColor(outlineColor);
         shape->setFillColor(fillColor);
         shape->setPosition(position);
-        //shape->setOrigin(size * 0.5F);
 
         m_shapes.push_back(shape);
     }
