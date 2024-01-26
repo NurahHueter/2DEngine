@@ -2,14 +2,14 @@
 
 #include "pch.h"
 #include "GameState.h"
-#include "CameraCmp.h"
+#include "Assetmanager.h"
 #include "MapTile.h"
+
 namespace mmt_gd
 {
     void MenuState::init()
     {
-        std::cout << "init MenuState" << std::endl;
-
+        AssetManager::instance().LoadFont("font","../Engine/Assets/SpaceShip/arial.ttf");
     }
 
     void MenuState::exit()
@@ -25,7 +25,16 @@ namespace mmt_gd
     void MenuState::draw()
     {
         RenderManager::instance().getWindow().clear({ 0, 0, 0 });
+        sf::Text text;
+        text.setFont(*AssetManager::instance().m_Font["font"]); 
+        text.setString("Press 2 to start the game, press 1 to come back tp Startscreen");
+        text.setCharacterSize(24); 
+        text.setFillColor(sf::Color::White);
 
+        float x = (RenderManager::instance().getWindow().getView().getSize().x - text.getGlobalBounds().width) / 2;
+        float y = (RenderManager::instance().getWindow().getView().getSize().y - text.getGlobalBounds().height) / 2;
+        text.setPosition(x, y);
+        RenderManager::instance().getWindow().draw(text);
         RenderManager::instance().getWindow().display();
     }
 }

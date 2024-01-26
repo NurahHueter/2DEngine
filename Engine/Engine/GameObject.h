@@ -122,7 +122,7 @@ namespace mmt_gd
 
     protected:
         std::string m_id = "unnamed"; ///< unique name of object, e.g. player
-        int m_idx ; ///< unique name of object, e.g. player
+        int m_idx = 0; ///< unique name of object, e.g. player
         bool        m_wantToDie = false;
         bool        m_isActive = true;
         ObjectType m_type = Default;

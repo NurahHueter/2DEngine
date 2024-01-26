@@ -164,14 +164,14 @@ namespace mmt_gd
                 sf::Vector2f impulse = velAlongNormal * man.m_normal;
 
                 if (isWall1) {
-                    man.m_body2->rigidBody->setVelocityP(2.f * impulse);
+                    man.m_body2->rigidBody->setVelocityP(2.3f * impulse);
                 }
                 else if (isWall2) {
-                    man.m_body1->rigidBody->setVelocityN(2.f * impulse);
+                    man.m_body1->rigidBody->setVelocityN(2.3f * impulse);
                 }
                 else {
-                    man.m_body1->rigidBody->setVelocityN(2.f * impulse);
-                    man.m_body2->rigidBody->setVelocityP(2.f * impulse);
+                    man.m_body1->rigidBody->setVelocityN(1.8f * impulse);
+                    man.m_body2->rigidBody->setVelocityP(1.8f * impulse);
                 }
             }
         }

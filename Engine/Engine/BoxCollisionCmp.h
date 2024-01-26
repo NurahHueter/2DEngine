@@ -5,7 +5,7 @@
 
 namespace mmt_gd
 {
-    class RigidBodyCmp; // Forward declaration
+    class RigidBodyCmp; 
 
     class BoxCollisionCmp : public IComponent , std::enable_shared_from_this< BoxCollisionCmp >
     {
@@ -16,13 +16,13 @@ namespace mmt_gd
         bool init() override;
         void update(float deltaTime) override;
 
-        // Accessors
+
         const sf::FloatRect& getSize() const { return m_shape; }
         const sf::Vector2f& getPosition() const { return m_position; }
         bool isLogicTrigger() const { return logicTrigger; }
         std::shared_ptr<RigidBodyCmp> getRigidBody() const { return rigidBody; }
 
-        // Setters
+
         void setLogicTrigger(bool value) { logicTrigger = value; }
         
         std::shared_ptr<RigidBodyCmp> rigidBody = nullptr;

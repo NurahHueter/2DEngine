@@ -35,7 +35,6 @@ namespace mmt_gd
                     std::cout << "exit State" << std::endl;
                     currentState->exit();
                 }
-                //Vielleciht memory leak
                 currentState = state;
                 currentState->init();
             }

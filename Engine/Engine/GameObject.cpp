@@ -40,7 +40,7 @@ namespace mmt_gd
 
     bool GameObject::init() const
     {
-        for (const auto& comp : m_componentList) // NOLINT(readability-use-anyofallof)
+        for (const auto& comp : m_componentList) 
         {
             if (!comp->init())
             {

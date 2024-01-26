@@ -156,7 +156,6 @@ sfml-window-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     <ClCompile Include="GameStateManager.cpp" />
     <ClCompile Include="HealthCmp.cpp" />
     <ClCompile Include="InputManager.cpp" />
-    <ClCompile Include="MainState.cpp" />
     <ClCompile Include="MapTile.cpp" />
     <ClCompile Include="MenüState.cpp" />
     <ClCompile Include="MoveCmp.cpp" />

@@ -31,7 +31,6 @@ namespace mmt_gd
         if (object.getType() == "SpaceShip")
         {
             loadSpaceship(object, layer);
-
         }
         if (object.getType() == "Collider")
         {
@@ -149,7 +148,6 @@ namespace mmt_gd
             gameObject->addComponent(std::make_shared<AIControllerCmp>(*gameObject));
         }
 
-        animationCmp->setCurrentAnimation(MoveRight);
         animationCmp->init();
         RenderManager::instance().addCompToLayer(layer.getName(), animationCmp);
         gameObject->addComponent(animationCmp);
@@ -304,7 +302,6 @@ namespace mmt_gd
             PhysicsManager::instance().addBoxCollisionCmp(trigger);
 
 
-            std::cout << layer.getSize().x << layer.getSize().y << std::endl;
             const auto& powerUpCmp = std::make_shared<PowerUpCmp>(*heart,
                 sf::FloatRect(10.f, 10.f, 1300, 750),
                 Health);
@@ -330,7 +327,6 @@ namespace mmt_gd
                 sf::FloatRect(sf::FloatRect(renderCmp->getTextureRect())), true);
             speed->addComponent(trigger);
             PhysicsManager::instance().addBoxCollisionCmp(trigger);
-            //std::cout << layer.getSize().x << layer.getSize().y << std::endl;
             const auto& powerUpCmp = std::make_shared<PowerUpCmp>(*speed,
                 sf::FloatRect(10.f, 10.f, 1300, 750),
                 Speed);
@@ -367,10 +363,6 @@ namespace mmt_gd
                     gameObject->setId(id);
                 }
             }
-            /* else if (name == "velocity")
-             {
-                 velocity = property->getValue<float>();
-             }*/
             else if (name == "mass")
             {
                 mass = property->getValue<float>();
@@ -399,6 +391,7 @@ namespace mmt_gd
     void ObjectFactory::loadWayPoint(tson::Object& object, const tson::Layer& layer)
     {
         std::string EnemyId;
+        
         for (const auto* property : object.getProperties().get())
         {
             auto name = property->getName();
@@ -407,6 +400,7 @@ namespace mmt_gd
             {
                 if ((EnemyId = property->getValue<std::string>()).length() > 0)
                 {
+                    std::cout << EnemyId;
                     GameObjectManager::instance().getGameObject(EnemyId)->getComponent<AIControllerCmp>()->addPatrolPoint(sf::Vector2f(static_cast<float>(object.getPosition().x), static_cast<float>(object.getPosition().y)));
                 }
             }

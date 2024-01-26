@@ -25,9 +25,6 @@ namespace mmt_gd
         // Call A* algorithm
         m_pathlist = AStar(MapTile::m_LayerKachelWithBuffer, start, goal);
 
-     
-        std::cout << std::endl;
-       
         return true;
     };
     void SteeringCmp::update(float deltaTime)
@@ -51,6 +48,7 @@ namespace mmt_gd
 			// Call A* algorithm
 			m_pathlist = AStar(MapTile::m_LayerKachelWithBuffer, start, goal);
 
+            //std::cout << gameObject.getId() << m_target.x;
 			movementClock2.restart();
         }
 

@@ -57,7 +57,7 @@ namespace mmt_gd
 		float m_animationTime = 0;
 		float m_animationSpeed;
 		int m_animationFrame = 0;
-		AnimationType m_currentAnimation;
+		AnimationType m_currentAnimation = MoveRight;
 		std::map<AnimationType, int> m_animations;
 		std::vector<AnimationType> m_animationOrder;
 	};

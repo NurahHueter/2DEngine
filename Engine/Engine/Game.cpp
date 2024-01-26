@@ -18,7 +18,6 @@ namespace mmt_gd
 
 		bindInput();
 
-		GameStateManager::instance().addState("MainState", std::make_shared<MainState>());
 		GameStateManager::instance().addState("MenuState", std::make_shared<MenuState>());
 		GameStateManager::instance().addState("SpaceGameState", std::make_shared<SpaceState>());
 
@@ -45,10 +44,6 @@ namespace mmt_gd
 		if (InputManager::instance().isKeyUp("MenuState", 1))
 		{
 			GameStateManager::instance().setState("MenuState");
-		}
-		else if(InputManager::instance().isKeyUp("MainState", 1))
-		{
-			GameStateManager::instance().setState("MainState");
 		}
 		else if (InputManager::instance().isKeyUp("SpaceGameState", 1))
 		{
@@ -103,9 +98,8 @@ namespace mmt_gd
 			InputManager::instance().bind("leftclick", sf::Mouse::Left, 2);
 			InputManager::instance().bind("debugdraw", sf::Keyboard::Key::Num0, 1);
 			InputManager::instance().bind("space", sf::Keyboard::Key::Space, 1);
-			InputManager::instance().bind("MainState", sf::Keyboard::Key::Num2, 1);
 			InputManager::instance().bind("MenuState", sf::Keyboard::Key::Num1, 1);
-			InputManager::instance().bind("SpaceGameState", sf::Keyboard::Key::Num3, 1);
+			InputManager::instance().bind("SpaceGameState", sf::Keyboard::Key::Num2, 1);
 	}
 }
 

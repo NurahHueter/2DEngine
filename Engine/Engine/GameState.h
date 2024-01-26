@@ -29,16 +29,6 @@ namespace mmt_gd
         virtual void update(float deltaTime) override;
         virtual void draw() override; 
     };
-
-    class MainState : public GameState
-    {
-    public:
-        MapTile mapTile;
-        virtual void init() override;
-        virtual void exit() override;
-        virtual void update(float deltaTime) override;
-        virtual void draw() override;;
-    };
     class SpaceState : public GameState
     {
     public:

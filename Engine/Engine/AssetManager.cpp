@@ -55,7 +55,7 @@ namespace mmt_gd
 		auto it = m_Textures.find(name);
 		if (it != m_Textures.end()) {
 			m_Textures.erase(it);
-			std::cout << "unload TEXTRUE" << std::endl;
+			std::cout << "unload Texture " << std::endl;
 		}
 	}
 
@@ -80,10 +80,3 @@ namespace mmt_gd
 		}
 	}
 }
-
-//this->Textures[name] = texture;
-
-// Music loadFromFile??
-// was ist besser? //this->Textures[name] = texture;
-//					 this->Textures.insert(std::pair<std::string, sf::Texture>(name, texture));
-// Was brauchen wir noch außer Manager?
