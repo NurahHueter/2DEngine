@@ -9,7 +9,7 @@
 #include "GameObjectManager.h"
 #include "SpriteRenderCmp.h"
 #include "MoveCmp.h"
-#include "MouseMoveCmp.h"
+
 #include "RigidBodyCmp.h"
 #include "BoxCollisionCmp.h"
 #include "PhysicsManager.h"

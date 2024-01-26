@@ -8,8 +8,8 @@ namespace mmt_gd
 	class SteeringCmp : public IComponent
 	{
 	public:
-		SteeringCmp(GameObject& gameObjectPlayer,  const sf::Vector2f& velocity)
-			: IComponent(gameObjectPlayer),  m_velocity(velocity) {};
+		SteeringCmp(GameObject& gameObjectPlayer,  const sf::Vector2f& velocity, int sizeX,int sizeY)
+			: IComponent(gameObjectPlayer),  m_velocity(velocity), m_sizeX(sizeX), m_sizeY(sizeY) {};
 		bool init() override;
 		void update(float deltaTime) override;
 		void setTarget(sf::Vector2f target) { m_target = target; };
@@ -17,7 +17,8 @@ namespace mmt_gd
 
 
 	private:
-		
+		int m_sizeX;
+		int m_sizeY;
 		bool m_reachedTarget = false;
 		sf::Vector2f m_target = { 0.f, 0.f };
 		sf::Vector2f m_velocity;

@@ -17,24 +17,30 @@ namespace mmt_gd
         int sizeY = gameObject.getComponent<SpriteAnimationCmp>()->getTextureRect().getSize().y;
 
         //Kachelposition von der AI
-        int idxw_player = (gameObject.getPosition().x + (sizeX / 2)) / 16;          //16-> tileGröße
-        int idxh_player = (gameObject.getPosition().y + (sizeY / 2)) / 16;
-        //std::cout << "Pos Player X " << idxw_player << "Pos Player Y " << idxh_player << std::endl;
+        int idxw_player = (gameObject.getPosition().x + (m_sizeX / 2)) / MapTile::m_tileSize.x;          //16-> tileSize
+        int idxh_player = (gameObject.getPosition().y + (m_sizeY / 2)) / MapTile::m_tileSize.x;
 
         //Kachelposition vom Target
-        int idxw_target = (GameObjectManager::instance().getGameObject("Player")->getPosition().x + (sizeX / 2)) / 16;
-        int idxh_target = (GameObjectManager::instance().getGameObject("Player")->getPosition().y + (sizeY / 2)) / 16;
-
-        //std::cout << "Pos Target X " << idxw_target << "Pos Target Y " << idxh_target << std::endl;
+        int idxw_target = (GameObjectManager::instance().getGameObject("Player")->getPosition().x + (m_sizeX / 2)) / MapTile::m_tileSize.x;
+        int idxh_target = (GameObjectManager::instance().getGameObject("Player")->getPosition().y + (m_sizeX / 2)) / MapTile::m_tileSize.x;
 
 
         // Create start and goal nodes
-        Node start(39, 39, 0, 0); // Assuming g and h are 0 initially
-        Node goal(idxw_target, idxh_target, 0, 0); // Assuming g and h are 0 initially
+        Node start(13, 62, 0, 0); // Assuming g and h are 0 initially
+        Node goal(39, 39, 0, 0); // Assuming g and h are 0 initially
 
         // Call A* algorithm
-        AStar(MapTile::m_LayerKachelWithBuffer, start, goal);
+        m_pathlist = AStar(MapTile::m_LayerKachelWithBuffer, start, goal);
 
+        std::cout << "Steps Amount: " << m_pathlist.size() << std::endl;
+        std::cout << "Path: ";
+
+        for (auto it = m_pathlist.rbegin(); it != m_pathlist.rend(); ++it)
+        {
+            std::cout << "(" << it->second << ", " << it->first << ") ";            //ist dann x, y denk ich
+        }
+        std::cout << std::endl;
+       
         return true;
     };
     void SteeringCmp::update(float deltaTime)
@@ -47,13 +53,17 @@ namespace mmt_gd
         int idxw_target = (GameObjectManager::instance().getGameObject("Player")->getPosition().x + (sizeX / 2)) / 16;
         int idxh_target = (GameObjectManager::instance().getGameObject("Player")->getPosition().y + (sizeY / 2)) / 16;
 
-       // std::cout << "Pos Target X " << idxw_target << "Pos Target Y " << idxh_target << std::endl;
+        static sf::Clock movementClock; // Static ensures the clock is created only once
 
-      
+        if (movementClock.getElapsedTime().asSeconds() >= 0.1f)
+        {
+            if (!m_pathlist.empty())
+            {
+                auto path = m_pathlist.rbegin(); // Get the next path
 
-    ////std::cout << idxw_target << "  " << idxh_target <<  std::endl;
+                nextTarget = sf::Vector2f(path->second * 16, path->first * 16);
 
-    //    constexpr float acc = 200.0f; ///< "const" is evaluated at compile time; "const" could be changed at runtime
+                m_pathlist.pop_back(); // Remove the used path from the list
 
     //     setTarget(GameObjectManager::instance().getGameObject("Player")->getPosition());
 

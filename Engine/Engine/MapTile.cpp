@@ -15,16 +15,17 @@ namespace mmt_gd
 	using namespace std;
 	std::vector<std::vector<int>> MapTile::m_LayerKachel;
 	std::vector<std::vector<int>> MapTile::m_LayerKachelWithBuffer;
+	sf::Vector2f MapTile::m_tileSize;
 
 	void MapTile::loadMap(const std::unique_ptr<tson::Map>& map, const fs::path resourcePath)
 	{
 		const int numRows = 50;
 		const int numCols = 90;
-
+		
 		auto& layerData0 = map->getLayers()[0].getData();
 		auto& layerData1 = map->getLayers()[1].getData();
 		auto& layerData2 = map->getLayers()[2].getData();
-
+		
 		m_LayerKachel.reserve(numRows);
 
 		// Eine Reihe Polster für das Flugzeug - TODO
@@ -126,7 +127,7 @@ namespace mmt_gd
 	{
 		std::vector<TileLayer> layers;
 		layers.resize(map->getLayers().size());
-
+		m_tileSize = sf::Vector2f( map->getTileSize().x, map->getTileSize().x);
 		for (int layerIdx = 0; layerIdx < static_cast<int>(map->getLayers().size()); layerIdx++)
 		{
 			auto layer = map->getLayers()[layerIdx];

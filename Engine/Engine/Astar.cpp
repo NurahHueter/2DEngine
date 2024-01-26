@@ -66,17 +66,7 @@ namespace mmt_gd
                 }
                 path.push_back(std::make_pair(start.m_x, start.m_y));
 
-
-                // Print the path in reverse order
-                std::cout << "Steps Amount: " << path.size() << std::endl;
-                std::cout << "Path: ";
-                for (auto it = path.rbegin(); it != path.rend(); ++it)
-                {
-                    std::cout << "(" << it->second << ", " << it->first << ") ";            //ist dann x, y denk ich
-                }
-                std::cout << std::endl;
-
-                break;
+                return path;
             }
 
             seenSet.insert({ current.m_x, current.m_y }); //wenn man einmal an den punkt war, dann muss mann nicht ein zweites mal kommen
@@ -105,27 +95,9 @@ namespace mmt_gd
                             parentMap[{nx, ny}] = { current.m_x, current.m_y };  // Store the parent information
                         }
                     }
-                    //vielleeihct wird das noch benötigt
-                    //else if (grid[nx][ny] != 1 && seenSet.find({ nx, ny }) == seenSet.end())
-                    //{
-                    //    int newSteps = current.m_steps + 9999;
-                    //    int newHeur = abs(nx - goal.m_x) + abs(ny - goal.m_y);
-                    //    int newWeight = newSteps + newHeur;
-
-                    //    auto it = costMap.find({ nx, ny });
-
-                    //    if (it == costMap.end() || newWeight < it->second)
-                    //    {
-                    //        openSet.push(Node(nx, ny, newSteps, newHeur));
-                    //        costMap[{nx, ny}] = newWeight;
-                    //        parentMap[{nx, ny}] = { current.m_x, current.m_y };  // Store the parent information
-                    //    }
-                    //   }
-                }
-             
+                }            
             }
         }
     }
-
 }
 

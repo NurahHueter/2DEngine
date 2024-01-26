@@ -4,7 +4,6 @@
 #include "GameObject.h"
 #include "RenderManager.h"
 #include "ProjectileCmp.h"
-#include "MouseMoveCmp.h"
 #include "SpriteAnimationCmp.h"
 #include "MoveCmp.h"
 #include "SteeringCmp.h"
@@ -165,13 +164,31 @@ void ObjectFactory::loadSpaceship(tson::Object& object,
          PhysicsManager::instance().addBoxCollisionCmp(boxCollider);
          PhysicsManager::instance().addBoxCollisionCmp(trigger);
 
-         const auto healtCmp = std::make_shared<HealthCmp>(*gameObject,
-             RenderManager::instance().getWindow(),
-             5);
-         RenderManager::instance().addCompToLayer(layer.getName(), healtCmp);
-         gameObject->addComponent(healtCmp);
-
-         loadProjectile(object, layer, gameObject);
+            gameObject->addComponent(std::make_shared<MoveCmp>(*gameObject, sf::Vector2f(velocity, velocity)));
+        }
+        else
+        {
+            animationCmp = std::make_shared<SpriteAnimationCmp>(*gameObject, RenderManager::instance().getWindow(),
+                texture,
+                6,
+                8,
+                false,
+                4);
+            RenderManager::instance().addCompToLayer(layer.getName(), animationCmp);
+            animationCmp->addAnimation({
+               {MoveUp, 6},
+               {MoveLeftUp, 6},
+               {MoveRight, 6},
+               {MoveRightDown, 6},
+               {MoveDown, 6},
+               {MoveLeftDown, 6},
+               {MoveLeft, 6},
+               {MoveRightUp, 6},
+                });
+   
+            gameObject->addComponent(std::make_shared<SteeringCmp>(*gameObject, sf::Vector2f(velocity, velocity), animationCmp->getTextureRect().getSize().x, animationCmp->getTextureRect().getSize().y));
+            gameObject->addComponent(std::make_shared<AIControllerCmp>(*gameObject));
+        }
 
          gameObject->init();
          GameObjectManager::instance().addGameObject(gameObject);

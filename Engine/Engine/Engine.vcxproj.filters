@@ -108,9 +108,6 @@
     <ClCompile Include="BoxCollision.cpp">
       <Filter>Source Files\Components\Components</Filter>
     </ClCompile>
-    <ClCompile Include="MouseMoveCmp.cpp">
-      <Filter>Source Files\Components\CustomComponentsSpaceGame</Filter>
-    </ClCompile>
     <ClCompile Include="MoveCmp.cpp">
       <Filter>Source Files\Components\CustomComponentsSpaceGame</Filter>
     </ClCompile>
@@ -228,9 +225,6 @@
       <Filter>Header Files\Components\Components</Filter>
     </ClInclude>
     <ClInclude Include="MoveCmp.h">
-      <Filter>Header Files\Components\CustomComponentsSpaceGame</Filter>
-    </ClInclude>
-    <ClInclude Include="MouseMoveCmp.h">
       <Filter>Header Files\Components\CustomComponentsSpaceGame</Filter>
     </ClInclude>
     <ClInclude Include="ProjectileCmp.h">
