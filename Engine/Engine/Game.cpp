@@ -21,7 +21,7 @@ namespace mmt_gd
 		GameStateManager::instance().addState("MenuState", std::make_shared<MenuState>());
 		GameStateManager::instance().addState("SpaceGameState", std::make_shared<SpaceState>());
 
-		GameStateManager::instance().setState("MenuState");
+		GameStateManager::instance().setState("SpaceGameState");
 	}
 
 	void Game::Run()

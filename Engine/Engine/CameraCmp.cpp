@@ -30,6 +30,10 @@ namespace mmt_gd
 	{
 		view.rotate(degree);
 	};
+	void CameraCmp::setCenter(sf::Vector2f center)
+	{
+		view.setCenter(center);
+	};
 
 	void CameraCmp::zoom(float& zoom)
 	{

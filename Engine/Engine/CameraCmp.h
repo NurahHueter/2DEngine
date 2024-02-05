@@ -17,6 +17,7 @@ namespace mmt_gd
 		void zoom(float& zoom);
 		void setSize(sf::Vector2f& size);
 		void setViewPort(sf::FloatRect& viewPort);
+		void setCenter(sf::Vector2f center);
 
 		void setTarget(std::weak_ptr<GameObject> target);
 		
