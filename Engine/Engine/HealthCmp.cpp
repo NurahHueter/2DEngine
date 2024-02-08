@@ -1,4 +1,3 @@
-#pragma
 #include "pch.h"
 #include "HealthCmp.h"
 #include "GameObject.h"
